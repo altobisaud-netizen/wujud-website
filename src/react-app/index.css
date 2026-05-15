@@ -30,7 +30,7 @@
 	--font-sans: "Inter", system-ui, -apple-system, sans-serif;
 	--space-section: clamp(4rem, 8vw, 7rem);
 	--max-content: 1280px;
-	--header-h: 64px;
+	--header-h: 76px;
 }
 
 *,
