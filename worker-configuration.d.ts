@@ -6,6 +6,8 @@ declare namespace Cloudflare {
 		mainModule: typeof import("./src/worker/index");
 	}
 	interface Env {
+		/** Resend API key (`wrangler secret put RESEND_API_KEY` or Pages env). */
+		RESEND_API_KEY?: string;
 	}
 }
 interface Env extends Cloudflare.Env {}
