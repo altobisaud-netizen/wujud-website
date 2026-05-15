@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { TOP_NAV } from "../topNav";
 import { useNavActive } from "../hooks/useNavActive";
-import { HerculesBadge } from "./HerculesBadge";
 import { dur, easeOutPremium } from "../motion/tokens";
 
 export function Header() {
@@ -134,7 +133,6 @@ export function Header() {
 					</AnimatePresence>
 				</div>
 			</header>
-			<HerculesBadge />
 		</>
 	);
 }
