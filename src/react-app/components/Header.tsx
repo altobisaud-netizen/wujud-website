@@ -52,7 +52,7 @@ export function Header() {
 					/>
 				) : null}
 			</AnimatePresence>
-			<header className={`header${open ? " header--open" : ""}${scrolled ? " header--scrolled" : ""}`}>
+			<header className={`header site-header${open ? " header--open" : ""}${scrolled ? " header--scrolled" : ""}`}>
 				<div className="header__bar">
 					<div className="header__inner">
 						<a href="#top" className="brand-link" aria-label="WUJUD home" onClick={close}>
