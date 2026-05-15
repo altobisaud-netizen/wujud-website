@@ -100,7 +100,7 @@
 	display: inline-flex !important;
 	align-items: center !important;
 	justify-content: flex-start !important;
-	gap: 6px !important;
+	gap: 10px !important;
 	width: auto !important;
 	min-width: auto !important;
 	max-width: none !important;
@@ -117,9 +117,9 @@
 }
 
 .brand-icon-img {
-	width: 42px !important;
-	height: 42px !important;
-	min-width: 42px !important;
+	width: 36px !important;
+	height: 36px !important;
+	min-width: 36px !important;
 	max-height: none !important;
 	object-fit: contain !important;
 	object-position: center !important;
@@ -168,12 +168,13 @@
 	min-height: 78px !important;
 	padding: 8px 0 !important;
 	overflow: visible !important;
+	gap: 11px !important;
 }
 
 .footer .brand-icon-img {
-	width: 46px !important;
-	height: 46px !important;
-	min-width: 46px !important;
+	width: 40px !important;
+	height: 40px !important;
+	min-width: 40px !important;
 	transform: none !important;
 }
 
@@ -182,6 +183,22 @@
 	height: auto !important;
 	max-width: none !important;
 	transform: none !important;
+}
+
+@media (max-width: 768px) {
+	.brand-link {
+		gap: 8px !important;
+	}
+
+	.brand-icon-img {
+		width: 30px !important;
+		height: 30px !important;
+		min-width: 30px !important;
+	}
+
+	.brand-wordmark-img {
+		width: 122px !important;
+	}
 }
 
 .header {
