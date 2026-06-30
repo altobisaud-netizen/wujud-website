@@ -1,31 +1,13 @@
-import { useEffect } from "react";
 import { Header } from "../components/Header";
 import { SiteFooter } from "../sections/SiteFooter";
+import { useLegalPageMeta } from "./useLegalPageMeta";
 
 const PAGE_TITLE = "Privacy Policy | WUJUD";
 const PAGE_DESCRIPTION =
 	"Privacy Policy for WUJUD, an Omani-born AI company building AI employees for modern businesses.";
 
-function setMeta(name: string, content: string) {
-	let tag = document.head.querySelector<HTMLMetaElement>(`meta[name="${name}"]`);
-	if (!tag) {
-		tag = document.createElement("meta");
-		tag.setAttribute("name", name);
-		document.head.appendChild(tag);
-	}
-	tag.setAttribute("content", content);
-}
-
 export function PrivacyPage() {
-	useEffect(() => {
-		const previousTitle = document.title;
-		document.title = PAGE_TITLE;
-		setMeta("description", PAGE_DESCRIPTION);
-		setMeta("robots", "index, follow");
-		return () => {
-			document.title = previousTitle;
-		};
-	}, []);
+	useLegalPageMeta(PAGE_TITLE, PAGE_DESCRIPTION);
 
 	return (
 		<div className="landing">

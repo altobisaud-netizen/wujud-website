@@ -15,6 +15,8 @@ import { FinalCTASection } from "./sections/FinalCTASection";
 import { AIEmployeesSection } from "./sections/AIEmployeesSection";
 import { SiteFooter } from "./sections/SiteFooter";
 import { PrivacyPage } from "./pages/PrivacyPage";
+import { TermsPage } from "./pages/TermsPage";
+import { DataDeletionPage } from "./pages/DataDeletionPage";
 
 function LandingPage() {
 	return (
@@ -47,6 +49,14 @@ export default function App() {
 
 	if (path === "/privacy") {
 		return <PrivacyPage />;
+	}
+
+	if (path === "/terms") {
+		return <TermsPage />;
+	}
+
+	if (path === "/data-deletion") {
+		return <DataDeletionPage />;
 	}
 
 	return <LandingPage />;

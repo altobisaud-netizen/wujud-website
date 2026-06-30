@@ -2056,6 +2056,16 @@
 	margin: 0 0 1rem;
 }
 
+.legal__body ul {
+	margin: 0 0 1rem;
+	padding-left: 1.25rem;
+	color: var(--text-muted);
+}
+
+.legal__body li {
+	margin-bottom: 0.35rem;
+}
+
 .legal__link {
 	color: var(--gold);
 	text-decoration: none;
