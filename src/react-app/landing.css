@@ -2014,6 +2014,58 @@
 	color: var(--text-ivory);
 }
 
+/* ——— Legal pages (Privacy Policy) ——— */
+.legal {
+	max-width: 52rem;
+}
+
+.legal__head {
+	margin-bottom: 1.75rem;
+}
+
+.legal__title {
+	font-size: clamp(1.85rem, 3.4vw, 2.6rem);
+	font-weight: 600;
+	letter-spacing: -0.02em;
+	line-height: 1.1;
+	margin: 0 0 0.5rem;
+	color: var(--text-ivory);
+}
+
+.legal__updated {
+	font-size: 0.8125rem;
+	color: var(--text-muted);
+	margin: 0;
+}
+
+.legal__body {
+	color: var(--text-muted);
+	font-size: 0.9375rem;
+	line-height: 1.7;
+}
+
+.legal__body h2 {
+	font-size: 1.15rem;
+	font-weight: 600;
+	letter-spacing: -0.01em;
+	color: var(--text-ivory);
+	margin: 2rem 0 0.65rem;
+}
+
+.legal__body p {
+	margin: 0 0 1rem;
+}
+
+.legal__link {
+	color: var(--gold);
+	text-decoration: none;
+	transition: opacity 0.18s ease;
+}
+
+.legal__link:hover {
+	opacity: 0.85;
+}
+
 .footer__bar {
 	border-top: 1px solid var(--border-subtle);
 	padding-block: 0.85rem;
@@ -2039,6 +2091,21 @@
 	font-size: 0.75rem;
 	color: var(--text-faint);
 	margin: 0;
+}
+
+.footer__legal {
+	display: flex;
+	gap: 1rem;
+}
+
+.footer__legal a {
+	font-size: 0.75rem;
+	color: var(--text-muted);
+	transition: color 0.18s ease;
+}
+
+.footer__legal a:hover {
+	color: var(--text-ivory);
 }
 
 .footer__social {

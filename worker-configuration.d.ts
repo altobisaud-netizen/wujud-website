@@ -8,6 +8,7 @@ declare namespace Cloudflare {
 	interface Env {
 		/** Resend API key (`wrangler secret put RESEND_API_KEY` or Pages env). */
 		RESEND_API_KEY?: string;
+		ASSETS: Fetcher;
 	}
 }
 interface Env extends Cloudflare.Env {}

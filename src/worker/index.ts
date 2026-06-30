@@ -41,4 +41,7 @@ app.post("/api/demo", async (c) => {
 	return c.json({ success: true });
 });
 
+/** Non-API routes: serve static assets / SPA index.html (e.g. /privacy). */
+app.all("*", (c) => c.env.ASSETS.fetch(c.req.raw));
+
 export default app;

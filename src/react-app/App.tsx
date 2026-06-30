@@ -14,8 +14,9 @@ import { FAQSection } from "./sections/FAQSection";
 import { FinalCTASection } from "./sections/FinalCTASection";
 import { AIEmployeesSection } from "./sections/AIEmployeesSection";
 import { SiteFooter } from "./sections/SiteFooter";
+import { PrivacyPage } from "./pages/PrivacyPage";
 
-export default function App() {
+function LandingPage() {
 	return (
 		<div className="landing">
 			<MotionAmbient />
@@ -39,4 +40,14 @@ export default function App() {
 			</div>
 		</div>
 	);
+}
+
+export default function App() {
+	const path = window.location.pathname.replace(/\/+$/, "").toLowerCase();
+
+	if (path === "/privacy") {
+		return <PrivacyPage />;
+	}
+
+	return <LandingPage />;
 }

@@ -72,6 +72,9 @@ export function SiteFooter() {
 			<div className="footer__bar">
 				<div className="container footer__bar-inner">
 					<p className="footer__copy">© {new Date().getFullYear()} WUJUD. All rights reserved.</p>
+					<nav className="footer__legal" aria-label="Legal">
+						<a href="/privacy">Privacy Policy</a>
+					</nav>
 					<div className="footer__social" aria-label="Social">
 						<a href="https://www.linkedin.com" className="footer__soc" aria-label="LinkedIn">
 							in
