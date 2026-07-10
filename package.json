@@ -32,6 +32,7 @@
 		"typescript": "5.8.3",
 		"typescript-eslint": "8.48.0",
 		"vite": "^6.0.0",
+		"vitest": "^4.1.10",
 		"wrangler": "4.56.0"
 	},
 	"private": true,
@@ -43,7 +44,8 @@
 		"dev": "vite",
 		"lint": "eslint .",
 		"preview": "npm run build && vite preview",
-		"reference:frames": "python scripts/extract_reference_frames.py"
+		"reference:frames": "python scripts/extract_reference_frames.py",
+		"test": "vitest run --config vitest.config.ts"
 	},
 	"type": "module"
 }

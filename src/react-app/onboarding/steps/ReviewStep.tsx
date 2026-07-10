@@ -6,6 +6,9 @@ type ReviewStepProps = {
 	onEdit: (step: OnboardingStepId) => void;
 	onCreate: () => void;
 	onBack: () => void;
+	loading?: boolean;
+	disabled?: boolean;
+	error?: string | null;
 };
 
 function labelsFor(ids: string[], options: readonly { id: string; label: string }[]) {
@@ -15,7 +18,7 @@ function labelsFor(ids: string[], options: readonly { id: string; label: string 
 		.join(", ");
 }
 
-export function ReviewStep({ draft, onEdit, onCreate, onBack }: ReviewStepProps) {
+export function ReviewStep({ draft, onEdit, onCreate, onBack, loading = false, disabled = false, error }: ReviewStepProps) {
 	const customers = labelsFor(draft.targetCustomers, TARGET_CUSTOMER_OPTIONS);
 	const channels = labelsFor(draft.channels, CHANNEL_OPTIONS);
 	const goals = labelsFor(draft.goals, GOAL_OPTIONS);
@@ -31,7 +34,7 @@ export function ReviewStep({ draft, onEdit, onCreate, onBack }: ReviewStepProps)
 				<section className="sara-review__card">
 					<div className="sara-review__card-head">
 						<h3 className="sara-review__label">Business name</h3>
-						<button type="button" className="sara-link-btn" onClick={() => onEdit("name")}>
+						<button type="button" className="sara-link-btn" onClick={() => onEdit("name")} disabled={disabled}>
 							Edit
 						</button>
 					</div>
@@ -41,7 +44,7 @@ export function ReviewStep({ draft, onEdit, onCreate, onBack }: ReviewStepProps)
 				<section className="sara-review__card">
 					<div className="sara-review__card-head">
 						<h3 className="sara-review__label">Business description</h3>
-						<button type="button" className="sara-link-btn" onClick={() => onEdit("description")}>
+						<button type="button" className="sara-link-btn" onClick={() => onEdit("description")} disabled={disabled}>
 							Edit
 						</button>
 					</div>
@@ -51,7 +54,7 @@ export function ReviewStep({ draft, onEdit, onCreate, onBack }: ReviewStepProps)
 				<section className="sara-review__card">
 					<div className="sara-review__card-head">
 						<h3 className="sara-review__label">Target customers</h3>
-						<button type="button" className="sara-link-btn" onClick={() => onEdit("customers")}>
+						<button type="button" className="sara-link-btn" onClick={() => onEdit("customers")} disabled={disabled}>
 							Edit
 						</button>
 					</div>
@@ -66,7 +69,7 @@ export function ReviewStep({ draft, onEdit, onCreate, onBack }: ReviewStepProps)
 				<section className="sara-review__card">
 					<div className="sara-review__card-head">
 						<h3 className="sara-review__label">Selected channels</h3>
-						<button type="button" className="sara-link-btn" onClick={() => onEdit("channels")}>
+						<button type="button" className="sara-link-btn" onClick={() => onEdit("channels")} disabled={disabled}>
 							Edit
 						</button>
 					</div>
@@ -76,7 +79,7 @@ export function ReviewStep({ draft, onEdit, onCreate, onBack }: ReviewStepProps)
 				<section className="sara-review__card">
 					<div className="sara-review__card-head">
 						<h3 className="sara-review__label">Goals</h3>
-						<button type="button" className="sara-link-btn" onClick={() => onEdit("goals")}>
+						<button type="button" className="sara-link-btn" onClick={() => onEdit("goals")} disabled={disabled}>
 							Edit
 						</button>
 					</div>
@@ -84,12 +87,18 @@ export function ReviewStep({ draft, onEdit, onCreate, onBack }: ReviewStepProps)
 				</section>
 			</div>
 
+			{error ? (
+				<p className="sara-field__error" role="alert">
+					{error}
+				</p>
+			) : null}
+
 			<div className="sara-step__actions">
-				<button type="button" className="sara-btn sara-btn--ghost" onClick={onBack}>
+				<button type="button" className="sara-btn sara-btn--ghost" onClick={onBack} disabled={disabled}>
 					Back
 				</button>
-				<button type="button" className="sara-btn sara-btn--primary" onClick={onCreate}>
-					Create My SARA
+				<button type="button" className="sara-btn sara-btn--primary" onClick={onCreate} disabled={disabled}>
+					{loading ? "Creating your secure profile…" : "Create My SARA"}
 				</button>
 			</div>
 		</div>
