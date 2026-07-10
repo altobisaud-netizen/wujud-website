@@ -17,6 +17,7 @@ import { SiteFooter } from "./sections/SiteFooter";
 import { PrivacyPage } from "./pages/PrivacyPage";
 import { TermsPage } from "./pages/TermsPage";
 import { DataDeletionPage } from "./pages/DataDeletionPage";
+import { SaraOnboardingPage } from "./onboarding/SaraOnboardingPage";
 
 function LandingPage() {
 	return (
@@ -57,6 +58,10 @@ export default function App() {
 
 	if (path === "/data-deletion") {
 		return <DataDeletionPage />;
+	}
+
+	if (path === "/build-sara") {
+		return <SaraOnboardingPage />;
 	}
 
 	return <LandingPage />;

@@ -75,7 +75,9 @@ img:not(.brand-icon-img):not(.brand-wordmark-img) {
 	max-width: 100%;
 }
 
-img:not(.brand-icon-img):not(.brand-wordmark-img):not(.ai-card__img):not(.hero__portrait) {
+img:not(.brand-icon-img):not(.brand-wordmark-img):not(.ai-card__img):not(.hero__portrait):not(
+		.sara-onboarding__brand-icon
+	):not(.sara-onboarding__brand-word) {
 	height: auto;
 }
 

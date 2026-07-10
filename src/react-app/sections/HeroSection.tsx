@@ -129,12 +129,12 @@ export function HeroSection() {
 						>
 							<motion.a
 								className="btn btn--primary btn--lg"
-								href="#contact"
+								href="/build-sara"
 								whileHover={{ scale: 1.02, filter: "brightness(1.05)" }}
 								whileTap={{ scale: 0.99 }}
 								transition={{ duration: 0.35, ease: heroEase }}
 							>
-								Meet Sara
+								Build My SARA
 								<IconArrowRight className="hero__btn-icon" />
 							</motion.a>
 							<motion.a
