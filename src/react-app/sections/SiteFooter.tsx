@@ -18,7 +18,7 @@ const RESOURCES = [
 
 const COMPANY = [
 	["AI Employees", "#company"],
-	["Contact", "#contact"],
+	["Book a Demo", "/#book-demo"],
 ] as const;
 
 function Col({

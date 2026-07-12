@@ -29,7 +29,7 @@ export function IntelligenceSection() {
 								}
 								lead="WUJUD is the sovereign intelligence layer that powers AI employees with memory, reasoning and action. It's not just AI. It's autonomous intelligence you can trust."
 							/>
-							<ButtonLink variant="ghost" href="#contact">
+							<ButtonLink variant="ghost" href="#book-demo">
 								Learn more
 							</ButtonLink>
 						</div>

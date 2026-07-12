@@ -30,8 +30,8 @@ const PLANS: readonly Plan[] = [
 			"CRM Integrations",
 			"Email Support",
 		],
-		cta: "Get Started",
-		ctaHref: "#contact",
+		cta: "Build My SARA",
+		ctaHref: "/build-sara",
 	},
 	{
 		name: "Growth",
@@ -48,8 +48,8 @@ const PLANS: readonly Plan[] = [
 			"Priority Support",
 			"Reports & Analytics",
 		],
-		cta: "Get Started",
-		ctaHref: "#contact",
+		cta: "Build My SARA",
+		ctaHref: "/build-sara",
 	},
 	{
 		name: "Scale",
@@ -63,8 +63,8 @@ const PLANS: readonly Plan[] = [
 			"Dedicated Support",
 			"Advanced Security",
 		],
-		cta: "Contact Sales",
-		ctaHref: "#contact",
+		cta: "Book a Demo",
+		ctaHref: "#book-demo",
 	},
 ] as const;
 
@@ -82,7 +82,7 @@ export function PricingSection() {
 						<>
 							Simple pricing.
 							<br />
-							<span className="text-gold">Powerful results.</span>
+							<span className="text-accent">Powerful results.</span>
 						</>
 					}
 					lead="Choose a plan that fits your business."

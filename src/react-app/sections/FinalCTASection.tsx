@@ -6,7 +6,7 @@ export function FinalCTASection() {
 	const reduce = useReducedMotion();
 
 	return (
-		<section className="cta container" id="contact" aria-labelledby="cta-title">
+		<section className="cta container cta--book-demo" id="book-demo" aria-labelledby="cta-title">
 			<motion.div
 				className="cta__box"
 				initial={{ opacity: 0, y: 28 }}
@@ -25,6 +25,7 @@ export function FinalCTASection() {
 						transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
 					/>
 				) : null}
+				<p className="ihp-kicker">Book a demo</p>
 				<h2 id="cta-title" className="cta__title">
 					Ready to meet your AI employee?
 				</h2>
