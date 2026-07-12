@@ -29,9 +29,33 @@ export function Header() {
 	useEffect(() => {
 		if (!open) return;
 		const onKey = (e: KeyboardEvent) => {
-			if (e.key === "Escape") close();
+			if (e.key === "Escape") {
+				close();
+				return;
+			}
+			if (e.key !== "Tab") return;
+			const root = document.getElementById("header-mobile-nav");
+			if (!root) return;
+			const focusable = [
+				...root.querySelectorAll<HTMLElement>(
+					'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+				),
+			].filter((el) => el.offsetParent !== null || el.getClientRects().length > 0);
+			if (!focusable.length) return;
+			const first = focusable[0];
+			const last = focusable[focusable.length - 1];
+			const activeEl = document.activeElement as HTMLElement | null;
+			if (e.shiftKey && activeEl === first) {
+				e.preventDefault();
+				last.focus();
+			} else if (!e.shiftKey && activeEl === last) {
+				e.preventDefault();
+				first.focus();
+			}
 		};
 		window.addEventListener("keydown", onKey);
+		const firstLink = document.querySelector<HTMLElement>("#header-mobile-nav .header__mobile-link");
+		firstLink?.focus();
 		return () => window.removeEventListener("keydown", onKey);
 	}, [open, close]);
 
@@ -72,7 +96,7 @@ export function Header() {
 							))}
 						</nav>
 						<div className="header__actions">
-							<a className="header__cta-text" href="#contact" onClick={close}>
+							<a className="header__cta-text" href="/#book-demo" onClick={close}>
 								Book a Demo
 							</a>
 							<button
@@ -124,7 +148,7 @@ export function Header() {
 											{item.label}
 										</a>
 									))}
-									<a className="btn btn--primary btn--mobile-cta" href="#contact" onClick={close}>
+									<a className="btn btn--primary btn--mobile-cta" href="/#book-demo" onClick={close}>
 										Book a Demo
 									</a>
 								</div>

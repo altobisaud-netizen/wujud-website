@@ -139,7 +139,7 @@ export function HeroSection() {
 							</motion.a>
 							<motion.a
 								className="btn btn--hero-secondary btn--lg"
-								href="#contact"
+								href="#book-demo"
 								whileHover={{ scale: 1.02 }}
 								whileTap={{ scale: 0.99 }}
 								transition={{ duration: 0.35, ease: heroEase }}

@@ -100,7 +100,7 @@ export function SaraInActionSection() {
 					/>
 					<motion.a
 						className="btn btn--outline-light sia__watch"
-						href="#contact"
+						href="#book-demo"
 						whileHover={{ scale: 1.02, borderColor: "rgba(240,237,230,0.45)" }}
 						whileTap={{ scale: 0.99 }}
 						transition={{ duration: 0.35, ease: easeOutPremium }}

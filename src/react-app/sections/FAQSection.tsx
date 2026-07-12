@@ -15,7 +15,7 @@ const FAQS = [
 	},
 	{
 		q: "Can Sara work on WhatsApp and Instagram?",
-		a: "Yes. Sara is designed for the channels businesses already use, including WhatsApp, Instagram, website chat, and CRM systems. This helps your business respond faster and avoid losing leads across different platforms.",
+		a: "Sara is designed for the channels businesses already use, including WhatsApp, Instagram, website chat, and CRM systems. WhatsApp connection currently requires setup and is pending availability — it is not live customer activation yet. Instagram and additional channels are planned for later releases.",
 	},
 	{
 		q: "Does Sara replace my sales or customer service team?",
@@ -35,7 +35,7 @@ const FAQS = [
 	},
 	{
 		q: "Can Sara integrate with our CRM and tools?",
-		a: "Yes. Sara can be connected with tools such as CRM systems, WhatsApp, Instagram, website chat, Google Sheets, HubSpot, Salesforce, Slack, Shopify, and other business platforms depending on your setup.",
+		a: "Sara is built to work with your business tools over time. CRM and channel connections depend on your approved setup and availability — homepage previews are product demonstrations, not live connected integrations.",
 	},
 	{
 		q: "Is our company data secure?",
@@ -66,7 +66,7 @@ export function FAQSection() {
 					index="08"
 					title={
 						<>
-							Frequently asked <span className="text-gold">questions.</span>
+							Frequently asked <span className="text-accent">questions.</span>
 						</>
 					}
 					lead="Everything you need to know about WUJUD and Sara."
@@ -89,7 +89,9 @@ export function FAQSection() {
 						>
 							<button
 								type="button"
+								id={`faq-btn-${i}`}
 								aria-expanded={isOpen}
+								aria-controls={`faq-panel-${i}`}
 								onClick={() => setOpen(isOpen ? null : i)}
 							>
 								{item.q}
@@ -97,7 +99,9 @@ export function FAQSection() {
 									▼
 								</span>
 							</button>
-							<div className="faq-item__body">{item.a}</div>
+							<div className="faq-item__body" id={`faq-panel-${i}`} role="region" aria-labelledby={`faq-btn-${i}`}>
+								{item.a}
+							</div>
 						</motion.div>
 					);
 				})}

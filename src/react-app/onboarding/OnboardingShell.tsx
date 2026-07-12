@@ -100,7 +100,7 @@ export function OnboardingShell({
 								Start over
 							</button>
 						) : null}
-						<a className="sara-btn sara-btn--ghost sara-btn--sm" href="/#contact">
+						<a className="sara-btn sara-btn--ghost sara-btn--sm" href="/#book-demo">
 							Book a Demo
 						</a>
 					</div>
