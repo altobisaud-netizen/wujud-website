@@ -4,7 +4,7 @@
 	--ihp-purple: #6236f5;
 	--ihp-purple-soft: #f7f5ff;
 	--ihp-border: #e8e3fa;
-	--ihp-muted: #667085;
+	--ihp-muted: #526075;
 	--ihp-white: #ffffff;
 	--ihp-gold: #c9a96a;
 	--ihp-radius: 18px;
@@ -221,7 +221,8 @@
 	font-weight: 700;
 	letter-spacing: 0.04em;
 	text-transform: uppercase;
-	color: var(--ihp-muted);
+	color: #3d4454;
+	opacity: 1;
 }
 
 .ihp-field {
