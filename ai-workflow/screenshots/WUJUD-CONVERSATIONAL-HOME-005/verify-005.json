@@ -1,0 +1,44 @@
+{
+  "overflow": {
+    "desktopHome": 0,
+    "desktopZoom200": 0,
+    "m390": 0,
+    "m390Build": 0,
+    "m390Ar": 0,
+    "m390Zoom200": 0,
+    "m320": 0,
+    "m320Build": 0
+  },
+  "axe": {
+    "home": [],
+    "product": [],
+    "build": [],
+    "pricing": [],
+    "faq": [],
+    "try": [],
+    "ar": []
+  },
+  "routing": {
+    "setup": "WUJUD help",
+    "secure": "WUJUD help",
+    "arSecureEN": {
+      "mode": "WUJUD help",
+      "hasArabic": true
+    }
+  },
+  "landmarks": {
+    "home": {
+      "mains": 1,
+      "h1": 1,
+      "primary": true,
+      "tabs": 0
+    },
+    "build": {
+      "mains": 1,
+      "h1": 1,
+      "dock": false,
+      "hint": true
+    },
+    "summaryDock": true
+  }
+}

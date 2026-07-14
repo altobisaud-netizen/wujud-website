@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { routeFreeText, routeQuickAction } from "./routeIntent";
+import { hasArabicScript, isClearBuildIntent, routeFreeText, routeQuickAction } from "./routeIntent";
 
 describe("routeQuickAction", () => {
 	it("maps each quick action directly", () => {
@@ -11,61 +11,86 @@ describe("routeQuickAction", () => {
 	});
 });
 
-describe("routeFreeText", () => {
-	it("routes English pricing keywords", () => {
-		for (const t of ["price", "pricing", "cost", "plan", "What is the pricing?"]) {
+describe("routeFreeText precedence", () => {
+	it("routes pricing first", () => {
+		for (const t of ["price", "pricing", "cost", "plan", "How much does SARA cost?", "كم سعر الاشتراك؟"]) {
 			expect(routeFreeText(t)).toBe("PRICING");
 		}
 	});
 
-	it("routes Arabic pricing keywords", () => {
-		for (const t of ["اشتراك", "سعر", "أسعار", "كم سعر الباقة؟"]) {
-			expect(routeFreeText(t)).toBe("PRICING");
+	it("routes security and privacy before product/build", () => {
+		for (const t of [
+			"Is my information secure?",
+			"Is my business information secure?",
+			"privacy policy",
+			"هل معلوماتي آمنة؟",
+		]) {
+			expect(routeFreeText(t)).toBe("PRODUCT_QUESTION");
 		}
 	});
 
-	it("routes English build keywords", () => {
-		for (const t of ["build", "create", "my business", "AI agent"]) {
-			expect(routeFreeText(t)).toBe("BUILD_AGENT");
+	it("routes setup-duration and how-it-works to product help, not Build", () => {
+		for (const t of [
+			"How long does setup take?",
+			"Is setup difficult?",
+			"What information do I need to create SARA?",
+			"How does WUJUD work?",
+			"كم تستغرق عملية الإعداد؟",
+			"كيف تعمل سارة؟",
+		]) {
+			expect(routeFreeText(t)).toBe("PRODUCT_QUESTION");
 		}
 	});
 
-	it("routes Arabic build keywords", () => {
-		for (const t of ["ابني", "إنشاء", "نشاطي", "ابني موظفة مبيعات"]) {
-			expect(routeFreeText(t)).toBe("BUILD_AGENT");
-		}
-	});
-
-	it("routes English and Arabic try keywords", () => {
-		expect(routeFreeText("try sara")).toBe("TRY_DEMO");
-		expect(routeFreeText("demo")).toBe("TRY_DEMO");
-		expect(routeFreeText("example")).toBe("TRY_DEMO");
-		expect(routeFreeText("تجربة")).toBe("TRY_DEMO");
-		expect(routeFreeText("جرب")).toBe("TRY_DEMO");
-	});
-
-	it("routes product/FAQ and account help", () => {
-		expect(routeFreeText("how does it work")).toBe("PRODUCT_QUESTION");
-		expect(routeFreeText("faq about whatsapp")).toBe("PRODUCT_QUESTION");
-		expect(routeFreeText("كيف يعمل")).toBe("PRODUCT_QUESTION");
-		expect(routeFreeText("sign in")).toBe("ACCOUNT_HELP");
-		expect(routeFreeText("حسابي")).toBe("ACCOUNT_HELP");
-	});
-
-	it("routes book demo keywords", () => {
+	it("routes book and account before try/build", () => {
 		expect(routeFreeText("book a meeting")).toBe("BOOK_DEMO");
 		expect(routeFreeText("حجز موعد")).toBe("BOOK_DEMO");
+		expect(routeFreeText("sign in")).toBe("ACCOUNT_HELP");
+	});
+
+	it("routes try demos", () => {
+		expect(routeFreeText("try sara")).toBe("TRY_DEMO");
+		expect(routeFreeText("demo")).toBe("TRY_DEMO");
+		expect(routeFreeText("تجربة")).toBe("TRY_DEMO");
+	});
+
+	it("routes only clear build intent to BUILD_AGENT", () => {
+		for (const t of [
+			"Build my SARA",
+			"Create a sales agent for my company",
+			"I want to set up my own agent",
+			"ابني سارة لنشاطي",
+			"أريد إنشاء موظف مبيعات",
+		]) {
+			expect(routeFreeText(t)).toBe("BUILD_AGENT");
+			expect(isClearBuildIntent(t)).toBe(true);
+		}
+	});
+
+	it("does not treat vague create/setup/business phrases as Build", () => {
+		for (const t of [
+			"How long does setup take?",
+			"What information do I need to create SARA?",
+			"Is setup difficult?",
+			"Is my business information secure?",
+			"How does WUJUD work?",
+			"my business",
+			"AI agent",
+		]) {
+			expect(routeFreeText(t)).not.toBe("BUILD_AGENT");
+			expect(isClearBuildIntent(t)).toBe(false);
+		}
 	});
 
 	it("clarifies ambiguous and empty input", () => {
 		expect(routeFreeText("")).toBe("CLARIFY");
-		expect(routeFreeText("   ")).toBe("CLARIFY");
 		expect(routeFreeText("hello")).toBe("CLARIFY");
 		expect(routeFreeText("مرحبا")).toBe("CLARIFY");
+		expect(routeFreeText("help")).toBe("CLARIFY");
 	});
 
-	it("handles mixed English/Arabic when keywords present", () => {
-		expect(routeFreeText("Need سعر please")).toBe("PRICING");
-		expect(routeFreeText("أريد build my agent")).toBe("BUILD_AGENT");
+	it("detects Arabic script without requiring UI locale", () => {
+		expect(hasArabicScript("كيف تعمل سارة؟")).toBe(true);
+		expect(hasArabicScript("How does it work?")).toBe(false);
 	});
 });

@@ -1,0 +1,188 @@
+{
+  "routing": {
+    "en_price": {
+      "mode": "WUJUD pricing",
+      "has299": true,
+      "has799": true,
+      "snippet": "Current WUJUD plans from the approved catalog: Starter For small teams getting started. $299/mo AI Employee (Sara) Up to 1,000 conversations/mo WhatsApp & Web CRM Integrations Email Support Most Popular Growth For g"
+    },
+    "en_whatsapp": {
+      "mode": "WUJUD help",
+      "has299": false,
+      "has799": false,
+      "snippet": "Here’s how SARA works — from the approved catalog: Reply to customers Sara responds to inquiries, qualifies leads, answers FAQs, and helps move conversations toward business outcomes. Qualify and follow up Sara can c"
+    },
+    "en_setup": {
+      "mode": "Building your SARA",
+      "has299": false,
+      "has799": false,
+      "snippet": "Step 1 of 5 What’s your business name? Continue"
+    },
+    "en_secure": {
+      "mode": "Choose a path",
+      "has299": false,
+      "has799": false,
+      "snippet": "What would you like to do? Build my SARA Try SARA View pricing How does it work? Book a demo"
+    },
+    "en_cannot_answer": {
+      "mode": "WUJUD help",
+      "has299": false,
+      "has799": false,
+      "snippet": "Here’s how SARA works — from the approved catalog: Reply to customers Sara responds to inquiries, qualifies leads, answers FAQs, and helps move conversations toward business outcomes. Qualify and follow up Sara can c"
+    },
+    "ar_how": {
+      "mode": "WUJUD help",
+      "has299": false,
+      "has799": false,
+      "snippet": "Here’s how SARA works — from the approved catalog: Reply to customers Sara responds to inquiries, qualifies leads, answers FAQs, and helps move conversations toward business outcomes. Qualify and follow up Sara can c"
+    },
+    "ar_price": {
+      "mode": "WUJUD pricing",
+      "has299": true,
+      "has799": true,
+      "snippet": "Current WUJUD plans from the approved catalog: Starter For small teams getting started. $299/mo AI Employee (Sara) Up to 1,000 conversations/mo WhatsApp & Web CRM Integrations Email Support Most Popular Growth For g"
+    },
+    "ambiguous": {
+      "mode": "Choose a path",
+      "has299": false,
+      "has799": false,
+      "snippet": "What would you like to do? Build my SARA Try SARA View pricing How does it work? Book a demo"
+    }
+  },
+  "tryProfiles": {
+    "Coffee shop": {
+      "badge": "Product demonstration",
+      "hasBuildLikeThis": true,
+      "snippet": "PRODUCT DEMONSTRATION · Harbor Roast What specialty drinks do you have this week? This week we’re featuring a cardamom flat white and a pistachio cold brew. Both are available until Sunday. Would you like sizes or allergens? Do you deliver nearby? We offer pickup in-store and par",
+      "operationalClaim": false
+    },
+    "Clinic": {
+      "badge": "Product demonstration",
+      "hasBuildLikeThis": true,
+      "snippet": "PRODUCT DEMONSTRATION · BrightCare Clinic What are your clinic hours? We’re open Sunday–Thursday, 9:00–18:00. Fridays are closed; Saturdays are by appointment. Would you like help requesting a general check-up? Which documents should I bring for a first visit? Please bring a vali",
+      "operationalClaim": false
+    },
+    "Real estate": {
+      "badge": "Product demonstration",
+      "hasBuildLikeThis": true,
+      "snippet": "PRODUCT DEMONSTRATION · Oasis Homes Do you have two-bedroom apartments near the marina? We have three 2-bedroom listings near the marina this week. I can share sizes and asking rents. I don’t give mortgage, legal, or investment advice. Build something like this View pricing Book ",
+      "operationalClaim": false
+    },
+    "Retail": {
+      "badge": "Product demonstration",
+      "hasBuildLikeThis": true,
+      "snippet": "PRODUCT DEMONSTRATION · Noon & Night Is the linen set still in stock in beige? Beige king and queen are in stock online. Express pickup is available tomorrow. Checkout isn’t completed in this demonstration. Build something like this View pricing Book a demo Later integration stat",
+      "operationalClaim": false
+    }
+  },
+  "build": {
+    "ms": 1646,
+    "actions": 11,
+    "summaryHasName": true,
+    "summaryHasWhatsApp": true,
+    "ctaVisible": true,
+    "draftPersisted": true,
+    "landedOnBuildSara": true,
+    "buildSaraTitle": "Build My SARA | WUJUD.ai",
+    "buildSaraFeelsContinuation": true
+  },
+  "mobile": {
+    "320": {
+      "overflow": 0,
+      "composerCovers": {
+        "threadBottom": 761,
+        "dockTop": 724,
+        "overlap": true
+      },
+      "dialogOpen": false
+    },
+    "390": {
+      "overflow": 0,
+      "composerCovers": {
+        "threadBottom": 724,
+        "dockTop": 724,
+        "overlap": false
+      },
+      "dialogOpen": false
+    },
+    "zoom200": {
+      "overflow": 250,
+      "composerVisible": true
+    }
+  },
+  "a11y": {
+    "home": [],
+    "build": [
+      {
+        "id": "landmark-one-main",
+        "impact": "moderate",
+        "nodes": 1,
+        "help": "Document should have one main landmark"
+      },
+      {
+        "id": "page-has-heading-one",
+        "impact": "moderate",
+        "nodes": 1,
+        "help": "Page should contain a level-one heading"
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "nodes": 3,
+        "help": "All page content should be contained by landmarks"
+      }
+    ],
+    "pricing": []
+  },
+  "conversion": {
+    "pricing": {
+      "mode": "WUJUD pricing",
+      "hasCatalogPrices": true,
+      "canonicalLink": true
+    },
+    "faq": {
+      "mode": "WUJUD help",
+      "canonicalFaq": true
+    },
+    "book": {
+      "formVisible": true,
+      "pageLink": true
+    },
+    "signIn": {
+      "url": "https://wujud-conversational-home-preview.altobi-saud.workers.dev/",
+      "mode": "Account",
+      "body": "Sign in is unavailable in this environment (customer app URL not configured). Build, Pricing, FAQ, and Book a demo still work.\n\nBuild my SARA"
+    }
+  },
+  "firstImpression": {
+    "h1": "Build your best AI sales employee.",
+    "intro": "Hi, I’m SARA. Tell me about your business, try me as a customer, or ask me anything about WUJUD.",
+    "placeholder": "Describe your business or ask SARA something…",
+    "chips": [
+      "Build my SARA",
+      "Try SARA",
+      "View pricing",
+      "How does it work?",
+      "Book a demo",
+      "Coffee shop",
+      "Clinic",
+      "Real estate",
+      "Retail"
+    ],
+    "startersVisible": true,
+    "belowFoldTabs": 14
+  },
+  "arabic": {
+    "dir": "rtl",
+    "lang": "ar",
+    "h1": "ابنِ أفضل موظف مبيعات بالذكاء الاصطناعي.",
+    "intro": "مرحباً، أنا SARA. أخبرني عن عملك، جربني كعميل، أو اسألني أي شيء عن WUJUD.",
+    "quick": [
+      "ابنِ SARA",
+      "جرّب SARA",
+      "عرض الأسعار",
+      "كيف يعمل؟",
+      "احجز عرضاً"
+    ]
+  }
+}
