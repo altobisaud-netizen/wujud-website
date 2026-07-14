@@ -1,5 +1,12 @@
 /* Conversational homepage — WUJUD white / navy / purple (not dark-tooling). */
 
+html,
+body,
+#root {
+	max-width: 100%;
+	overflow-x: clip;
+}
+
 .conv {
 	--conv-navy: #0b102d;
 	--conv-purple: #6236f5;
@@ -10,6 +17,7 @@
 	--conv-white: #ffffff;
 	--conv-bg: linear-gradient(165deg, #ffffff 0%, #f7f5ff 48%, #eef2ff 100%);
 	min-height: 100dvh;
+	width: 100%;
 	max-width: 100%;
 	overflow-x: clip;
 	background: var(--conv-bg);
@@ -138,12 +146,13 @@
 	object-fit: cover;
 	border: 3px solid var(--conv-white);
 	box-shadow: 0 8px 28px rgba(11, 16, 45, 0.12);
-	margin-inline: auto 0;
+	margin-inline: auto;
 	margin-bottom: 1.1rem;
+	display: block;
 }
 
 .conv[dir="rtl"] .conv__portrait {
-	margin-inline: 0 auto;
+	margin-inline: auto;
 }
 
 .conv__headline {
@@ -175,6 +184,8 @@
 	display: flex;
 	gap: 0.5rem;
 	align-items: flex-end;
+	max-width: 100%;
+	min-width: 0;
 }
 
 .conv__composer textarea {
@@ -187,6 +198,10 @@
 	font: inherit;
 	color: var(--conv-navy);
 	background: transparent;
+	min-width: 0;
+	width: 100%;
+	max-width: 100%;
+	overflow-wrap: anywhere;
 }
 
 .conv__composer textarea::placeholder {
@@ -204,6 +219,14 @@
 	color: white;
 	background: var(--conv-purple);
 	cursor: pointer;
+}
+
+.conv__send:disabled,
+.conv__send--soft:disabled {
+	opacity: 0.45;
+	cursor: not-allowed;
+	background: color-mix(in srgb, var(--conv-purple) 55%, #b7b2c9);
+	box-shadow: none;
 }
 
 .conv__send:hover {
@@ -236,15 +259,50 @@
 	cursor: pointer;
 	display: inline-flex;
 	align-items: center;
+	max-width: 100%;
+	overflow-wrap: anywhere;
 }
 
-.conv__chip:hover {
+.conv__chip--primary {
+	background: var(--conv-purple);
+	border-color: var(--conv-purple);
+	color: #fff;
+	font-weight: 650;
+	box-shadow: 0 6px 18px rgba(98, 54, 245, 0.22);
+}
+
+.conv__chip--primary:hover {
+	background: var(--conv-purple-hover);
+	border-color: var(--conv-purple-hover);
+	color: #fff;
+}
+
+.conv__chip--secondary {
 	border-color: var(--conv-purple);
 	color: var(--conv-purple);
+	background: var(--conv-white);
+	font-weight: 600;
+}
+
+.conv__chip--tertiary {
+	border-style: dashed;
+	color: var(--conv-muted);
+	font-weight: 500;
 }
 
 .conv__chip--quiet {
 	background: var(--conv-soft);
+	border-style: solid;
+	color: var(--conv-navy);
+}
+
+.conv__chip:hover:not(.conv__chip--primary) {
+	border-color: var(--conv-purple);
+	color: var(--conv-purple);
+}
+
+.conv__chip--primary:hover {
+	color: #fff;
 }
 
 .conv__starters-label {
@@ -311,6 +369,7 @@
 	display: flex;
 	flex-direction: column;
 	min-width: 0;
+	max-width: 100%;
 	padding: 1rem 1.25rem 0;
 }
 
@@ -346,15 +405,19 @@
 	display: flex;
 	flex-direction: column;
 	gap: 0.9rem;
-	padding-bottom: 1rem;
+	padding-bottom: 1.5rem;
+	min-width: 0;
+	max-width: 100%;
 }
 
 .conv__bubble {
-	max-width: min(560px, 92%);
+	max-width: min(560px, 100%);
 	padding: 0.85rem 1rem;
 	border-radius: 14px;
 	line-height: 1.5;
 	font-size: 0.98rem;
+	overflow-wrap: anywhere;
+	min-width: 0;
 }
 
 .conv__bubble--sara {
@@ -380,8 +443,10 @@
 .conv__dock {
 	position: sticky;
 	bottom: 0;
-	padding: 0.75rem 0 1rem;
+	padding: 1rem 0 1.25rem;
+	margin-top: 0.5rem;
 	background: linear-gradient(to top, #f7f5ff 70%, transparent);
+	max-width: 100%;
 }
 
 .conv__cards {
@@ -440,11 +505,15 @@
 
 .conv__field {
 	width: 100%;
+	max-width: 100%;
+	min-width: 0;
 	margin-top: 0.5rem;
 	padding: 0.65rem 0.75rem;
 	border: 1px solid var(--conv-line);
 	border-radius: 10px;
 	font: inherit;
+	overflow-wrap: anywhere;
+	box-sizing: border-box;
 }
 
 .conv__actions {
@@ -509,11 +578,13 @@
 }
 
 .conv__dialog {
-	width: min(420px, 100%);
+	width: min(420px, calc(100vw - 2rem));
+	max-width: 100%;
 	background: white;
 	border-radius: 14px;
 	padding: 1.25rem;
 	border: 1px solid var(--conv-line);
+	overflow-wrap: anywhere;
 }
 
 .conv__dialog h2 {
@@ -532,9 +603,12 @@
 
 .conv__table {
 	width: 100%;
+	max-width: 100%;
 	border-collapse: collapse;
 	font-size: 0.88rem;
 	margin-top: 0.5rem;
+	display: block;
+	overflow-x: auto;
 }
 
 .conv__table th,
@@ -627,25 +701,60 @@
 }
 
 .conv__examples {
-	margin-top: 3rem;
+	margin-top: 2.5rem;
 	border-top: 1px solid var(--conv-line);
-	padding-top: 1.5rem;
+	padding: 1.25rem 1.25rem 2rem;
+	max-width: 100%;
 }
 
-.conv__examples-title {
+.conv__examples-details {
 	max-width: 1100px;
-	margin: 0 auto 1rem;
-	padding: 0 1.25rem;
-	font-size: 1.15rem;
+	margin: 0 auto;
+}
+
+.conv__examples-summary {
+	cursor: pointer;
+	font-size: 1.05rem;
+	font-weight: 650;
+	color: var(--conv-navy);
+	list-style: none;
+	min-height: 44px;
+	display: flex;
+	align-items: center;
+}
+
+.conv__examples-summary::-webkit-details-marker {
+	display: none;
+}
+
+.conv__examples-hint {
+	margin: 0.35rem 0 1rem;
+	color: var(--conv-muted);
+	font-size: 0.9rem;
+}
+
+.conv__examples-body {
+	min-width: 0;
+	max-width: 100%;
+	overflow-x: auto;
+}
+
+.conv__field-hint {
+	margin: 0.45rem 0 0;
+	font-size: 0.85rem;
+	color: var(--conv-muted);
 }
 
 .conv__btn {
 	min-height: 44px;
+	max-width: 100%;
 }
 
 @media (max-width: 860px) {
 	.conv__work-shell {
 		grid-template-columns: 1fr;
+		width: 100%;
+		max-width: 100%;
 	}
 
 	.conv__rail {
@@ -654,6 +763,10 @@
 
 	.conv__mobile-mode {
 		display: inline-flex;
+	}
+
+	.conv__main {
+		padding-inline: 0.85rem;
 	}
 }
 
@@ -669,8 +782,17 @@
 
 	.conv__hero,
 	.conv__examples,
-	.conv__composer-shell {
+	.conv__composer-shell,
+	.conv__work-shell {
 		max-width: 100%;
+	}
+
+	.conv__header {
+		padding-inline: 0.75rem;
+	}
+
+	.conv--hero {
+		padding-inline: 0.85rem;
 	}
 }
 

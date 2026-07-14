@@ -7,10 +7,11 @@ type Props = {
 	onChange: (value: string) => void;
 	multiline?: boolean;
 	placeholder?: string;
+	describedBy?: string;
 };
 
 export const TextFieldBlock = forwardRef<HTMLInputElement | HTMLTextAreaElement, Props>(
-	function TextFieldBlock({ id, label, value, onChange, multiline, placeholder }, ref) {
+	function TextFieldBlock({ id, label, value, onChange, multiline, placeholder, describedBy }, ref) {
 		if (multiline) {
 			return (
 				<>
@@ -25,6 +26,7 @@ export const TextFieldBlock = forwardRef<HTMLInputElement | HTMLTextAreaElement,
 						value={value}
 						placeholder={placeholder}
 						aria-label={label}
+						aria-describedby={describedBy}
 						onChange={(e) => onChange(e.target.value)}
 					/>
 				</>
@@ -42,6 +44,7 @@ export const TextFieldBlock = forwardRef<HTMLInputElement | HTMLTextAreaElement,
 					value={value}
 					placeholder={placeholder}
 					aria-label={label}
+					aria-describedby={describedBy}
 					onChange={(e) => onChange(e.target.value)}
 				/>
 			</>

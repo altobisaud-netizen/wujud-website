@@ -1,4 +1,4 @@
-import { useEffect, useState, type Dispatch, type MutableRefObject, type SetStateAction } from "react";
+import { useEffect, useId, useState, type Dispatch, type MutableRefObject, type SetStateAction } from "react";
 import {
 	CHANNEL_OPTIONS,
 	GOAL_OPTIONS,
@@ -42,6 +42,15 @@ function stepMeta(locale: ConvLocale, step: BuildStep) {
 	return locale === "ar" ? `الخطوة ${idx + 1} من 5` : `Step ${idx + 1} of 5`;
 }
 
+function Hint({ id, show, text }: { id: string; show: boolean; text: string }) {
+	if (!show) return null;
+	return (
+		<p id={id} className="conv__field-hint" role="status">
+			{text}
+		</p>
+	);
+}
+
 export function BuildPanel({
 	locale,
 	draft,
@@ -52,6 +61,7 @@ export function BuildPanel({
 	onAnnounce,
 }: Props) {
 	const c = copy(locale);
+	const hintId = useId();
 	const [name, setName] = useState(() => draft.businessName);
 	const [desc, setDesc] = useState(() => draft.businessDescription);
 	const [other, setOther] = useState(() => draft.otherCustomerText);
@@ -120,13 +130,14 @@ export function BuildPanel({
 	}
 
 	if (step === "name") {
+		const ok = validateBusinessName(name);
 		return (
 			<SaraMessage announce>
 				<p className="conv__step-meta">{stepMeta(locale, step)}</p>
 				<form
 					onSubmit={(e) => {
 						e.preventDefault();
-						if (!validateBusinessName(name)) return;
+						if (!ok) return;
 						goNext({ businessName: name.trim() }, "description");
 					}}
 				>
@@ -137,9 +148,11 @@ export function BuildPanel({
 						value={name}
 						onChange={setName}
 						placeholder={c.buildQ.name}
+						describedBy={!ok ? hintId : undefined}
 					/>
+					<Hint id={hintId} show={!ok} text={c.buildHints.name} />
 					<div className="conv__actions">
-						<button type="submit" className="conv__btn" disabled={!validateBusinessName(name)}>
+						<button type="submit" className="conv__btn" disabled={!ok} aria-describedby={!ok ? hintId : undefined}>
 							{c.continue}
 						</button>
 					</div>
@@ -149,13 +162,14 @@ export function BuildPanel({
 	}
 
 	if (step === "description") {
+		const ok = validateBusinessDescription(desc);
 		return (
 			<SaraMessage announce>
 				<p className="conv__step-meta">{stepMeta(locale, step)}</p>
 				<form
 					onSubmit={(e) => {
 						e.preventDefault();
-						if (!validateBusinessDescription(desc)) return;
+						if (!ok) return;
 						goNext({ businessDescription: desc.trim() }, "customers");
 					}}
 				>
@@ -167,13 +181,11 @@ export function BuildPanel({
 						onChange={setDesc}
 						multiline
 						placeholder={c.buildQ.description}
+						describedBy={!ok ? hintId : undefined}
 					/>
+					<Hint id={hintId} show={!ok} text={c.buildHints.description} />
 					<div className="conv__actions">
-						<button
-							type="submit"
-							className="conv__btn"
-							disabled={!validateBusinessDescription(desc)}
-						>
+						<button type="submit" className="conv__btn" disabled={!ok} aria-describedby={!ok ? hintId : undefined}>
 							{c.continue}
 						</button>
 					</div>
@@ -183,6 +195,7 @@ export function BuildPanel({
 	}
 
 	if (step === "customers") {
+		const ok = validateCustomers(draft.targetCustomers, other);
 		return (
 			<SaraMessage announce>
 				<p className="conv__step-meta">{stepMeta(locale, step)}</p>
@@ -210,11 +223,13 @@ export function BuildPanel({
 						/>
 					</div>
 				) : null}
+				<Hint id={hintId} show={!ok} text={c.buildHints.customers} />
 				<div className="conv__actions">
 					<button
 						type="button"
 						className="conv__btn"
-						disabled={!validateCustomers(draft.targetCustomers, other)}
+						disabled={!ok}
+						aria-describedby={!ok ? hintId : undefined}
 						onClick={() =>
 							goNext(
 								{ targetCustomers: draft.targetCustomers, otherCustomerText: other },
@@ -230,6 +245,7 @@ export function BuildPanel({
 	}
 
 	if (step === "channels") {
+		const ok = validateChannels(draft.channels);
 		return (
 			<SaraMessage announce>
 				<p className="conv__step-meta">{stepMeta(locale, step)}</p>
@@ -246,11 +262,13 @@ export function BuildPanel({
 						});
 					}}
 				/>
+				<Hint id={hintId} show={!ok} text={c.buildHints.channels} />
 				<div className="conv__actions">
 					<button
 						type="button"
 						className="conv__btn"
-						disabled={!validateChannels(draft.channels)}
+						disabled={!ok}
+						aria-describedby={!ok ? hintId : undefined}
 						onClick={() => goNext({ channels: draft.channels }, "goals")}
 					>
 						{c.continue}
@@ -260,6 +278,7 @@ export function BuildPanel({
 		);
 	}
 
+	const ok = validateGoals(draft.goals);
 	return (
 		<SaraMessage announce>
 			<p className="conv__step-meta">{stepMeta(locale, step)}</p>
@@ -276,11 +295,13 @@ export function BuildPanel({
 					});
 				}}
 			/>
+			<Hint id={hintId} show={!ok} text={c.buildHints.goals} />
 			<div className="conv__actions">
 				<button
 					type="button"
 					className="conv__btn"
-					disabled={!validateGoals(draft.goals)}
+					disabled={!ok}
+					aria-describedby={!ok ? hintId : undefined}
 					onClick={() => goNext({ goals: draft.goals }, "summary")}
 				>
 					{c.seeSummary}

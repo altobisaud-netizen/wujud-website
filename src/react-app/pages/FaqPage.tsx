@@ -38,7 +38,9 @@ export function FaqPage() {
 					{catalog.faqs.map((faq) => (
 						<details key={faq.id} className="conv__card">
 							<summary style={{ fontWeight: 600, cursor: "pointer" }}>
-								{t(faq.question, locale)}
+								<h2 style={{ display: "inline", font: "inherit", margin: 0 }}>
+									{t(faq.question, locale)}
+								</h2>
 							</summary>
 							<p style={{ marginTop: "0.65rem" }}>{t(faq.answer, locale)}</p>
 						</details>

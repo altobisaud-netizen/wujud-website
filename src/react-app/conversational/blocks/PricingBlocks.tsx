@@ -4,13 +4,13 @@ type PricingProps = {
 	locale: Locale;
 	plans: readonly ProductPlan[];
 	yearly?: boolean;
-	intro: string;
+	intro?: string;
 };
 
 export function PricingCards({ locale, plans, yearly = false, intro }: PricingProps) {
 	return (
 		<>
-			<p>{intro}</p>
+			{intro ? <p>{intro}</p> : null}
 			<div className="conv__cards">
 				{plans.map((plan) => (
 					<article

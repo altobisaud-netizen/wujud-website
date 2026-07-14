@@ -12,8 +12,9 @@ import { loadPreferredLocale, savePreferredLocale } from "./languagePreference";
 import { copy } from "./locale";
 import { AccountHelpPanel } from "./panels/AccountHelpPanel";
 import { BuildPanel } from "./panels/BuildPanel";
+import { shouldHideBuildDockComposer } from "./buildComposer";
 import { needsModeSwitchConfirm } from "./modeSwitch";
-import { routeFreeText, routeQuickAction } from "./routeIntent";
+import { hasArabicScript, routeFreeText, routeQuickAction } from "./routeIntent";
 import { openSignIn, resolveSignInTarget } from "./signIn";
 import type { BuildStep, ConvLocale, ConvMode, DemoSlug, QuickActionId } from "./types";
 import "./conversational.css";
@@ -40,8 +41,15 @@ function modeLabel(mode: ConvMode, locale: ConvLocale, demoSlug?: DemoSlug | nul
 	return c.mode[mode];
 }
 
+function chipClass(id: QuickActionId): string {
+	if (id === "build") return "conv__chip conv__chip--primary";
+	if (id === "try") return "conv__chip conv__chip--secondary";
+	return "conv__chip conv__chip--tertiary";
+}
+
 export function ConversationalHomePage() {
 	const [locale, setLocale] = useState<ConvLocale>(() => loadPreferredLocale("en"));
+	const [contentLocale, setContentLocale] = useState<ConvLocale>(() => loadPreferredLocale("en"));
 	const [mode, setMode] = useState<ConvMode>("idle");
 	const [pendingMode, setPendingMode] = useState<ConvMode | null>(null);
 	const [pendingDemo, setPendingDemo] = useState<DemoSlug | null>(null);
@@ -54,6 +62,8 @@ export function ConversationalHomePage() {
 	const c = copy(locale);
 	const rtl = locale === "ar";
 	const workspace = mode !== "idle";
+	const hideDock =
+		mode === "BUILD_AGENT" && shouldHideBuildDockComposer(buildStep);
 
 	useEffect(() => {
 		document.documentElement.lang = locale;
@@ -83,6 +93,7 @@ export function ConversationalHomePage() {
 
 	useEffect(() => {
 		savePreferredLocale(locale);
+		setContentLocale(locale);
 	}, [locale]);
 
 	const applyMode = (next: ConvMode, opts?: { demo?: DemoSlug }) => {
@@ -112,6 +123,7 @@ export function ConversationalHomePage() {
 	};
 
 	const onQuick = (id: QuickActionId) => {
+		setContentLocale(locale);
 		requestMode(routeQuickAction(id), { force: mode === "idle" });
 	};
 
@@ -119,12 +131,17 @@ export function ConversationalHomePage() {
 		const text = input.trim();
 		if (!text) return;
 		setInput("");
+		if (hasArabicScript(text) && locale === "en") {
+			setContentLocale("ar");
+		} else {
+			setContentLocale(locale);
+		}
 		const next = routeFreeText(text);
 		if (next === "CLARIFY") {
 			requestMode("CLARIFY", { force: true });
 			return;
 		}
-		if (next === "BUILD_AGENT" && text.length > 2 && !draft.businessName) {
+		if (next === "BUILD_AGENT" && text.length > 2 && !draft.businessName && !hasArabicScript(text)) {
 			setDraft((d) => mergeDraftFields(d, { businessName: text.slice(0, 80), step: "description" }));
 			setBuildStep("description");
 		}
@@ -132,6 +149,7 @@ export function ConversationalHomePage() {
 	};
 
 	const startDemo = (slug: DemoSlug) => {
+		setContentLocale(locale);
 		requestMode("TRY_DEMO", {
 			demo: slug,
 			force: mode === "idle" || mode === "TRY_DEMO",
@@ -160,6 +178,8 @@ export function ConversationalHomePage() {
 		}
 		requestMode("ACCOUNT_HELP", { force: mode === "idle" });
 	};
+
+	const panelLocale = contentLocale;
 
 	return (
 		<div className={`conv${workspace ? " conv--work" : " conv--hero"}`} dir={rtl ? "rtl" : "ltr"}>
@@ -201,7 +221,7 @@ export function ConversationalHomePage() {
 						<h1 className="conv__headline">{c.headline}</h1>
 						<p className="conv__intro">{c.intro}</p>
 
-						<div className="conv__composer-shell">
+						<div className="conv__composer-shell" role="region" aria-label={c.composerLabel}>
 							<form
 								className="conv__composer"
 								onSubmit={(e) => {
@@ -225,7 +245,11 @@ export function ConversationalHomePage() {
 										}
 									}}
 								/>
-								<button type="submit" className="conv__send" disabled={!input.trim()}>
+								<button
+									type="submit"
+									className={`conv__send${!input.trim() ? " conv__send--soft" : ""}`}
+									disabled={!input.trim()}
+								>
 									{c.send}
 								</button>
 							</form>
@@ -233,7 +257,12 @@ export function ConversationalHomePage() {
 
 						<div className="conv__chips" role="group" aria-label={c.clarify}>
 							{(Object.keys(c.quick) as QuickActionId[]).map((id) => (
-								<button key={id} type="button" className="conv__chip" onClick={() => onQuick(id)}>
+								<button
+									key={id}
+									type="button"
+									className={chipClass(id)}
+									onClick={() => onQuick(id)}
+								>
 									{c.quick[id]}
 								</button>
 							))}
@@ -257,11 +286,16 @@ export function ConversationalHomePage() {
 					</main>
 
 					<Suspense fallback={null}>
-						<BelowFoldExamples heading={c.examplesHeading} />
+						<BelowFoldExamples
+							heading={c.examplesHeading}
+							summary={c.examplesSummary}
+							hint={c.examplesHint}
+						/>
 					</Suspense>
 				</>
 			) : (
-				<div className="conv__work-shell">
+				<main className="conv__work-shell">
+					<h1 className="visually-hidden">{c.workspaceHeading}</h1>
 					<aside className="conv__rail" aria-label={c.modeMenu}>
 						<p className="conv__rail-title">{c.modeMenu}</p>
 						{(
@@ -319,7 +353,7 @@ export function ConversationalHomePage() {
 							</details>
 						</div>
 
-						<div className="conv__thread">
+						<section className="conv__thread" aria-label={c.threadLabel}>
 							{mode === "CLARIFY" && (
 								<SaraMessage announce>
 									<ClarificationChoices
@@ -347,7 +381,7 @@ export function ConversationalHomePage() {
 							{mode === "TRY_DEMO" && (
 								<Suspense fallback={<p className="conv__note">{c.loading}</p>}>
 									<TryPanel
-										locale={locale}
+										locale={panelLocale}
 										slug={demoSlug}
 										onPick={startDemo}
 										onBuild={seedDraftFromDemo}
@@ -358,18 +392,18 @@ export function ConversationalHomePage() {
 							)}
 							{mode === "PRICING" && (
 								<Suspense fallback={<p className="conv__note">{c.loading}</p>}>
-									<PricingPanel locale={locale} />
+									<PricingPanel locale={panelLocale} />
 								</Suspense>
 							)}
 							{mode === "PRODUCT_QUESTION" && (
 								<Suspense fallback={<p className="conv__note">{c.loading}</p>}>
-									<ProductHelpPanel locale={locale} />
+									<ProductHelpPanel locale={panelLocale} />
 								</Suspense>
 							)}
 							{mode === "BOOK_DEMO" && (
 								<BookDemoBlock
-									intro={c.bookIntro}
-									pageLinkLabel={locale === "ar" ? "صفحة الحجز" : "Book demo page"}
+									intro={copy(panelLocale).bookIntro}
+									pageLinkLabel={panelLocale === "ar" ? "صفحة الحجز" : "Book demo page"}
 								/>
 							)}
 							{mode === "ACCOUNT_HELP" && (
@@ -378,35 +412,41 @@ export function ConversationalHomePage() {
 									onBuild={() => requestMode("BUILD_AGENT", { force: true })}
 								/>
 							)}
-						</div>
+						</section>
 
-						<div className="conv__dock">
-							<div className="conv__composer-shell">
-								<form
-									className="conv__composer"
-									onSubmit={(e) => {
-										e.preventDefault();
-										onSubmitComposer();
-									}}
-								>
-									<label className="visually-hidden" htmlFor="conv-work-prompt">
-										{c.placeholder}
-									</label>
-									<textarea
-										id="conv-work-prompt"
-										rows={2}
-										value={input}
-										placeholder={c.placeholder}
-										onChange={(e) => setInput(e.target.value)}
-									/>
-									<button type="submit" className="conv__send" disabled={!input.trim()}>
-										{c.send}
-									</button>
-								</form>
+						{!hideDock ? (
+							<div className="conv__dock" role="region" aria-label={c.composerLabel}>
+								<div className="conv__composer-shell">
+									<form
+										className="conv__composer"
+										onSubmit={(e) => {
+											e.preventDefault();
+											onSubmitComposer();
+										}}
+									>
+										<label className="visually-hidden" htmlFor="conv-work-prompt">
+											{c.placeholder}
+										</label>
+										<textarea
+											id="conv-work-prompt"
+											rows={2}
+											value={input}
+											placeholder={c.placeholder}
+											onChange={(e) => setInput(e.target.value)}
+										/>
+										<button
+											type="submit"
+											className={`conv__send${!input.trim() ? " conv__send--soft" : ""}`}
+											disabled={!input.trim()}
+										>
+											{c.send}
+										</button>
+									</form>
+								</div>
 							</div>
-						</div>
+						) : null}
 					</div>
-				</div>
+				</main>
 			)}
 
 			<ModeSwitchDialog

@@ -18,7 +18,8 @@ export function PricingPanel({ locale }: { locale: ConvLocale }) {
 	const loc = locale as Locale;
 	return (
 		<SaraMessage announce className="conv__bubble--wide">
-			<PricingCards locale={loc} plans={catalog.plans} intro={c.pricingIntro} />
+			<h2 className="conv__subhead">{c.pricingIntro}</h2>
+			<PricingCards locale={loc} plans={catalog.plans} intro={undefined} />
 			<PlanComparison
 				locale={loc}
 				rows={catalog.comparisons}
@@ -41,7 +42,7 @@ export function ProductHelpPanel({ locale }: { locale: ConvLocale }) {
 	const loc = locale as Locale;
 	return (
 		<SaraMessage announce className="conv__bubble--wide">
-			<p>{c.helpIntro}</p>
+			<h2 className="conv__subhead">{c.helpIntro}</h2>
 			<div className="conv__cards">
 				{catalog.capabilities.map((cap) => (
 					<CapabilityCard key={cap.id} locale={loc} item={cap} />
