@@ -1,0 +1,91 @@
+{
+  "status": "PASS",
+  "baseUrl": "http://127.0.0.1:4178",
+  "routes": [
+    "/",
+    "/how-it-works",
+    "/eight-week-journey",
+    "/pricing",
+    "/safety",
+    "/privacy",
+    "/terms",
+    "/contact"
+  ],
+  "metadata": "PASS",
+  "sitemap": "PASS",
+  "robots": "PREVIEW_NOINDEX",
+  "noJavaScript": "PASS",
+  "accessibility": [
+    {
+      "label": "desktop homepage",
+      "violations": []
+    },
+    {
+      "label": "desktop /how-it-works",
+      "violations": []
+    },
+    {
+      "label": "desktop /eight-week-journey",
+      "violations": []
+    },
+    {
+      "label": "desktop /pricing",
+      "violations": []
+    },
+    {
+      "label": "desktop /safety",
+      "violations": []
+    },
+    {
+      "label": "desktop review mode",
+      "violations": []
+    },
+    {
+      "label": "mobile Arabic review",
+      "violations": []
+    }
+  ],
+  "responsive": [
+    {
+      "viewport": "1440x1000",
+      "scrollWidth": 1440,
+      "clientWidth": 1440
+    },
+    {
+      "viewport": "390x844",
+      "scrollWidth": 390,
+      "clientWidth": 390
+    },
+    {
+      "viewport": "320x800",
+      "scrollWidth": 320,
+      "clientWidth": 320
+    }
+  ],
+  "browserZoom200": "PASS",
+  "rtl": "PASS",
+  "reducedMotion": "PASS",
+  "chatScrollTrap": "PASS",
+  "consoleErrors": [],
+  "productRequests": [],
+  "externalRequests": [],
+  "layoutShift": 0,
+  "initialRenderMs": 1583,
+  "screenshots": [
+    "desktop-arabic-rtl.png",
+    "desktop-eight-week-journey.png",
+    "desktop-homepage.png",
+    "desktop-how-it-works.png",
+    "desktop-no-javascript-safety.png",
+    "desktop-pricing.png",
+    "desktop-review-mode.png",
+    "desktop-safety.png",
+    "mobile-arabic-rtl.png",
+    "mobile-discovery.png",
+    "mobile-homepage.png",
+    "mobile-personalized-preview.png",
+    "mobile-pricing.png",
+    "mobile-review-mode.png",
+    "mobile-safety.png"
+  ]
+}

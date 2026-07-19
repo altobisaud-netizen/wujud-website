@@ -28,6 +28,14 @@ The website refs point to `4463829`. Sara API refs point to `c5ff7c8`.
 
 These are preserved in place and mapped in `branch-and-commit-map.md`.
 
+## Wellness review preservation check — 2026-07-19
+
+- Freeze state remains **FROZEN**.
+- Archive branch and tag remain local-only and were not pushed.
+- No archive history or Business route was deleted or rewritten.
+- Wellness static routes, metadata, review tooling, and documentation are isolated outside archived Business modules.
+- Proposed Business-route retirement decisions are tracked in `docs/wellness-product/business-route-retirement-plan.md`; no redirects are active.
+
 ## Archive documents
 
 - `product-summary.md`

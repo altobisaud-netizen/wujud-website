@@ -1,0 +1,82 @@
+[
+  {
+    "route": "/",
+    "title": "WUJUD — Meet SARA, Your Daily Wellness Companion",
+    "h1": "Meet SARA. Build healthier routines through small daily actions.",
+    "summary": "SARA is WUJUD's daily wellness companion. Explore a personalized eight-week journey built around realistic actions for energy, movement, meals, sleep and consistency.",
+    "mainCount": 1,
+    "h1Count": 1,
+    "direction": null,
+    "arabicSummary": 1
+  },
+  {
+    "route": "/how-it-works",
+    "title": "How SARA Works | WUJUD Wellness",
+    "h1": "How SARA works",
+    "summary": "A short discovery helps you understand your routine and choose realistic actions before previewing an adaptable eight-week journey.",
+    "mainCount": 1,
+    "h1Count": 1,
+    "direction": null,
+    "arabicSummary": 1
+  },
+  {
+    "route": "/eight-week-journey",
+    "title": "The Eight-Week Wellness Journey | WUJUD",
+    "h1": "Your eight-week wellness journey",
+    "summary": "Learn your routine, test small actions and build independence. The journey is flexible and does not guarantee health outcomes.",
+    "mainCount": 1,
+    "h1Count": 1,
+    "direction": null,
+    "arabicSummary": 1
+  },
+  {
+    "route": "/pricing",
+    "title": "Pricing Prototype | WUJUD Wellness",
+    "h1": "Pricing prototype",
+    "summary": "Plan structure for commercial review only. All prices, billing terms, refunds and launch offers are to be confirmed.",
+    "mainCount": 1,
+    "h1Count": 1,
+    "direction": null,
+    "arabicSummary": 1
+  },
+  {
+    "route": "/safety",
+    "title": "Safety and Privacy Boundaries | WUJUD Wellness",
+    "h1": "Safety and privacy",
+    "summary": "SARA offers general-wellness support with clear medical boundaries and meaningful user control.",
+    "mainCount": 1,
+    "h1Count": 1,
+    "direction": null,
+    "arabicSummary": 1
+  },
+  {
+    "route": "/privacy",
+    "title": "Privacy Draft | WUJUD Wellness",
+    "h1": "Privacy — product-review draft",
+    "summary": "This is an unapproved product-review draft, not a final legal privacy policy. Formal legal approval is pending.",
+    "mainCount": 1,
+    "h1Count": 1,
+    "direction": null,
+    "arabicSummary": 1
+  },
+  {
+    "route": "/terms",
+    "title": "Terms Draft | WUJUD Wellness",
+    "h1": "Terms — product-review draft",
+    "summary": "These are unapproved prototype terms for product review only, not final legal or commercial terms.",
+    "mainCount": 1,
+    "h1Count": 1,
+    "direction": null,
+    "arabicSummary": 1
+  },
+  {
+    "route": "/contact",
+    "title": "Contact WUJUD Wellness",
+    "h1": "Contact WUJUD",
+    "summary": "For this moderated product-review cycle, contact your session moderator or the WUJUD product owner who shared this preview.",
+    "mainCount": 1,
+    "h1Count": 1,
+    "direction": null,
+    "arabicSummary": 1
+  }
+]

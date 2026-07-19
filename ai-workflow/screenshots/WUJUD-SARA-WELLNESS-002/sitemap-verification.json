@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "routes": [
+    "/",
+    "/how-it-works",
+    "/eight-week-journey",
+    "/pricing",
+    "/safety",
+    "/privacy",
+    "/terms",
+    "/contact"
+  ],
+  "robots": "User-agent: *\nDisallow: /\n\n# Non-production product-review preview"
+}

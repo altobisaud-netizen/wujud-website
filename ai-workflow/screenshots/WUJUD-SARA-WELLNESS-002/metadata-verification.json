@@ -1,0 +1,90 @@
+[
+  {
+    "route": "/",
+    "title": "WUJUD — Meet SARA, Your Daily Wellness Companion",
+    "description": "Meet SARA, WUJUD's supportive wellness companion for building healthier routines through small, realistic daily actions.",
+    "canonical": "https://wujud-sara-wellness-preview.altobi-saud.workers.dev/",
+    "robots": "noindex, nofollow",
+    "ogTitle": "Meet SARA, Your Daily Wellness Companion",
+    "ogDescription": "Explore a calmer, personalized eight-week wellness journey built around realistic daily actions.",
+    "twitterCard": "summary",
+    "staticH1": "Meet SARA. Build healthier routines through small daily actions."
+  },
+  {
+    "route": "/how-it-works",
+    "title": "How SARA Works | WUJUD Wellness",
+    "description": "See how SARA uses discovery, daily check-ins, weekly reviews and flexible reminders in the WUJUD wellness prototype.",
+    "canonical": "https://wujud-sara-wellness-preview.altobi-saud.workers.dev/how-it-works",
+    "robots": "noindex, nofollow",
+    "ogTitle": "How SARA Works",
+    "ogDescription": "Understand SARA's discovery journey, daily check-ins, weekly reviews and flexible reminder approach.",
+    "twitterCard": "summary",
+    "staticH1": "How SARA works"
+  },
+  {
+    "route": "/eight-week-journey",
+    "title": "The Eight-Week Wellness Journey | WUJUD",
+    "description": "Explore WUJUD's flexible eight-week wellness journey, from understanding your routine to building an independent continuation plan.",
+    "canonical": "https://wujud-sara-wellness-preview.altobi-saud.workers.dev/eight-week-journey",
+    "robots": "noindex, nofollow",
+    "ogTitle": "Your Flexible Eight-Week Wellness Journey",
+    "ogDescription": "Eight realistic stages for learning, adapting and continuing without guaranteed health outcomes.",
+    "twitterCard": "summary",
+    "staticH1": "Your eight-week wellness journey"
+  },
+  {
+    "route": "/pricing",
+    "title": "Pricing Prototype | WUJUD Wellness",
+    "description": "Review WUJUD's provisional wellness plan structure. Pricing and commercial terms remain to be confirmed.",
+    "canonical": "https://wujud-sara-wellness-preview.altobi-saud.workers.dev/pricing",
+    "robots": "noindex, nofollow",
+    "ogTitle": "WUJUD Wellness Pricing Prototype",
+    "ogDescription": "See the proposed plan features. No prices or commercial terms have been finalized.",
+    "twitterCard": "summary",
+    "staticH1": "Pricing prototype"
+  },
+  {
+    "route": "/safety",
+    "title": "Safety and Privacy Boundaries | WUJUD Wellness",
+    "description": "Understand SARA's general-wellness scope, medical boundaries, user controls and urgent-support guidance.",
+    "canonical": "https://wujud-sara-wellness-preview.altobi-saud.workers.dev/safety",
+    "robots": "noindex, nofollow",
+    "ogTitle": "SARA Safety and Privacy Boundaries",
+    "ogDescription": "General wellness support with clear medical limits, user controls and urgent-support guidance.",
+    "twitterCard": "summary",
+    "staticH1": "Safety and privacy"
+  },
+  {
+    "route": "/privacy",
+    "title": "Privacy Draft | WUJUD Wellness",
+    "description": "Read the product-review draft of WUJUD's intended wellness privacy approach. Formal legal approval is pending.",
+    "canonical": "https://wujud-sara-wellness-preview.altobi-saud.workers.dev/privacy",
+    "robots": "noindex, nofollow",
+    "ogTitle": "WUJUD Wellness Privacy Draft",
+    "ogDescription": "Product-review privacy direction only. Formal legal approval and final retention terms are pending.",
+    "twitterCard": "summary",
+    "staticH1": "Privacy — product-review draft"
+  },
+  {
+    "route": "/terms",
+    "title": "Terms Draft | WUJUD Wellness",
+    "description": "Read the WUJUD wellness prototype terms for product review. Formal legal and commercial approval is pending.",
+    "canonical": "https://wujud-sara-wellness-preview.altobi-saud.workers.dev/terms",
+    "robots": "noindex, nofollow",
+    "ogTitle": "WUJUD Wellness Terms Draft",
+    "ogDescription": "Prototype terms for product review only; final legal and commercial approval is pending.",
+    "twitterCard": "summary",
+    "staticH1": "Terms — product-review draft"
+  },
+  {
+    "route": "/contact",
+    "title": "Contact WUJUD Wellness",
+    "description": "Find the current product-review contact path for questions about WUJUD wellness, SARA and safety boundaries.",
+    "canonical": "https://wujud-sara-wellness-preview.altobi-saud.workers.dev/contact",
+    "robots": "noindex, nofollow",
+    "ogTitle": "Contact WUJUD Wellness",
+    "ogDescription": "Use the accessible product-review contact path for questions about the wellness prototype.",
+    "twitterCard": "summary",
+    "staticH1": "Contact WUJUD"
+  }
+]

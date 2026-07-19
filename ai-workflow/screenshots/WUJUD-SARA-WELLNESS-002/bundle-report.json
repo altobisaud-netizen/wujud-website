@@ -1,0 +1,65 @@
+{
+  "status": "PASS",
+  "bundles": [
+    {
+      "file": "BelowFoldWellness-L199sk6D.js",
+      "bytes": 9089
+    },
+    {
+      "file": "index-COjdP1XT.js",
+      "bytes": 228528
+    },
+    {
+      "file": "index-CQkAYb42.css",
+      "bytes": 20059
+    },
+    {
+      "file": "WellnessInfoPage-C2Y_v_3s.js",
+      "bytes": 8437
+    }
+  ],
+  "staticHtml": [
+    {
+      "route": "/",
+      "file": "index.html",
+      "bytes": 4422
+    },
+    {
+      "route": "/how-it-works",
+      "file": "how-it-works.html",
+      "bytes": 4516
+    },
+    {
+      "route": "/eight-week-journey",
+      "file": "eight-week-journey.html",
+      "bytes": 4807
+    },
+    {
+      "route": "/pricing",
+      "file": "pricing.html",
+      "bytes": 4265
+    },
+    {
+      "route": "/safety",
+      "file": "safety.html",
+      "bytes": 4444
+    },
+    {
+      "route": "/privacy",
+      "file": "privacy.html",
+      "bytes": 4352
+    },
+    {
+      "route": "/terms",
+      "file": "terms.html",
+      "bytes": 4237
+    },
+    {
+      "route": "/contact",
+      "file": "contact.html",
+      "bytes": 4134
+    }
+  ],
+  "forbiddenFindings": [],
+  "honoRuntimeClassification": "INCLUDED_IN_WELLNESS_RUNTIME"
+}
