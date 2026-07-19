@@ -1,0 +1,124 @@
+{
+  "status": "PASS",
+  "baseUrl": "http://127.0.0.1:4176",
+  "screenshots": [
+    "desktop-account-cta.png",
+    "desktop-daily-companion.png",
+    "desktop-eight-week-journey.png",
+    "desktop-energy-discovery.png",
+    "desktop-initial.png",
+    "desktop-personalized-preview.png",
+    "desktop-pricing.png",
+    "desktop-safety-privacy.png",
+    "mobile-arabic-rtl.png",
+    "mobile-daily-check-in.png",
+    "mobile-goal-choices.png",
+    "mobile-initial-chat.png",
+    "mobile-missed-day-recovery.png",
+    "mobile-personalized-plan.png",
+    "mobile-safety.png"
+  ],
+  "consoleErrors": [],
+  "apiRequests": [],
+  "externalRequests": [],
+  "routes": [
+    {
+      "route": "/how-it-works",
+      "status": 200,
+      "heading": "How SARA works"
+    },
+    {
+      "route": "/eight-week-journey",
+      "status": 200,
+      "heading": "Your eight-week journey"
+    },
+    {
+      "route": "/pricing",
+      "status": 200,
+      "heading": "Pricing prototype"
+    },
+    {
+      "route": "/safety",
+      "status": 200,
+      "heading": "Safety and privacy"
+    },
+    {
+      "route": "/privacy",
+      "status": 200,
+      "heading": "Privacy"
+    },
+    {
+      "route": "/terms",
+      "status": 200,
+      "heading": "Terms"
+    },
+    {
+      "route": "/contact",
+      "status": 200,
+      "heading": "Contact WUJUD"
+    }
+  ],
+  "responsive": [
+    {
+      "viewport": "1440x1000",
+      "scrollWidth": 1440,
+      "clientWidth": 1440
+    },
+    {
+      "viewport": "390x844",
+      "scrollWidth": 390,
+      "clientWidth": 390
+    },
+    {
+      "viewport": "320x800",
+      "scrollWidth": 320,
+      "clientWidth": 320
+    }
+  ],
+  "axe": [
+    {
+      "label": "desktop initial homepage",
+      "violations": []
+    },
+    {
+      "label": "desktop personalized preview",
+      "violations": []
+    },
+    {
+      "label": "direct route /how-it-works",
+      "violations": []
+    },
+    {
+      "label": "direct route /eight-week-journey",
+      "violations": []
+    },
+    {
+      "label": "direct route /pricing",
+      "violations": []
+    },
+    {
+      "label": "direct route /safety",
+      "violations": []
+    },
+    {
+      "label": "direct route /privacy",
+      "violations": []
+    },
+    {
+      "label": "direct route /terms",
+      "violations": []
+    },
+    {
+      "label": "direct route /contact",
+      "violations": []
+    },
+    {
+      "label": "mobile Arabic homepage",
+      "violations": []
+    }
+  ],
+  "reducedMotion": true,
+  "zoom200": "PASS",
+  "rtl": "PASS",
+  "chatScrollTrap": "PASS"
+}

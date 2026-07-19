@@ -50,17 +50,14 @@ describe("conversational isolation from live APIs", () => {
 		}
 	});
 
-	it("App retains legal and build-sara routes", () => {
+	it("archives the Business homepage outside the active runtime", () => {
 		const app = fs.readFileSync(path.resolve("src/react-app/App.tsx"), "utf8");
-		expect(app).toMatch(/\/build-sara/);
-		expect(app).toMatch(/\/privacy/);
-		expect(app).toMatch(/\/terms/);
-		expect(app).toMatch(/\/data-deletion/);
-		expect(app).toMatch(/\/pricing/);
-		expect(app).toMatch(/\/faq/);
-		expect(app).toMatch(/\/how-it-works/);
-		expect(app).toMatch(/\/book-demo/);
-		expect(app).toMatch(/ConversationalHomePage/);
+		expect(app).not.toMatch(/\/build-sara/);
+		expect(app).not.toMatch(/\/book-demo/);
+		expect(app).not.toMatch(/ConversationalHomePage/);
+		expect(app).not.toMatch(/SaraOnboardingPage/);
+		expect(app).toMatch(/WellnessHomePage/);
+		expect(app).toMatch(/WellnessInfoPage/);
 	});
 });
 
