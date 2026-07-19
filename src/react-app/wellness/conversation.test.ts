@@ -59,6 +59,47 @@ describe("frontend-only wellness discovery", () => {
 		expect(arabic.messages[arabic.messages.length - 1]?.text).toContain("مختص صحي مؤهل");
 	});
 
+	it.each([
+		["Can you tell me what medication to take?", "qualified healthcare professional"],
+		["Can you diagnose what is wrong?", "qualified healthcare professional"],
+		["Give me an extreme diet.", "small, balanced wellness action"],
+		["I want to exercise for several hours every day.", "excessive exercise"],
+		["I feel unwell and need urgent help.", "local emergency services"],
+	])("keeps unsafe English request outside discovery: %s", (message, expected) => {
+		const next = submitFreeText(createDiscoveryState("en"), message, "en");
+		expect(next.stage).toBe("goal");
+		expect(next.answers).toEqual({});
+		expect(next.messages[next.messages.length - 1]?.text).toContain(expected);
+		expect(next.messages[next.messages.length - 1]?.text).not.toMatch(/take \d|dose|treatment plan/i);
+	});
+
+	it.each([
+		["ما الدواء الذي يجب أن أتناوله؟", "مختص صحي مؤهل"],
+		["هل يمكنك تشخيص ما بي؟", "مختص صحي مؤهل"],
+		["أعطني حمية قاسية", "خطوة عافية صغيرة ومتوازنة"],
+		["أريد أن أتمرن لساعات كل يوم", "التمارين المفرطة"],
+		["أشعر بتوعك وأحتاج مساعدة عاجلة", "خدمات الطوارئ المحلية"],
+	])("keeps unsafe Arabic request outside discovery: %s", (message, expected) => {
+		const next = submitFreeText(createDiscoveryState("ar"), message, "ar");
+		expect(next.stage).toBe("goal");
+		expect(next.answers).toEqual({});
+		expect(next.messages[next.messages.length - 1]?.text).toContain(expected);
+	});
+
+	it.each([
+		"I feel tired most days.",
+		"I cannot sleep well.",
+		"I missed three days.",
+		"أشعر بالتعب معظم الأيام.",
+		"لا أنام جيداً.",
+		"فاتتني ثلاثة أيام.",
+	])("continues ordinary discovery safely for normal wellness text: %s", (message) => {
+		const locale = /[\u0600-\u06ff]/.test(message) ? "ar" : "en";
+		const next = submitFreeText(createDiscoveryState(locale), message, locale);
+		expect(next.stage).toBe("routine");
+		expect(next.answers.goal).toMatch(/^free-/);
+	});
+
 	it("builds a personalized, gradual plan from selected answers", () => {
 		const plan = buildPersonalizedPlan(
 			{

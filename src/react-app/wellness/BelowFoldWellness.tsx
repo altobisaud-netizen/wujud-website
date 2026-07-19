@@ -147,17 +147,17 @@ export function SafetyPrivacy({ locale }: { locale: WellnessLocale }) {
 					"تدعم سارة روتين العافية العامة فقط.",
 					"لا تشخّص سارة الحالات الطبية ولا تصف الأدوية.",
 					"لا تحل سارة محل المختصين الصحيين المؤهلين.",
-					"أنت تتحكم في التذكيرات ويمكنك إيقافها متى شئت.",
-					"يمكنك إيقاف حسابك مؤقتاً أو طلب حذفه.",
-					"تُعالج معلومات العافية الشخصية بشكل منفصل تماماً عن سارة للأعمال المؤرشفة.",
+					"في تجربة الحساب المستقبلية، ستتحكم في التذكيرات وإيقاف الرحلة وطلبات الحذف.",
+					"لا ينشئ هذا النموذج حساباً ولا يخزّن بيانات العافية.",
+					"يجب أن تبقى أي معلومات عافية مستقبلية منفصلة تماماً عن سارة للأعمال المؤرشفة.",
 				]
 			: [
 					"SARA supports general wellness routines.",
 					"SARA does not diagnose medical conditions or prescribe medication.",
 					"SARA does not replace qualified healthcare professionals.",
-					"You control reminders and can turn them off.",
-					"You can pause or delete your account.",
-					"Personal wellness information is handled separately from archived SARA Business.",
+					"In a future account experience, you would control reminders, pausing and deletion requests.",
+					"This prototype creates no account and stores no wellness data.",
+					"Any future wellness information must remain separate from archived SARA Business.",
 				];
 	return (
 		<section className="wellness-section safety-section" id="safety">

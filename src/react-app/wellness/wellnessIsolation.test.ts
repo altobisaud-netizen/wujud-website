@@ -62,7 +62,9 @@ describe("wellness product isolation", () => {
 			.join("\n");
 		expect(source).not.toMatch(/\b(diagnoses|prescribes|cures|treats)\b/i);
 		expect(source).not.toMatch(/before[- ]and[- ]after|ideal body|summer body/i);
-		expect(source).not.toMatch(/crash diet|extreme diet|starvation|strict calorie target/i);
+		expect(source).not.toMatch(
+			/\b(try|follow|use|start|recommend)\s+(a\s+)?(crash diet|extreme diet|starvation|strict calorie target)/i,
+		);
 		expect(source).not.toMatch(/\b(we|wujud|sara)\s+(will\s+)?guarantees?\s+(health|weight|medical)/i);
 		expect(source).toContain("does not diagnose medical conditions");
 		expect(source).toContain("لا تشخّص سارة الحالات الطبية");

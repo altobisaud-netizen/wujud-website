@@ -35,6 +35,53 @@
 		var(--wellness-white);
 }
 
+.review-mode {
+	position: relative;
+	z-index: 30;
+	display: flex;
+	gap: 0.75rem;
+	align-items: center;
+	flex-wrap: wrap;
+	padding: 0.7rem clamp(1rem, 4vw, 4rem);
+	color: #fff;
+	background: #2b2145;
+	font-size: 0.8rem;
+}
+
+.review-mode > div:first-child {
+	display: grid;
+	margin-inline-end: auto;
+}
+
+.review-mode span,
+.review-mode output {
+	color: #ddd4f6;
+}
+
+.review-mode label,
+.review-mode__markers {
+	display: flex;
+	gap: 0.4rem;
+	align-items: center;
+}
+
+.review-mode select,
+.review-mode button {
+	min-height: 2.25rem;
+	padding: 0.35rem 0.6rem;
+	border: 1px solid #c4b4ee;
+	border-radius: 0.55rem;
+	color: #271d3d;
+	background: #fff;
+	font: inherit;
+}
+
+.review-mode button:focus-visible,
+.review-mode select:focus-visible {
+	outline: 3px solid #f1c76e;
+	outline-offset: 2px;
+}
+
 .wellness-app h1,
 .wellness-app h2,
 .wellness-app h3 {
@@ -1182,6 +1229,25 @@
 }
 
 @media (max-width: 420px) {
+	.review-mode {
+		align-items: stretch;
+	}
+
+	.review-mode > div:first-child,
+	.review-mode label,
+	.review-mode__markers {
+		width: 100%;
+	}
+
+	.review-mode select {
+		min-width: 0;
+		flex: 1;
+	}
+
+	.review-mode__markers {
+		flex-wrap: wrap;
+	}
+
 	.wellness-brand__mark {
 		width: 2.25rem;
 		height: 2.25rem;

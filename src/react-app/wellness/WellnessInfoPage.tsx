@@ -8,6 +8,7 @@ import {
 } from "./BelowFoldWellness";
 import { SiteHeader } from "./SiteHeader";
 import type { WellnessLocale } from "./types";
+import { useWellnessMetadata } from "./useWellnessMetadata";
 
 export type WellnessRoute =
 	| "how-it-works"
@@ -114,6 +115,7 @@ function PageIntro({
 
 export function WellnessInfoPage({ route }: { route: WellnessRoute }) {
 	const [locale, setLocale] = useState<WellnessLocale>(initialLocale);
+	useWellnessMetadata(locale);
 
 	useEffect(() => {
 		document.documentElement.lang = locale;

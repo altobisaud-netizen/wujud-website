@@ -107,9 +107,11 @@ export function submitFreeText(
 
 function safetyBoundaryReply(text: string, locale: WellnessLocale): string | null {
 	const urgent =
-		/\b(suicid\w*|kill myself|hurt myself|self[- ]harm|end my life)\b|انتحار|أقتل نفسي|اقتل نفسي|إيذاء نفسي|أؤذي نفسي/i;
+		/\b(suicid\w*|kill myself|hurt myself|self[- ]harm|end my life|urgent help|need urgent|immediate danger)\b|انتحار|أقتل نفسي|اقتل نفسي|إيذاء نفسي|أؤذي نفسي|مساعدة عاجلة|مساعدة طارئة|حالة عاجلة/i;
 	const medical =
 		/\b(diagnos\w*|medication|medicine dose|prescrib\w*|pregnan\w*|eating disorder|anorexi\w*|bulimi\w*)\b|تشخيص|دواء|جرعة|حامل|اضطراب الأكل|فقدان الشهية/i;
+	const unsafeRoutine =
+		/\b(extreme diet|crash diet|starv\w*|stop eating|no food|exercise (for )?(several|many) hours|work ?out (for )?(several|many) hours)\b|حمية قاسية|نظام غذائي قاس|أتوقف عن الأكل|امتنع عن الأكل|أتمرن لساعات|تمارين لساعات/i;
 
 	if (urgent.test(text)) {
 		return locale === "ar"
@@ -120,6 +122,11 @@ function safetyBoundaryReply(text: string, locale: WellnessLocale): string | nul
 		return locale === "ar"
 			? "يمكنني دعم روتين العافية العامة، لكن لا يمكنني تشخيص الحالات أو اقتراح الأدوية أو أن أحل محل مختص صحي مؤهل. يُرجى سؤال مختص مؤهل عن هذا الأمر."
 			: "I can support general wellness routines, but I can’t diagnose conditions, recommend medication, or replace a qualified healthcare professional. Please ask a qualified professional about this.";
+	}
+	if (unsafeRoutine.test(text)) {
+		return locale === "ar"
+			? "لا أستطيع المساعدة في الحرمان الشديد أو التمارين المفرطة. يمكننا بدلاً من ذلك اختيار خطوة عافية صغيرة ومتوازنة، وإذا كان هذا الأمر يعرّض صحتك للخطر فتواصل مع مختص صحي مؤهل."
+			: "I can’t help with extreme restriction or excessive exercise. We can choose a small, balanced wellness action instead; if this may put your health at risk, contact a qualified healthcare professional.";
 	}
 	return null;
 }

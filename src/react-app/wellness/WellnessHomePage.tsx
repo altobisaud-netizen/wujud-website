@@ -9,6 +9,8 @@ import {
 import { copy } from "./locale";
 import { SiteHeader } from "./SiteHeader";
 import type { WellnessLocale } from "./types";
+import { useWellnessMetadata } from "./useWellnessMetadata";
+import { WellnessReviewMode } from "./WellnessReviewMode";
 
 const BelowFoldWellness = lazy(() => import("./BelowFoldWellness"));
 
@@ -31,6 +33,7 @@ export function WellnessHomePage() {
 		[discovery.answers, locale],
 	);
 	const latestSaraMessage = [...discovery.messages].reverse().find((message) => message.role === "sara");
+	useWellnessMetadata(locale);
 
 	useEffect(() => {
 		document.documentElement.lang = locale;
@@ -73,6 +76,7 @@ export function WellnessHomePage() {
 			<a className="skip-link" href="#wellness-conversation">
 				{locale === "ar" ? "انتقل إلى المحادثة" : "Skip to conversation"}
 			</a>
+			<WellnessReviewMode onReset={reset} />
 			<SiteHeader locale={locale} onLocaleChange={changeLocale} />
 
 			<main>
