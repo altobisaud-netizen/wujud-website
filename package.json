@@ -1,8 +1,8 @@
 {
 	"name": "wujud-website",
-	"description": "A template for building a React application with Vite, Hono, and Cloudflare Workers",
+	"description": "Frontend-only WUJUD wellness preview featuring SARA, a daily wellness companion",
 	"cloudflare": {
-		"label": "Vite React Template",
+		"label": "WUJUD Wellness Preview",
 		"products": [
 			"Workers"
 		],
@@ -19,6 +19,7 @@
 		"react-icons": "^5.6.0"
 	},
 	"devDependencies": {
+		"@axe-core/playwright": "^4.12.1",
 		"@cloudflare/vite-plugin": "1.15.3",
 		"@eslint/js": "9.39.1",
 		"@types/node": "24.10.1",
@@ -29,6 +30,7 @@
 		"eslint-plugin-react-hooks": "7.0.1",
 		"eslint-plugin-react-refresh": "0.4.24",
 		"globals": "16.5.0",
+		"playwright-core": "^1.61.1",
 		"typescript": "5.8.3",
 		"typescript-eslint": "8.48.0",
 		"vite": "^6.0.0",
@@ -45,7 +47,8 @@
 		"lint": "eslint .",
 		"preview": "npm run build && vite preview",
 		"reference:frames": "python scripts/extract_reference_frames.py",
-		"test": "vitest run --config vitest.config.ts"
+		"test": "vitest run --config vitest.config.ts",
+		"verify:wellness": "node scripts/verify-wellness-preview.mjs"
 	},
 	"type": "module"
 }

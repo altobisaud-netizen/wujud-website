@@ -1,36 +1,19 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
-
 :root {
-	/* Tokens from https://wujud.onhercules.app/ (Tailwind theme in ref-site.css) */
-	--ref-bg: oklch(7% 0.005 60);
-	--ref-fg: oklch(96% 0.005 80);
-	--ref-muted: oklch(60% 0.01 80);
-	--ref-border: oklch(22% 0.01 60);
-	--ref-card: oklch(12% 0.005 60);
-	--ref-secondary: oklch(16% 0.005 60);
-	--ref-primary: oklch(78% 0.12 70);
-
-	--bg-deep: var(--ref-bg);
-	--bg-graphite: oklch(9% 0.005 60);
-	--bg-elevated: var(--ref-secondary);
-	--bg-card: var(--ref-card);
-	--bg-card-hover: oklch(14% 0.006 60);
-	--border-subtle: color-mix(in oklch, oklch(96% 0.005 80) 8%, transparent);
-	--border-hairline: color-mix(in oklch, oklch(96% 0.005 80) 10%, transparent);
-	--border-strong: color-mix(in oklch, var(--ref-primary) 45%, transparent);
-	--text-ivory: var(--ref-fg);
-	--text-muted: var(--ref-muted);
-	--text-faint: color-mix(in oklch, var(--ref-muted) 65%, transparent);
-	--gold: #c9a96a;
-	--gold-line: color-mix(in oklch, var(--ref-primary) 55%, transparent);
-	--gold-soft: color-mix(in oklch, var(--ref-primary) 12%, transparent);
-	--radius-sm: 6px;
-	--radius-md: 10px;
-	--radius-lg: 16px;
-	--font-sans: "Inter", system-ui, -apple-system, sans-serif;
-	--space-section: clamp(4rem, 8vw, 7rem);
-	--max-content: 1280px;
-	--header-h: 76px;
+	--wellness-white: #fffdf9;
+	--wellness-cream: #f8f5ee;
+	--wellness-lavender: #eee9f8;
+	--wellness-purple: #765b9e;
+	--wellness-purple-deep: #594078;
+	--wellness-purple-soft: #e1d8f1;
+	--wellness-green: #6e947c;
+	--wellness-green-soft: #e5f0e8;
+	--wellness-navy: #17243f;
+	--wellness-muted: #647087;
+	--wellness-line: #ddd9e4;
+	--wellness-shadow: 0 24px 70px rgba(44, 34, 69, 0.11);
+	--font-sans: "Segoe UI", Tahoma, Arial, system-ui, sans-serif;
+	--font-display: "Segoe UI Variable Display", "Segoe UI", Tahoma, Arial, system-ui, sans-serif;
+	--header-h: 78px;
 }
 
 *,
@@ -41,6 +24,7 @@
 
 html {
 	scroll-behavior: smooth;
+	background: var(--wellness-white);
 }
 
 body {
@@ -48,10 +32,11 @@ body {
 	min-width: 320px;
 	font-family: var(--font-sans);
 	font-size: 16px;
-	line-height: 1.5;
-	color: var(--text-ivory);
-	background: var(--bg-deep);
+	line-height: 1.6;
+	color: var(--wellness-navy);
+	background: var(--wellness-white);
 	-webkit-font-smoothing: antialiased;
+	overflow-x: hidden;
 }
 
 main section[id] {
@@ -69,15 +54,7 @@ a {
 
 img {
 	display: block;
-}
-
-img:not(.brand-icon-img):not(.brand-wordmark-img) {
 	max-width: 100%;
-}
-
-img:not(.brand-icon-img):not(.brand-wordmark-img):not(.ai-card__img):not(.hero__portrait):not(
-		.sara-onboarding__brand-icon
-	):not(.sara-onboarding__brand-word) {
 	height: auto;
 }
 
@@ -87,11 +64,20 @@ button {
 }
 
 :focus-visible {
-	outline: 2px solid var(--gold);
-	outline-offset: 2px;
+	outline: 3px solid #8d6fbd;
+	outline-offset: 3px;
 }
 
 @media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		scroll-behavior: auto !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+
 	html {
 		scroll-behavior: auto;
 	}
