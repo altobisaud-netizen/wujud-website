@@ -30,8 +30,8 @@ export const heroVisual: LifestyleVisual = {
 	genderFocus: "mixed",
 	hijab: true,
 	alt: {
-		en: "An Arab man and an Arab woman wearing a hijab outdoors in natural light, looking refreshed",
-		ar: "رجل عربي وامرأة عربية محجبة في الهواء الطلق بضوء طبيعي، يبدوان منتعشين",
+		en: "An Arab man and woman enjoying a calm everyday outdoor activity",
+		ar: "رجل وامرأة عربيان يستمتعان بنشاط يومي في بيئة خارجية هادئة",
 	},
 	label: { en: "Everyday wellbeing", ar: "عافية يومية" },
 	title: { en: "Everyday wellbeing", ar: "عافية يومية" },

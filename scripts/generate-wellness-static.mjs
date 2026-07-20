@@ -52,7 +52,7 @@ const staticContent = {
 				"SARA supports general wellness only. It does not diagnose conditions, recommend medication, replace qualified professionals or provide emergency services.",
 			],
 		],
-		arH1: "عادات صحية أسهل. نتائج حقيقية تدوم.",
+		arH1: "عادات صحية أسهل. وتقدّم تشعر به.",
 		arSummary:
 			"سارة رفيقتك اليومية للعافية من وجود. جرّب محادثة تفاعلية واطلع على رحلة شخصية لثمانية أسابيع من دون إنشاء حساب ودون حفظ بياناتك.",
 	},

@@ -174,18 +174,23 @@ export function WellnessHomePage() {
 						<figcaption>{heroVisual.label[locale]}</figcaption>
 					</figure>
 
-					<div className="conversation-shell phone-shell" id="wellness-conversation">
-						<div className="conversation-topbar">
+					<div
+						className="conversation-shell phone-shell conversion-chat"
+						id="wellness-conversation"
+						role="region"
+						aria-label={locale === "ar" ? "محادثة سارة التفاعلية" : "Interactive SARA conversation"}
+					>
+						<div className="conversation-topbar conversion-chat__topbar">
 							<div className="sara-identity">
-								<span className="sara-orb" aria-hidden="true">
+								<span className="sara-orb sara-orb--green" aria-hidden="true">
 									S
 								</span>
 								<div>
 									<strong>{locale === "ar" ? "سارة" : "SARA"}</strong>
-									<small>
-										<span className="status-dot" aria-hidden="true" />
-										<span>{t.chatSubtitle}</span>
-										<span className="status-text"> · {t.chatStatus}</span>
+									<small className="chat-subtitle">{t.chatSubtitle}</small>
+									<small className="chat-status-line">
+										<span className="status-dot status-dot--active" aria-hidden="true" />
+										<span className="status-text">{t.chatStatus}</span>
 									</small>
 								</div>
 							</div>

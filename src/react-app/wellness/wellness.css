@@ -254,6 +254,7 @@
 	border-radius: 50%;
 	filter: blur(2px);
 	pointer-events: none;
+	max-width: 100%;
 }
 
 .hero-ambient--one {
@@ -1291,7 +1292,8 @@
 		transform: none;
 	}
 
-	.typing-indicator span {
+	.typing-indicator span,
+	.status-dot--active {
 		animation: none !important;
 	}
 }
@@ -1353,10 +1355,29 @@
 }
 
 .conversion-hero {
-	grid-template-columns: minmax(16rem, 1fr) minmax(14rem, 0.9fr) minmax(20rem, 1.05fr);
+	grid-template-columns: minmax(0, 3fr) minmax(0, 3fr) minmax(0, 4fr);
 	align-items: stretch;
-	gap: clamp(1.25rem, 3vw, 2.5rem);
+	gap: clamp(1.1rem, 2.4vw, 2.25rem);
 	width: min(100% - 2.5rem, 1320px);
+	min-height: 0;
+	overflow: hidden;
+}
+
+.conversion-hero > .hero-copy {
+	max-width: none;
+}
+
+.conversion-hero .hero-copy h1,
+[dir="rtl"] .conversion-hero .hero-copy h1 {
+	max-width: none;
+	font-size: clamp(1.85rem, 2.6vw, 2.85rem);
+	line-height: 1.2;
+}
+
+.conversion-hero > .hero-copy,
+.conversion-hero > .hero-lifestyle,
+.conversion-hero > .conversion-chat {
+	min-width: 0;
 }
 
 .hero-title-line {
@@ -1367,6 +1388,10 @@
 	display: inline-flex;
 	align-items: center;
 	gap: 0.45rem;
+	color: var(--wellness-green-deep);
+	text-transform: none;
+	letter-spacing: 0;
+	font-size: 0.95rem;
 }
 
 .hero-outcome-row {
@@ -1378,7 +1403,7 @@
 	list-style: none;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1100px) {
 	.hero-outcome-row {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 	}
@@ -1446,13 +1471,24 @@
 	display: block;
 	overflow: hidden;
 	border-radius: 1.25rem;
-	box-shadow: 0 18px 40px rgba(23, 36, 63, 0.1);
+	box-shadow: 0 14px 32px rgba(23, 36, 63, 0.08);
 	background: var(--wellness-green-soft);
 }
 
 .hero-lifestyle__picture {
-	border-radius: 1.5rem;
-	min-height: min(28rem, 62vh);
+	position: relative;
+	border-radius: 1.35rem;
+	min-height: min(22rem, 52vh);
+	box-shadow: 0 16px 36px rgba(23, 36, 63, 0.09);
+}
+
+.hero-lifestyle__picture::after {
+	content: "";
+	position: absolute;
+	inset: auto 0 0;
+	height: 28%;
+	pointer-events: none;
+	background: linear-gradient(180deg, transparent, rgba(247, 250, 247, 0.55));
 }
 
 .hero-lifestyle__picture img,
@@ -1464,7 +1500,7 @@
 }
 
 .hero-lifestyle__picture img {
-	min-height: min(28rem, 62vh);
+	min-height: min(22rem, 52vh);
 	aspect-ratio: 3 / 4;
 }
 
@@ -1553,12 +1589,119 @@
 	background: rgba(255, 255, 255, 0.28);
 }
 
-.phone-shell {
+.phone-shell,
+.conversion-chat {
 	display: flex;
 	flex-direction: column;
-	border: 1px solid rgba(47, 158, 110, 0.18);
-	border-radius: 1.75rem;
+	min-height: min(34rem, 72vh);
+	border: 1px solid rgba(47, 158, 110, 0.22);
+	border-radius: 1.5rem;
 	background: #fff;
+	box-shadow:
+		0 22px 48px rgba(23, 36, 63, 0.14),
+		0 0 0 1px rgba(47, 158, 110, 0.04);
+	z-index: 2;
+}
+
+.conversion-chat__topbar {
+	background: linear-gradient(180deg, #1f7a54, #2f9e6e);
+	border-block-end: 0;
+	color: #fff;
+}
+
+.conversion-chat__topbar .sara-identity strong {
+	color: #fff;
+	font-size: 1.05rem;
+}
+
+.conversion-chat__topbar .chat-subtitle,
+.conversion-chat__topbar .chat-status-line,
+.conversion-chat__topbar .status-text {
+	color: rgba(255, 255, 255, 0.92);
+}
+
+.conversion-chat__topbar .reset-button {
+	color: #fff;
+	border-color: rgba(255, 255, 255, 0.35);
+	background: rgba(255, 255, 255, 0.12);
+}
+
+.conversion-chat__topbar .reset-button:hover,
+.conversion-chat__topbar .reset-button:focus-visible {
+	background: rgba(255, 255, 255, 0.22);
+}
+
+.sara-orb--green {
+	color: #fff;
+	background: linear-gradient(145deg, #176b48, #3cb07a);
+	box-shadow: 0 7px 16px rgba(23, 107, 72, 0.28);
+}
+
+.chat-subtitle {
+	display: block;
+	margin-block-start: 0.1rem;
+	font-size: 0.78rem;
+	font-weight: 600;
+}
+
+.chat-status-line {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	margin-block-start: 0.2rem;
+	font-size: 0.72rem;
+	font-weight: 700;
+}
+
+.status-dot--active {
+	background: #b8f0d2;
+	box-shadow: 0 0 0 3px rgba(184, 240, 210, 0.35);
+	animation: status-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+	0%,
+	100% {
+		opacity: 0.7;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 1;
+		transform: scale(1.15);
+	}
+}
+
+.conversion-chat .conversation-thread {
+	flex: 1 1 auto;
+	min-height: 14rem;
+	background: #fff;
+}
+
+.conversion-chat .choice-grid button {
+	min-height: 2.75rem;
+	border-color: rgba(47, 158, 110, 0.22);
+	font-weight: 700;
+}
+
+.conversion-chat .choice-grid button:hover,
+.conversion-chat .choice-grid button:focus-visible {
+	border-color: var(--wellness-green);
+	background: var(--wellness-green-soft);
+}
+
+.conversion-chat .wellness-composer {
+	border-block-start: 1px solid #e8f2ec;
+	background: #fbfefc;
+}
+
+.conversion-chat .wellness-composer input {
+	min-height: 2.75rem;
+}
+
+.conversion-chat .wellness-composer button {
+	min-width: 2.75rem;
+	min-height: 2.75rem;
+	background: var(--wellness-green-deep);
 }
 
 .chat-demo-label {
@@ -1739,17 +1882,25 @@
 	color: var(--wellness-muted);
 }
 
-@media (max-width: 1060px) {
+/* Three-column hero only when there is room; otherwise stack: copy → chat → image */
+@media (max-width: 1099px) {
 	.conversion-hero {
-		grid-template-columns: 1fr;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		max-width: 760px;
+		gap: 1.35rem;
 	}
 
-	.hero-lifestyle {
+	.conversion-hero > .hero-copy {
+		order: 1;
+	}
+
+	.conversion-hero > .conversion-chat,
+	.conversion-hero > .phone-shell {
 		order: 2;
 	}
 
-	.phone-shell {
+	.conversion-hero > .hero-lifestyle {
 		order: 3;
 	}
 
@@ -1771,15 +1922,60 @@
 	.conversion-hero {
 		display: flex;
 		flex-direction: column;
-		gap: 1.25rem;
+		gap: 1rem;
+		min-height: 0;
+		padding-block: 1.1rem 1.4rem;
+	}
+
+	.conversion-hero .hero-copy h1,
+	[dir="rtl"] .conversion-hero .hero-copy h1 {
+		font-size: clamp(1.55rem, 7vw, 1.95rem);
+		line-height: 1.25;
+	}
+
+	.conversion-hero .hero-copy__body {
+		margin-block-start: 0.75rem !important;
+		font-size: 0.95rem;
+		line-height: 1.55;
+	}
+
+	.conversion-hero .hero-outcome-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+		margin-block-start: 0.85rem;
+	}
+
+	.conversion-hero .hero-outcome-row li {
+		min-height: 2.2rem;
+		padding: 0.35rem 0.65rem;
+		font-size: 0.75rem;
+	}
+
+	.conversion-hero .hero-actions {
+		margin-block-start: 0.9rem;
+		gap: 0.5rem;
+	}
+
+	.conversion-hero .hero-cta {
+		min-height: 2.65rem;
+		padding: 0.55rem 0.95rem;
+		font-size: 0.9rem;
+	}
+
+	.conversion-hero .hero-trust-line {
+		margin-block-start: 0.55rem !important;
+		font-size: 0.8rem;
 	}
 
 	.hero-copy {
 		order: 1;
 	}
 
-	.phone-shell {
+	.phone-shell,
+	.conversion-chat {
 		order: 2;
+		min-height: 0;
 	}
 
 	.hero-lifestyle {
@@ -1802,17 +1998,57 @@
 		position: sticky;
 		inset-block-end: 0;
 		z-index: 5;
-		padding-block-end: 0.35rem;
+		padding-block-end: max(0.35rem, env(safe-area-inset-bottom, 0px));
 		background: linear-gradient(180deg, transparent, #fff 28%);
 	}
 }
 
-@media (max-width: 420px) {
+@media (max-width: 430px) {
+	.conversion-hero {
+		width: min(100% - 1.25rem, 1320px);
+	}
+
+	.conversion-home .wellness-nav {
+		display: none;
+	}
+
+	.conversion-home .wellness-header {
+		flex-wrap: wrap;
+		row-gap: 0.55rem;
+	}
+
+	.conversion-home .wellness-header__actions {
+		flex-wrap: wrap;
+		max-width: 100%;
+	}
+
 	.hero-actions {
 		flex-direction: column;
 	}
 
 	.hero-cta {
 		width: 100%;
+		min-height: 2.75rem;
+	}
+
+	.conversion-chat .choice-grid button,
+	.conversion-chat .wellness-composer input,
+	.conversion-chat .wellness-composer button {
+		min-height: 2.75rem;
+	}
+
+	.conversion-chat .chat-demo-label {
+		font-size: 0.72rem;
+		padding-block: 0.4rem;
+	}
+}
+
+@media (max-width: 360px) {
+	.conversion-hero .hero-outcome-row li:nth-child(n + 4) {
+		display: none;
+	}
+
+	.conversion-hero .hero-cta--secondary {
+		display: none;
 	}
 }

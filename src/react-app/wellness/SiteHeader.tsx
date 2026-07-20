@@ -30,7 +30,6 @@ export function SiteHeader({
 				<a href="#how-sara-learns">{t.nav.learn}</a>
 				<a href="/safety">{t.nav.safety}</a>
 				<a href="/pricing">{t.nav.pricing}</a>
-				<a href="#how-sara-learns">{t.nav.articles}</a>
 			</nav>
 
 			<div className="wellness-header__actions">
