@@ -1,0 +1,39 @@
+{
+  "desk": {
+    "cols": "375.266px 375.266px 500.359px",
+    "copyPct": 30,
+    "imagePct": 30,
+    "chatPct": 40,
+    "chatInViewport": true,
+    "robots": "noindex, nofollow"
+  },
+  "mobile": [
+    {
+      "w": 320,
+      "chatBeforeImage": true,
+      "chatInViewport": true,
+      "overflowX": false,
+      "choiceMinH": 44
+    },
+    {
+      "w": 390,
+      "chatBeforeImage": true,
+      "chatInViewport": true,
+      "overflowX": false,
+      "choiceMinH": 44
+    },
+    {
+      "w": 430,
+      "chatBeforeImage": true,
+      "chatInViewport": true,
+      "overflowX": false,
+      "choiceMinH": 44
+    }
+  ],
+  "stack": {
+    "cols": "760px",
+    "orderOk": true
+  },
+  "axeSerious": [],
+  "productApiHits": []
+}

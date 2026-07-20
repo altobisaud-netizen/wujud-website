@@ -1,0 +1,8 @@
+{
+  "cycle": "WUJUD-SARA-WELLNESS-006.2",
+  "timestamp": "2026-07-20T19:47:00Z",
+  "url": "https://wujud-sara-wellness-preview.altobi-saud.workers.dev",
+  "worker": "wujud-sara-wellness-preview",
+  "version": "ac63f2e8-d92e-43d4-8260-6af5cdeebd71",
+  "note": "Chat/imagery balance redeploy. Production Worker untouched. Source not yet committed."
+}

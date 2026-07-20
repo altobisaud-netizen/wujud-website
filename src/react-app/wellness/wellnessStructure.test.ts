@@ -58,7 +58,7 @@ describe("wellness website structure", () => {
 		expect(read("src/react-app/wellness/locale.ts")).toContain("Sign in coming soon");
 		expect(header).toContain('href="#wellness-conversation"');
 		expect(css).toContain("@media (prefers-reduced-motion: reduce)");
-		expect(css).toContain("@media (max-width: 420px)");
+		expect(css).toContain("@media (max-width: 430px)");
 		expect(globalCss).toContain("overflow-x: hidden");
 	});
 
@@ -95,7 +95,8 @@ describe("wellness website structure", () => {
 
 	it("prioritizes live chat before lifestyle imagery on mobile conversion layout", () => {
 		const css = read("src/react-app/wellness/wellness.css");
-		expect(css).toMatch(/\.phone-shell\s*\{[^}]*order:\s*2;/s);
+		expect(css).toMatch(/\.phone-shell[\s\S]*?order:\s*2;/);
 		expect(css).toMatch(/\.hero-lifestyle\s*\{[^}]*order:\s*3;/s);
+		expect(css).not.toMatch(/@media \(max-width: 1060px\)[\s\S]*?\.hero-lifestyle\s*\{[^}]*order:\s*2;/s);
 	});
 });

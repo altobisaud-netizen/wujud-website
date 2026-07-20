@@ -1,0 +1,69 @@
+{
+  "method": "Keyboard Ctrl+/- attempted (inert under Playwright). Verified via CDP page scale ×2 + half-width layout viewport (Chrome UI 200% zoom CSS equivalent). Not CSS zoom property.",
+  "base": "http://127.0.0.1:4181",
+  "keyboardZoomNote": "Control+Equal did not change layout viewport in automated Edge/Chrome; automation limitation recorded.",
+  "failures": [],
+  "results": [
+    {
+      "label": "desktop-ar",
+      "window": 1440,
+      "layoutEquivalentWidth": 720,
+      "keyboardZoomApplied": false,
+      "pageScale": 2,
+      "scaleOverflowX": false,
+      "equivOverflowX": false,
+      "chatBeforeImage": true,
+      "cols": "minmax(0px, 1fr)",
+      "dir": "rtl"
+    },
+    {
+      "label": "desktop-en",
+      "window": 1440,
+      "layoutEquivalentWidth": 720,
+      "keyboardZoomApplied": false,
+      "pageScale": 2,
+      "scaleOverflowX": false,
+      "equivOverflowX": false,
+      "chatBeforeImage": true,
+      "cols": "minmax(0px, 1fr)",
+      "dir": "ltr"
+    },
+    {
+      "label": "mobile390-ar",
+      "window": 390,
+      "layoutEquivalentWidth": 195,
+      "keyboardZoomApplied": false,
+      "pageScale": 2,
+      "scaleOverflowX": false,
+      "equivOverflowX": false,
+      "chatBeforeImage": true,
+      "cols": "minmax(0px, 1fr)",
+      "dir": "rtl"
+    },
+    {
+      "label": "mobile320-ar",
+      "window": 320,
+      "layoutEquivalentWidth": 160,
+      "keyboardZoomApplied": false,
+      "pageScale": 2,
+      "scaleOverflowX": false,
+      "equivOverflowX": false,
+      "chatBeforeImage": true,
+      "cols": "minmax(0px, 1fr)",
+      "dir": "rtl"
+    },
+    {
+      "label": "mobile430-ar",
+      "window": 430,
+      "layoutEquivalentWidth": 215,
+      "keyboardZoomApplied": false,
+      "pageScale": 2,
+      "scaleOverflowX": false,
+      "equivOverflowX": false,
+      "chatBeforeImage": true,
+      "cols": "minmax(0px, 1fr)",
+      "dir": "rtl"
+    }
+  ],
+  "status": "PASS"
+}

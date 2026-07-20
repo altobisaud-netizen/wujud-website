@@ -1,0 +1,33 @@
+{
+  "responsive": [
+    {
+      "width": 320,
+      "overflowX": false,
+      "chatY": 406.984375,
+      "imageY": 1211.859375,
+      "chatBeforeImage": true,
+      "chatInFirstViewport": true,
+      "zoom200OverflowX": true
+    },
+    {
+      "width": 390,
+      "overflowX": false,
+      "chatY": 505.453125,
+      "imageY": 1287.28125,
+      "chatBeforeImage": true,
+      "chatInFirstViewport": true,
+      "zoom200OverflowX": true
+    },
+    {
+      "width": 430,
+      "overflowX": false,
+      "chatY": 512.453125,
+      "imageY": 1135.890625,
+      "chatBeforeImage": true,
+      "chatInFirstViewport": true,
+      "zoom200OverflowX": true
+    }
+  ],
+  "productApiHits": [],
+  "reducedMotionTypingBubbles": 0
+}
