@@ -1,8 +1,11 @@
 {
-  "cycle": "WUJUD-SARA-WELLNESS-006.2",
-  "timestamp": "2026-07-20T19:47:00Z",
+  "cycle": "WUJUD-SARA-WELLNESS-006.3",
+  "timestamp": "2026-07-20T20:15:00Z",
   "url": "https://wujud-sara-wellness-preview.altobi-saud.workers.dev",
   "worker": "wujud-sara-wellness-preview",
-  "version": "ac63f2e8-d92e-43d4-8260-6af5cdeebd71",
-  "note": "Chat/imagery balance redeploy. Production Worker untouched. Source not yet committed."
+  "version": "ab37545f-1aee-420b-b597-b31e79792f9f",
+  "replaces": "ac63f2e8-d92e-43d4-8260-6af5cdeebd71",
+  "featureCommit": "186d01728a9bfe84d7b1d0992808a0928a0b6e38",
+  "testCommit": "b83766c922d5118101d5bc27f72e059c96394043",
+  "note": "Redeployed after commit so Git matches preview (zoom overflow fix)."
 }
