@@ -31,19 +31,20 @@ export const wellnessRouteMetadata: Record<WellnessPublicPath, WellnessRouteMeta
 		canonicalPath: "/",
 		indexability: "index, follow",
 		en: {
-			title: "WUJUD — Meet SARA, Your Daily Wellness Companion",
+			title: "WUJUD — Healthier habits with SARA",
 			description:
-				"Meet SARA, WUJUD's supportive wellness companion for building healthier routines through small, realistic daily actions.",
-			ogTitle: "Meet SARA, Your Daily Wellness Companion",
+				"SARA is WUJUD’s daily wellness companion for healthier habits made easier and progress you can feel through small, realistic actions.",
+			ogTitle: "Healthier habits made easier with SARA",
 			ogDescription:
-				"Explore a calmer, personalized eight-week wellness journey built around realistic daily actions.",
+				"Try an interactive SARA conversation, preview a personalized eight-week journey, and explore provisional subscription options.",
 		},
 		ar: {
-			title: "وجود — تعرّف على سارة، رفيقتك اليومية للعافية",
+			title: "وجود — عادات صحية أسهل مع سارة",
 			description:
-				"تعرّف على سارة، رفيقتك الداعمة من وجود لبناء عادات صحية بخطوات يومية بسيطة وواقعية.",
-			ogTitle: "تعرّف على سارة، رفيقتك اليومية للعافية",
-			ogDescription: "استكشف رحلة عافية شخصية وهادئة لثمانية أسابيع بخطوات يومية واقعية.",
+				"سارة رفيقتك اليومية من وجود لبناء عادات صحية أسهل ونتائج تشعر بها عبر خطوات بسيطة وواقعية.",
+			ogTitle: "عادات صحية أسهل مع سارة",
+			ogDescription:
+				"جرّب محادثة تفاعلية مع سارة، واطلع على رحلة ثمانية أسابيع شخصية، واستكشف خيارات الاشتراك الأولية.",
 		},
 	},
 	"/how-it-works": {

@@ -1,4 +1,10 @@
-import { getChoices, nextQuestion } from "./locale";
+import {
+	buildPersonalizedPreview,
+	challengePromptForGoal,
+	getChoices,
+	nextQuestion,
+	planSuggestion,
+} from "./locale";
 import type {
 	ConversationMessage,
 	DiscoveryAnswers,
@@ -7,21 +13,64 @@ import type {
 	WellnessLocale,
 } from "./types";
 
-const ORDER: DiscoveryStage[] = [
-	"goal",
-	"routine",
-	"challenge",
-	"supportTime",
-	"coachingStyle",
-	"preview",
-];
+const ORDER: DiscoveryStage[] = ["goal", "challenge", "planFit", "journeyAsk", "preview"];
+
+const SESSION_KEY = "wujud-wellness-session-answers";
 
 export function createDiscoveryState(locale: WellnessLocale): DiscoveryState {
 	return {
 		stage: "goal",
 		answers: {},
 		messages: [{ id: "sara-opening", role: "sara", text: nextQuestion(locale, "goal") }],
+		history: [],
 	};
+}
+
+function snapshot(state: DiscoveryState) {
+	return {
+		stage: state.stage,
+		answers: { ...state.answers },
+		messages: state.messages.map((message) => ({ ...message })),
+	};
+}
+
+export function persistSessionAnswers(answers: DiscoveryAnswers): void {
+	try {
+		window.sessionStorage.setItem(SESSION_KEY, JSON.stringify(answers));
+	} catch {
+		// Preview still works when storage is unavailable.
+	}
+}
+
+export function clearSessionAnswers(): void {
+	try {
+		window.sessionStorage.removeItem(SESSION_KEY);
+	} catch {
+		// Ignore storage failures.
+	}
+}
+
+export function readSessionAnswers(): DiscoveryAnswers | null {
+	try {
+		const raw = window.sessionStorage.getItem(SESSION_KEY);
+		if (!raw) return null;
+		return JSON.parse(raw) as DiscoveryAnswers;
+	} catch {
+		return null;
+	}
+}
+
+export function undoLastChoice(state: DiscoveryState): DiscoveryState {
+	const previous = state.history[state.history.length - 1];
+	if (!previous) return state;
+	const restored = {
+		stage: previous.stage,
+		answers: previous.answers,
+		messages: previous.messages,
+		history: state.history.slice(0, -1),
+	};
+	persistSessionAnswers(restored.answers);
+	return restored;
 }
 
 export function selectDiscoveryAnswer(
@@ -33,47 +82,97 @@ export function selectDiscoveryAnswer(
 	if (state.stage === "preview") return state;
 
 	const current = state.stage;
-	const index = ORDER.indexOf(current);
-	const nextStage = ORDER[index + 1] ?? "preview";
-	const answers = { ...state.answers, [current]: answerId };
 	const userMessage: ConversationMessage = {
 		id: `user-${current}-${state.messages.length}`,
 		role: "user",
 		text: label,
 	};
+	const history = [...state.history, snapshot(state)];
 
-	if (nextStage === "preview") {
-		return {
-			stage: "preview",
+	if (current === "planFit" && answerId === "edit") {
+		const answers = { ...state.answers };
+		delete answers.planFit;
+		delete answers.challenge;
+		const next: DiscoveryState = {
+			stage: "challenge",
 			answers,
+			history,
 			messages: [
 				...state.messages,
 				userMessage,
 				{
-					id: "sara-preview",
+					id: `sara-edit-${state.messages.length + 1}`,
 					role: "sara",
-					text:
-						locale === "ar"
-							? "شكراً لمشاركتك. جهّزت لك نقطة بداية مرنة لرحلة الثمانية أسابيع."
-							: "Thanks for sharing that. I’ve prepared a flexible starting point for your eight-week journey.",
+					text: challengePromptForGoal(answers.goal, locale),
 				},
 			],
 		};
+		persistSessionAnswers(next.answers);
+		return next;
 	}
 
-	return {
+	if (current === "journeyAsk" && (answerId === "howWorks" || answerId === "pricing")) {
+		const answers = { ...state.answers, journeyAsk: answerId };
+		const saraText =
+			answerId === "howWorks"
+				? locale === "ar"
+					? "سارة تساعدك عبر محادثة بسيطة: تشارك ما ترغب في تحسينه، ثم تحصل على خطوة يومية ومراجعة أسبوعية، مع تعديل الخطة عندما يكون يومك مزدحماً.\n\nسأعرض الآن معاينة رحلتك المقترحة."
+					: "SARA helps through a simple conversation: you share what you want to improve, then get a daily step and weekly review, with plan adjustments on busy days.\n\nI’ll show your suggested journey preview now."
+				: locale === "ar"
+					? "السعر قيد المراجعة حالياً. لا يوجد شراء في هذه المعاينة، ويمكنك طلب إشعار عند الإطلاق بعد معاينة الرحلة."
+					: "Pricing is under review. There is no purchase in this preview, and you can request a launch notification after viewing the journey.";
+		const next: DiscoveryState = {
+			stage: "preview",
+			answers,
+			history,
+			messages: [
+				...state.messages,
+				userMessage,
+				{ id: `sara-${answerId}`, role: "sara", text: saraText },
+			],
+		};
+		persistSessionAnswers(next.answers);
+		return next;
+	}
+
+	const answers = { ...state.answers, [current]: answerId };
+	const index = ORDER.indexOf(current);
+	let nextStage = ORDER[index + 1] ?? "preview";
+	let saraText = "";
+
+	if (current === "goal") {
+		nextStage = "challenge";
+		saraText = challengePromptForGoal(answerId, locale);
+	} else if (current === "challenge") {
+		nextStage = "planFit";
+		saraText = planSuggestion(answers.goal, answerId, locale);
+	} else if (current === "planFit") {
+		nextStage = "journeyAsk";
+		saraText = nextQuestion(locale, "journeyAsk");
+	} else if (current === "journeyAsk") {
+		nextStage = "preview";
+		saraText =
+			locale === "ar"
+				? "إليك معاينة مرنة لرحلتك المقترحة مع سارة."
+				: "Here is a flexible preview of your suggested journey with SARA.";
+	}
+
+	const next: DiscoveryState = {
 		stage: nextStage,
 		answers,
+		history,
 		messages: [
 			...state.messages,
 			userMessage,
 			{
-				id: `sara-${nextStage}`,
+				id: `sara-${nextStage}-${state.messages.length + 1}`,
 				role: "sara",
-				text: nextQuestion(locale, nextStage),
+				text: saraText,
 			},
 		],
 	};
+	persistSessionAnswers(next.answers);
+	return next;
 }
 
 export function submitFreeText(
@@ -82,7 +181,9 @@ export function submitFreeText(
 	locale: WellnessLocale,
 ): DiscoveryState {
 	const normalized = text.normalize("NFC").replace(/\s+/g, " ").trim().slice(0, 400);
-	if (!normalized || state.stage === "preview") return state;
+	if (!normalized || state.stage === "preview" || state.stage === "planFit" || state.stage === "journeyAsk") {
+		return state;
+	}
 	const boundaryReply = safetyBoundaryReply(normalized, locale);
 	if (boundaryReply) {
 		return {
@@ -131,101 +232,15 @@ function safetyBoundaryReply(text: string, locale: WellnessLocale): string | nul
 	return null;
 }
 
-function goalAction(goal: string | undefined, locale: WellnessLocale): string {
-	if (locale === "ar") {
-		const actions: Record<string, string> = {
-			energy: "تسجيل مستوى طاقتك مرة واحدة في اليوم",
-			sleep: "إشارة مسائية بسيطة تساعدك على الاستعداد للنوم",
-			movement: "فترة حركة قصيرة تناسب يومك",
-			meals: "لحظة ملاحظة لانتظام وجباتك وتنوعها",
-			consistency: "خطوة يومية صغيرة يسهل تكرارها",
-			unsure: "تجربة خطوات صغيرة لمعرفة ما يفيدك أكثر",
-		};
-		return actions[goal ?? "unsure"] ?? actions.unsure;
-	}
-	const actions: Record<string, string> = {
-		energy: "A consistent morning energy check-in",
-		sleep: "One simple evening wind-down cue",
-		movement: "One short movement action that fits your day",
-		meals: "A brief reflection on meal regularity and variety",
-		consistency: "One small daily action that is easy to repeat",
-		unsure: "A few small experiments to learn what helps most",
-	};
-	return actions[goal ?? "unsure"] ?? actions.unsure;
-}
-
-function challengeAction(challenge: string | undefined, locale: WellnessLocale): string {
-	if (locale === "ar") {
-		const actions: Record<string, string> = {
-			sleep: "مراجعة قصيرة لما يساعدك على التعافي بعد ليلة صعبة",
-			meals: "خيار عملي لوجبة منتظمة في الأيام المزدحمة",
-			sitting: "تذكير مرن بالمشي القصير أو التمدد",
-			stress: "خطة أصغر للأيام المزدحمة والضاغطة",
-			unsure: "تأمل مسائي قصير لملاحظة العوائق",
-		};
-		return actions[challenge ?? "unsure"] ?? actions.unsure;
-	}
-	const actions: Record<string, string> = {
-		sleep: "A short recovery reflection after a difficult night",
-		meals: "One practical regular-meal option for busy days",
-		sitting: "A flexible prompt for a short walk or stretch",
-		stress: "A smaller fallback action for stressful days",
-		unsure: "A short evening reflection to notice barriers",
-	};
-	return actions[challenge ?? "unsure"] ?? actions.unsure;
-}
-
-function supportAction(answers: DiscoveryAnswers, locale: WellnessLocale): string {
-	const time = answers.supportTime;
-	const style = answers.coachingStyle;
-	if (locale === "ar") {
-		const timeLabel =
-			time === "morning"
-				? "الصباح"
-				: time === "evening"
-					? "المساء"
-					: time === "midday"
-						? "خلال اليوم"
-						: "وقت مرن";
-		const styleLabel =
-			style === "practical"
-				? "بأسلوب مختصر وعملي"
-				: style === "reflective"
-					? "بأسئلة هادئة للتأمل"
-					: style === "gentle"
-						? "بتشجيع لطيف"
-						: "بمزيج متوازن";
-		return `دعم في ${timeLabel} ${styleLabel}`;
-	}
-	const timeLabel =
-		time === "morning"
-			? "morning"
-			: time === "evening"
-				? "evening"
-				: time === "midday"
-					? "midday"
-					: "flexible";
-	const styleLabel =
-		style === "practical"
-			? "short, practical coaching"
-			: style === "reflective"
-				? "calm reflective questions"
-				: style === "gentle"
-					? "gentle encouragement"
-					: "a balanced coaching mix";
-	return `${timeLabel[0].toUpperCase()}${timeLabel.slice(1)} support with ${styleLabel}`;
-}
-
+/** @deprecated Prefer buildPersonalizedPreview — kept for existing test/import compatibility. */
 export function buildPersonalizedPlan(
 	answers: DiscoveryAnswers,
 	locale: WellnessLocale,
 ): string[] {
-	return [
-		goalAction(answers.goal, locale),
-		challengeAction(answers.challenge, locale),
-		supportAction(answers, locale),
-	];
+	return buildPersonalizedPreview(answers, locale).actions;
 }
+
+export { buildPersonalizedPreview };
 
 export function choicesForState(state: DiscoveryState, locale: WellnessLocale) {
 	return getChoices(locale, state.stage);

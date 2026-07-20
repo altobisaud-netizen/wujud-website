@@ -39,22 +39,22 @@ const { WELLNESS_PUBLIC_ROUTES, wellnessRouteMetadata } = metadataModule;
 
 const staticContent = {
 	"/": {
-		h1: "Meet SARA. Build healthier routines through small daily actions.",
+		h1: "Healthier habits made easier. Progress you can feel.",
 		summary:
-			"SARA is WUJUD's daily wellness companion. Explore a personalized eight-week journey built around realistic actions for energy, movement, meals, sleep and consistency.",
+			"SARA is WUJUD's daily wellness companion. Try an interactive conversation, preview a personalized eight-week journey, and explore provisional subscription options. No account is required and answers are not saved.",
 		sections: [
 			[
-				"Start with a short discovery",
-				"Choose a wellness goal, describe your routine and preview a flexible starting point. No account is required and this prototype sends no answers to a server.",
+				"Start with a live SARA conversation",
+				"Answer a few easy questions, receive a personalized wellness preview, then review pricing or waitlist actions. This prototype sends no answers to a server.",
 			],
 			[
 				"Clear safety boundaries",
 				"SARA supports general wellness only. It does not diagnose conditions, recommend medication, replace qualified professionals or provide emergency services.",
 			],
 		],
-		arH1: "تعرّف على سارة، رفيقتك اليومية لبناء عادات صحية بخطوات بسيطة.",
+		arH1: "عادات صحية أسهل. نتائج حقيقية تدوم.",
 		arSummary:
-			"سارة هي رفيقتك اليومية للعافية من وجود. استكشف رحلة شخصية ومرنة لثمانية أسابيع من دون إنشاء حساب.",
+			"سارة رفيقتك اليومية للعافية من وجود. جرّب محادثة تفاعلية واطلع على رحلة شخصية لثمانية أسابيع من دون إنشاء حساب ودون حفظ بياناتك.",
 	},
 	"/how-it-works": {
 		h1: "How SARA works",

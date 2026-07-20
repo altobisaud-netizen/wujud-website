@@ -1,24 +1,38 @@
-import { lazy, Suspense, useEffect, useMemo, useState, type FormEvent } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import {
-	buildPersonalizedPlan,
+	buildPersonalizedPreview,
 	choicesForState,
+	clearSessionAnswers,
 	createDiscoveryState,
 	selectDiscoveryAnswer,
 	submitFreeText,
+	undoLastChoice,
 } from "./conversation";
 import { copy } from "./locale";
+import { heroVisual } from "./lifestyleImagery";
 import { SiteHeader } from "./SiteHeader";
 import type { WellnessLocale } from "./types";
 import { useWellnessMetadata } from "./useWellnessMetadata";
+import { WellnessPicture } from "./WellnessPicture";
 import { WellnessReviewMode } from "./WellnessReviewMode";
 
 const BelowFoldWellness = lazy(() => import("./BelowFoldWellness"));
 
 function readInitialLocale(): WellnessLocale {
 	try {
-		return window.localStorage.getItem("wujud-wellness-locale") === "ar" ? "ar" : "en";
+		const stored = window.localStorage.getItem("wujud-wellness-locale");
+		if (stored === "en" || stored === "ar") return stored;
 	} catch {
-		return "en";
+		// Fall through to Arabic-first default.
+	}
+	return "ar";
+}
+
+function prefersReducedMotion(): boolean {
+	try {
+		return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+	} catch {
+		return false;
 	}
 }
 
@@ -26,10 +40,12 @@ export function WellnessHomePage() {
 	const [locale, setLocale] = useState<WellnessLocale>(readInitialLocale);
 	const [discovery, setDiscovery] = useState(() => createDiscoveryState(locale));
 	const [composer, setComposer] = useState("");
+	const [typing, setTyping] = useState(false);
+	const typingTimer = useRef<number | null>(null);
 	const t = copy[locale];
 	const choices = choicesForState(discovery, locale);
-	const plan = useMemo(
-		() => buildPersonalizedPlan(discovery.answers, locale),
+	const preview = useMemo(
+		() => buildPersonalizedPreview(discovery.answers, locale),
 		[discovery.answers, locale],
 	);
 	const latestSaraMessage = [...discovery.messages].reverse().find((message) => message.role === "sara");
@@ -45,34 +61,73 @@ export function WellnessHomePage() {
 		}
 	}, [locale]);
 
+	useEffect(() => {
+		return () => {
+			if (typingTimer.current) window.clearTimeout(typingTimer.current);
+		};
+	}, []);
+
+	function withTyping(apply: () => void) {
+		if (typingTimer.current) window.clearTimeout(typingTimer.current);
+		if (prefersReducedMotion()) {
+			apply();
+			setTyping(false);
+			return;
+		}
+		setTyping(true);
+		typingTimer.current = window.setTimeout(() => {
+			apply();
+			setTyping(false);
+			typingTimer.current = null;
+		}, 420);
+	}
+
 	function changeLocale(next: WellnessLocale) {
 		if (next === locale) return;
 		setLocale(next);
+		clearSessionAnswers();
 		setDiscovery(createDiscoveryState(next));
 		setComposer("");
+		setTyping(false);
 	}
 
 	function choose(id: string, label: string) {
-		setDiscovery((current) => selectDiscoveryAnswer(current, id, label, locale));
-		setComposer("");
+		withTyping(() => {
+			setDiscovery((current) => selectDiscoveryAnswer(current, id, label, locale));
+			setComposer("");
+		});
 	}
 
 	function submit(e: FormEvent) {
 		e.preventDefault();
-		const next = submitFreeText(discovery, composer, locale);
-		if (next !== discovery) {
-			setDiscovery(next);
-			setComposer("");
-		}
+		const value = composer;
+		withTyping(() => {
+			setDiscovery((current) => {
+				const next = submitFreeText(current, value, locale);
+				if (next !== current) setComposer("");
+				return next;
+			});
+		});
 	}
 
 	function reset() {
+		if (typingTimer.current) window.clearTimeout(typingTimer.current);
+		clearSessionAnswers();
 		setDiscovery(createDiscoveryState(locale));
 		setComposer("");
+		setTyping(false);
 	}
 
+	function undo() {
+		if (typingTimer.current) window.clearTimeout(typingTimer.current);
+		setTyping(false);
+		setDiscovery((current) => undoLastChoice(current));
+	}
+
+	const titleLines = t.heroTitle.split("\n");
+
 	return (
-		<div className="wellness-app" dir={locale === "ar" ? "rtl" : "ltr"}>
+		<div className="wellness-app conversion-home" dir={locale === "ar" ? "rtl" : "ltr"}>
 			<a className="skip-link" href="#wellness-conversation">
 				{locale === "ar" ? "انتقل إلى المحادثة" : "Skip to conversation"}
 			</a>
@@ -80,54 +135,80 @@ export function WellnessHomePage() {
 			<SiteHeader locale={locale} onLocaleChange={changeLocale} />
 
 			<main>
-				<section className="wellness-hero">
+				<section className="wellness-hero conversion-hero" aria-labelledby="conversion-hero-title">
 					<div className="hero-ambient hero-ambient--one" aria-hidden="true" />
 					<div className="hero-ambient hero-ambient--two" aria-hidden="true" />
+
 					<div className="hero-copy">
-						<p className="eyebrow">{t.heroEyebrow}</p>
-						<h1>{t.heroTitle}</h1>
+						<p className="eyebrow hero-eyebrow">
+							<span aria-hidden="true">♡</span>
+							{t.heroEyebrow}
+						</p>
+						<h1 id="conversion-hero-title">
+							{titleLines.map((line) => (
+								<span key={line} className="hero-title-line">
+									{line}
+								</span>
+							))}
+						</h1>
 						<p className="hero-copy__body">{t.heroBody}</p>
-						<div className="hero-trust-row" aria-label={locale === "ar" ? "مبادئ وجود" : "WUJUD principles"}>
-							<span>
-								<i aria-hidden="true">◌</i>
-								{locale === "ar" ? "خاص" : "Private"}
-							</span>
-							<span>
-								<i aria-hidden="true">↗</i>
-								{locale === "ar" ? "واقعي" : "Realistic"}
-							</span>
-							<span>
-								<i aria-hidden="true">♡</i>
-								{locale === "ar" ? "من دون أحكام" : "Non-judgmental"}
-							</span>
+						<ul className="hero-outcome-row" aria-label={locale === "ar" ? "نتائج يومية" : "Everyday outcomes"}>
+							{t.heroOutcomes.map((item) => (
+								<li key={item}>{item}</li>
+							))}
+						</ul>
+						<div className="hero-actions">
+							<a className="hero-cta hero-cta--primary" href="#wellness-conversation">
+								<span className="chat-glyph" aria-hidden="true" />
+								{t.heroPrimaryCta}
+							</a>
+							<a className="hero-cta hero-cta--secondary" href="/how-it-works">
+								{t.heroSecondaryCta}
+							</a>
 						</div>
+						<p className="hero-trust-line">{t.heroTrust}</p>
 					</div>
 
-					<div className="conversation-shell" id="wellness-conversation">
+					<figure className="hero-lifestyle">
+						<WellnessPicture visual={heroVisual} locale={locale} eager className="hero-lifestyle__picture" />
+						<figcaption>{heroVisual.label[locale]}</figcaption>
+					</figure>
+
+					<div className="conversation-shell phone-shell" id="wellness-conversation">
 						<div className="conversation-topbar">
 							<div className="sara-identity">
 								<span className="sara-orb" aria-hidden="true">
 									S
 								</span>
 								<div>
-									<strong>SARA</strong>
+									<strong>{locale === "ar" ? "سارة" : "SARA"}</strong>
 									<small>
 										<span className="status-dot" aria-hidden="true" />
-										{locale === "ar" ? "رفيقتك للعافية" : "Your wellness companion"}
+										<span>{t.chatSubtitle}</span>
+										<span className="status-text"> · {t.chatStatus}</span>
 									</small>
 								</div>
 							</div>
-							<button className="reset-button" type="button" onClick={reset}>
-								{t.reset}
-							</button>
+							<div className="conversation-controls">
+								{discovery.history.length > 0 ? (
+									<button className="reset-button" type="button" onClick={undo}>
+										{t.undo}
+									</button>
+								) : null}
+								<button className="reset-button" type="button" onClick={reset}>
+									{t.reset}
+								</button>
+							</div>
 						</div>
 
-						<div className="conversation-thread" aria-label={locale === "ar" ? "محادثة استكشاف العافية" : "Wellness discovery conversation"}>
+						<p className="chat-demo-label">{t.chatDemoLabel}</p>
+
+						<div
+							className="conversation-thread"
+							aria-label={locale === "ar" ? "محادثة استكشاف العافية" : "Wellness discovery conversation"}
+						>
 							{discovery.messages.map((message) => (
-								<div
-									className={`message-row message-row--${message.role}`}
-									key={message.id}
-								>
+								<div className={`message-row message-row--${message.role}`} key={message.id}>
 									{message.role === "sara" ? (
 										<span className="sara-orb sara-orb--tiny" aria-hidden="true">
 											S
@@ -135,35 +216,72 @@ export function WellnessHomePage() {
 									) : null}
 									<div className={`message-bubble message-bubble--${message.role}`}>
 										{message.text.split("\n").map((line, index) =>
-											line ? <p key={`${message.id}-${index}`}>{line}</p> : <br key={`${message.id}-${index}`} />,
+											line ? (
+												<p key={`${message.id}-${index}`}>{line}</p>
+											) : (
+												<br key={`${message.id}-${index}`} />
+											),
 										)}
 									</div>
 								</div>
 							))}
 
-							{discovery.stage !== "preview" ? (
+							{typing ? (
+								<div className="message-row message-row--sara" aria-live="polite">
+									<span className="sara-orb sara-orb--tiny" aria-hidden="true">
+										S
+									</span>
+									<div className="message-bubble message-bubble--sara typing-indicator">
+										<span className="sr-only">{t.typing}</span>
+										<span aria-hidden="true" />
+										<span aria-hidden="true" />
+										<span aria-hidden="true" />
+									</div>
+								</div>
+							) : null}
+
+							{!typing && discovery.stage !== "preview" ? (
 								<fieldset className="choice-grid">
 									<legend className="sr-only">
 										{locale === "ar" ? "اختر إجابتك" : "Choose your answer"}
 									</legend>
 									{choices.map((choice) => (
-										<button
-											type="button"
-											key={choice.id}
-											onClick={() => choose(choice.id, choice.label)}
-										>
+										<button type="button" key={choice.id} onClick={() => choose(choice.id, choice.label)}>
 											{choice.label}
-											<span aria-hidden="true">→</span>
 										</button>
 									))}
 								</fieldset>
-							) : (
+							) : null}
+
+							{!typing && discovery.stage === "preview" ? (
 								<section className="plan-preview" aria-labelledby="plan-preview-title">
 									<p className="eyebrow">{locale === "ar" ? "معاينة شخصية" : "Personalized preview"}</p>
 									<h2 id="plan-preview-title">{t.previewTitle}</h2>
 									<p>{t.previewIntro}</p>
+									<dl className="preview-meta">
+										<div>
+											<dt>{locale === "ar" ? "الهدف" : "Goal"}</dt>
+											<dd>{preview.goalLabel}</dd>
+										</div>
+										<div>
+											<dt>{locale === "ar" ? "التركيز الابتدائي" : "Starting focus"}</dt>
+											<dd>{preview.startingFocus}</dd>
+										</div>
+										<div>
+											<dt>{locale === "ar" ? "الدعم اليومي" : "Daily support"}</dt>
+											<dd>{preview.dailySupport}</dd>
+										</div>
+										<div>
+											<dt>{locale === "ar" ? "الدعم الأسبوعي" : "Weekly support"}</dt>
+											<dd>{preview.weeklySupport}</dd>
+										</div>
+										<div>
+											<dt>{locale === "ar" ? "أسلوب المرافقة" : "Coaching style"}</dt>
+											<dd>{preview.coachingStyle}</dd>
+										</div>
+									</dl>
 									<ul>
-										{plan.map((action) => (
+										{preview.actions.map((action) => (
 											<li key={action}>
 												<span aria-hidden="true">✓</span>
 												{action}
@@ -173,19 +291,26 @@ export function WellnessHomePage() {
 									<p className="plan-preview__closing">{t.previewClosing}</p>
 									<div className="save-journey-card">
 										<div>
-											<strong>{t.saveTitle}</strong>
+											<strong>{locale === "ar" ? copy.ar.sections.conversionTitle : copy.en.sections.conversionTitle}</strong>
 											<p>{t.saveBody}</p>
+											<p className="price-placeholder">{locale === "ar" ? "السعر قيد المراجعة" : "Price under review"}</p>
 										</div>
-										<button type="button" disabled aria-describedby="prototype-account-note">
+										<button
+											type="button"
+											disabled
+											aria-disabled="true"
+											aria-describedby="prototype-account-note waitlist-note"
+										>
 											{t.saveCta}
 										</button>
 										<small id="prototype-account-note">{t.prototype}</small>
+										<small id="waitlist-note">{t.saveTitle}</small>
 									</div>
 								</section>
-							)}
+							) : null}
 						</div>
 
-						{discovery.stage !== "preview" ? (
+						{discovery.stage !== "preview" && discovery.stage !== "planFit" && discovery.stage !== "journeyAsk" ? (
 							<form className="wellness-composer" onSubmit={submit}>
 								<label className="sr-only" htmlFor="wellness-message">
 									{t.composerLabel}
@@ -197,8 +322,9 @@ export function WellnessHomePage() {
 									placeholder={t.composerPlaceholder}
 									maxLength={400}
 									autoComplete="off"
+									disabled={typing}
 								/>
-								<button type="submit" disabled={!composer.trim()}>
+								<button type="submit" disabled={!composer.trim() || typing}>
 									<span className="sr-only">{t.send}</span>
 									<span aria-hidden="true">↑</span>
 								</button>
@@ -209,7 +335,7 @@ export function WellnessHomePage() {
 							{t.privacyHint}
 						</p>
 						<div className="sr-only" aria-live="polite" aria-atomic="true">
-							{latestSaraMessage?.text}
+							{typing ? t.typing : latestSaraMessage?.text}
 						</div>
 					</div>
 				</section>

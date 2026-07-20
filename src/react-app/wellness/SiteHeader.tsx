@@ -24,10 +24,13 @@ export function SiteHeader({
 			</a>
 
 			<nav className="wellness-nav" aria-label={locale === "ar" ? "التنقل الرئيسي" : "Primary navigation"}>
+				<a href="/">{t.nav.home}</a>
 				<a href="/how-it-works">{t.nav.how}</a>
 				<a href="/eight-week-journey">{t.nav.journey}</a>
-				<a href="/pricing">{t.nav.pricing}</a>
+				<a href="#how-sara-learns">{t.nav.learn}</a>
 				<a href="/safety">{t.nav.safety}</a>
+				<a href="/pricing">{t.nav.pricing}</a>
+				<a href="#how-sara-learns">{t.nav.articles}</a>
 			</nav>
 
 			<div className="wellness-header__actions">
@@ -50,12 +53,13 @@ export function SiteHeader({
 						العربية
 					</button>
 				</div>
-				<button type="button" className="text-button" disabled aria-describedby="sign-in-prototype">
+				<span className="sign-in-soon" aria-disabled="true">
 					{t.nav.signIn}
-				</button>
-				<span id="sign-in-prototype" className="sr-only">
-					{t.prototype}
 				</span>
+				<a className="header-cta" href="#wellness-conversation">
+					<span className="chat-glyph" aria-hidden="true" />
+					{t.nav.cta}
+				</a>
 			</div>
 		</header>
 	);
