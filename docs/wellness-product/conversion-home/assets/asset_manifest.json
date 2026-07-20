@@ -1,0 +1,59 @@
+{
+  "purpose": "Visual reference and placeholder asset pack for the WUJUD SARA wellness conversion homepage.",
+  "important": [
+    "Rebuild the interface as responsive React/CSS components; do not display the layout reference as the webpage.",
+    "These cropped images are prototype placeholders derived from the approved generated mockup.",
+    "Replace crops with licensed, high-resolution culturally inclusive photography before production.",
+    "Do not add unverified percentages, ratings, subscriber counts, or guaranteed outcome claims."
+  ],
+  "assets": [
+    {
+      "name": "hero_arab_man_woman_outdoor",
+      "png": "hero_arab_man_woman_outdoor.png",
+      "webp": "hero_arab_man_woman_outdoor.webp",
+      "recommended_use": "Hero lifestyle image; use object-position:center and keep the chat panel separate.",
+      "dimensions": "1400x1050"
+    },
+    {
+      "name": "wellness_sleep_routine",
+      "png": "wellness_sleep_routine.png",
+      "webp": "wellness_sleep_routine.webp",
+      "recommended_use": "Outcome card: calmer sleep routine.",
+      "dimensions": "900x600"
+    },
+    {
+      "name": "wellness_daily_energy_man",
+      "png": "wellness_daily_energy_man.png",
+      "webp": "wellness_daily_energy_man.webp",
+      "recommended_use": "Outcome card: energy and everyday movement for men.",
+      "dimensions": "900x600"
+    },
+    {
+      "name": "wellness_balanced_meal",
+      "png": "wellness_balanced_meal.png",
+      "webp": "wellness_balanced_meal.webp",
+      "recommended_use": "Outcome card: balanced meal routines.",
+      "dimensions": "900x600"
+    },
+    {
+      "name": "wellness_calm_hijabi_woman",
+      "png": "wellness_calm_hijabi_woman.png",
+      "webp": "wellness_calm_hijabi_woman.webp",
+      "recommended_use": "Outcome card: calm focus and reflection.",
+      "dimensions": "900x600"
+    },
+    {
+      "name": "wellness_consistent_movement_man",
+      "png": "wellness_consistent_movement_man.png",
+      "webp": "wellness_consistent_movement_man.webp",
+      "recommended_use": "Outcome card: consistent movement and routine.",
+      "dimensions": "900x600"
+    }
+  ],
+  "layout_reference": "wujud_sara_conversion_layout_reference.png",
+  "suggested_layout": {
+    "desktop": "Arabic copy on the right, lifestyle hero in the center, interactive SARA chat on the left; results cards below.",
+    "mobile": "Headline, live chat, quick choices, personalized preview, then lifestyle result cards.",
+    "chat": "Build as a real deterministic component; never bake chat text into an image."
+  }
+}

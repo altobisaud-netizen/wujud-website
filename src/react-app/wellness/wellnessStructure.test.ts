@@ -21,18 +21,27 @@ describe("wellness website structure", () => {
 		}
 		expect(app).toContain("WellnessHomePage");
 		expect(app).not.toMatch(/SaraOnboardingPage|ConversationalHomePage|BookDemoPage/);
-		expect(index).toContain("Your Daily Wellness Companion");
+		expect(index).toContain("عادات صحية أسهل");
 		expect(index).not.toMatch(/AI Employees for Modern Businesses|AI sales employee/);
 	});
 
-	it("shows account creation only after the personalized preview", () => {
+	it("shows waitlist CTA only after the personalized preview", () => {
 		const home = read("src/react-app/wellness/WellnessHomePage.tsx");
 		const locale = read("src/react-app/wellness/locale.ts");
-		const previewBranch = home.indexOf('discovery.stage !== "preview"');
+		const previewBranch = home.indexOf('discovery.stage === "preview"');
 		const saveCta = home.indexOf("t.saveCta");
 		expect(previewBranch).toBeGreaterThan(-1);
 		expect(saveCta).toBeGreaterThan(previewBranch);
 		expect(locale).toContain("Prototype — account creation is not connected");
+		expect(locale).toContain("Interactive preview — your answers are not saved");
+	});
+
+	it("defaults to Arabic-first presentation", () => {
+		const home = read("src/react-app/wellness/WellnessHomePage.tsx");
+		const index = read("index.html");
+		expect(home).toContain('return "ar"');
+		expect(index).toContain('lang="ar"');
+		expect(index).toContain('dir="rtl"');
 	});
 
 	it("has keyboard labels, complete-response live region and reduced motion support", () => {
@@ -45,6 +54,9 @@ describe("wellness website structure", () => {
 		expect(home).toContain('aria-atomic="true"');
 		expect(home).toContain('type="button"');
 		expect(header).toContain("aria-pressed");
+		expect(header).toContain("t.nav.signIn");
+		expect(read("src/react-app/wellness/locale.ts")).toContain("Sign in coming soon");
+		expect(header).toContain('href="#wellness-conversation"');
 		expect(css).toContain("@media (prefers-reduced-motion: reduce)");
 		expect(css).toContain("@media (max-width: 420px)");
 		expect(globalCss).toContain("overflow-x: hidden");
@@ -59,11 +71,31 @@ describe("wellness website structure", () => {
 	it("contains visible safety, privacy, pricing and human-support copy in both languages", () => {
 		const belowFold = read("src/react-app/wellness/BelowFoldWellness.tsx");
 		const info = read("src/react-app/wellness/WellnessInfoPage.tsx");
-		expect(belowFold).toContain("does not replace qualified healthcare professionals");
-		expect(belowFold).toContain("لا تحل سارة محل المختصين الصحيين المؤهلين");
-		expect(belowFold).toContain("No current professional network claimed");
-		expect(belowFold).toContain("Placeholder — commercial review");
+		const locale = read("src/react-app/wellness/locale.ts");
+		expect(belowFold).toContain("does not diagnose medical conditions");
+		expect(belowFold).toContain("لا تشخّص سارة الحالات الطبية");
+		expect(belowFold).toContain("Subscriptions are not available yet");
+		expect(locale).toContain("السعر قيد المراجعة");
+		expect(locale).toContain("does not promise guaranteed results");
 		expect(info).toContain("frontend preview does not create users");
 		expect(info).toContain("لا ينشئ هذا النموذج مستخدمين");
+	});
+
+	it("avoids fake social proof and fixed purchase prices on the conversion surface", () => {
+		const home = read("src/react-app/wellness/WellnessHomePage.tsx");
+		const below = read("src/react-app/wellness/BelowFoldWellness.tsx");
+		const locale = read("src/react-app/wellness/locale.ts");
+		const source = `${home}\n${below}\n${locale}`;
+		expect(source).not.toMatch(/250,?000/);
+		expect(source).not.toMatch(/4\.9\s*\/\s*5/);
+		expect(source).not.toMatch(/\+42%|\+31%/);
+		expect(source).not.toMatch(/59\s*ر\.?\s*س|59\s*SAR/i);
+		expect(source).not.toMatch(/clinically proven|guaranteed weight|lose weight quickly/i);
+	});
+
+	it("prioritizes live chat before lifestyle imagery on mobile conversion layout", () => {
+		const css = read("src/react-app/wellness/wellness.css");
+		expect(css).toMatch(/\.phone-shell\s*\{[^}]*order:\s*2;/s);
+		expect(css).toMatch(/\.hero-lifestyle\s*\{[^}]*order:\s*3;/s);
 	});
 });

@@ -49,6 +49,9 @@
 		"preview": "npm run build && vite preview",
 		"reference:frames": "python scripts/extract_reference_frames.py",
 		"test": "vitest run --config vitest.config.ts",
+		"scan:wellness-claims": "node scripts/scan-wellness-claims.mjs",
+		"check:wellness-mockup-isolation": "node scripts/check-wellness-mockup-isolation.mjs",
+		"check:wellness-layout-reference-isolation": "node scripts/check-wellness-layout-reference-isolation.mjs",
 		"verify:wellness": "node scripts/verify-wellness-preview.mjs",
 		"verify:wellness:review": "node scripts/verify-wellness-review.mjs"
 	},
