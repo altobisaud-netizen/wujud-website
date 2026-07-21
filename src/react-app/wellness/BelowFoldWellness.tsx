@@ -1,5 +1,8 @@
+import { useState } from "react";
 import { copy } from "./locale";
 import { heroVisual, outcomeVisuals } from "./lifestyleImagery";
+import { WaitlistDialog } from "./operational/WaitlistDialog";
+import { useOperationalPricing } from "./operational/useOperationalPricing";
 import type { WellnessLocale } from "./types";
 import { WellnessPicture } from "./WellnessPicture";
 
@@ -269,6 +272,10 @@ export function TrustStrip({ locale }: { locale: WellnessLocale }) {
 
 export function PricingPrototype({ locale }: { locale: WellnessLocale }) {
 	const t = copy[locale].sections;
+	const page = copy[locale];
+	const ops = useOperationalPricing(locale);
+	const [waitlistOpen, setWaitlistOpen] = useState(false);
+	const priceLabel = ops.priceLabel ?? t.pricingNote;
 	const includes =
 		locale === "ar"
 			? [
@@ -296,26 +303,33 @@ export function PricingPrototype({ locale }: { locale: WellnessLocale }) {
 					{locale === "ar" ? "رحلة 8 أسابيع" : "8-week journey"}
 				</span>
 				<h3>{t.pricingTitle}</h3>
-				<p className="price-placeholder">{t.pricingNote}</p>
+				<p className="price-placeholder">{priceLabel}</p>
 				<ul>
 					{includes.map((item) => (
 						<li key={item}>{item}</li>
 					))}
 				</ul>
-				<button
-					type="button"
-					disabled
-					aria-disabled="true"
-					aria-describedby="pricing-waitlist-note"
-				>
-					{t.pricingCta}
-				</button>
+				{ops.paymentCtaEnabled ? (
+					<button type="button" disabled aria-describedby="pricing-payment-note">
+						{page.paymentCta}
+					</button>
+				) : ops.waitlistBackendEnabled ? (
+					<button type="button" onClick={() => setWaitlistOpen(true)} aria-describedby="pricing-waitlist-note">
+						{page.waitlistCta}
+					</button>
+				) : (
+					<button type="button" disabled aria-disabled="true" aria-describedby="pricing-waitlist-note">
+						{t.pricingCta}
+					</button>
+				)}
 				<small id="pricing-waitlist-note">
 					{locale === "ar"
-						? "الاشتراك غير متاح بعد — هذه معاينة للمنتج. لا يتم تحصيل أي دفعة."
-						: "Subscriptions are not available yet — this is a product preview. No payment is taken."}
+						? "الاشتراك غير متاح بعد — هذه معاينة للمنتج. لا يتم تحصيل أي دفعة حتى تأكيد الدفع من الخادم."
+						: "Subscriptions are not available yet — this is a product preview. No payment is taken until server-side confirmation."}
 				</small>
+				{ops.paymentCtaEnabled ? <small id="pricing-payment-note">{page.paymentPending}</small> : null}
 			</article>
+			<WaitlistDialog locale={locale} open={waitlistOpen} onClose={() => setWaitlistOpen(false)} />
 		</section>
 	);
 }

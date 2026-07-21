@@ -29,20 +29,16 @@ export function CountUpNumber({
 	replayKey,
 }: CountUpNumberProps) {
 	const reduce = useReducedMotion();
-	const [val, setVal] = useState(0);
+	const [animatedVal, setAnimatedVal] = useState(0);
+	const displayVal = reduce && active ? end : animatedVal;
 
 	useEffect(() => {
-		if (!active) return;
-		if (reduce) {
-			setVal(end);
-			return;
-		}
-		setVal(0);
+		if (!active || reduce) return;
 		const dur = replayKey === 0 ? duration : REPLAY_DURATION;
 		const ctrl = animate(0, end, {
 			duration: dur,
 			ease: easeOutPremium,
-			onUpdate: (v) => setVal(Math.round(v)),
+			onUpdate: (v) => setAnimatedVal(Math.round(v)),
 		});
 		return () => ctrl.stop();
 	}, [active, end, replayKey, duration, reduce]);
@@ -50,7 +46,7 @@ export function CountUpNumber({
 	return (
 		<span className="outcome-card__value-inner" aria-hidden>
 			{prefix ? <span className="outcome-card__value-prefix">{prefix}</span> : null}
-			<span className="outcome-card__value-num">{val}</span>
+			<span className="outcome-card__value-num">{displayVal}</span>
 			<span className="outcome-card__value-suffix">{suffix}</span>
 		</span>
 	);

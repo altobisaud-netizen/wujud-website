@@ -1,6 +1,14 @@
 import "./wellness/wellness.css";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, type ReactElement } from "react";
+import { PrivacyAccountPage } from "./wellness/operational/PrivacyAccountPage";
+import {
+	WaitlistConfirmPage,
+	WaitlistDeletePage,
+	WaitlistUnsubscribePage,
+} from "./wellness/operational/WaitlistActionPage";
+import { WellnessClerkProvider } from "./wellness/operational/WellnessClerkProvider";
 import { WellnessHomePage } from "./wellness/WellnessHomePage";
+import type { WellnessLocale } from "./wellness/types";
 import type { WellnessRoute } from "./wellness/WellnessInfoPage";
 
 const WellnessInfoPage = lazy(() =>
@@ -21,6 +29,24 @@ export default function App() {
 		"/contact": "contact",
 	};
 
+	if (path === "/account/privacy") {
+		return (
+			<WellnessClerkProvider>
+				<PrivacyAccountPage />
+			</WellnessClerkProvider>
+		);
+	}
+
+	const waitlistRoutes: Record<string, (locale: WellnessLocale) => ReactElement> = {
+		"/waitlist/confirm": (locale) => <WaitlistConfirmPage locale={locale} />,
+		"/waitlist/unsubscribe": (locale) => <WaitlistUnsubscribePage locale={locale} />,
+		"/waitlist/delete": (locale) => <WaitlistDeletePage locale={locale} />,
+	};
+	const waitlistRoute = waitlistRoutes[path];
+	if (waitlistRoute) {
+		return <WellnessClerkProvider>{waitlistRoute(readPageLocale())}</WellnessClerkProvider>;
+	}
+
 	const directRoute = directRoutes[path];
 	if (directRoute) {
 		return (
@@ -30,5 +56,19 @@ export default function App() {
 		);
 	}
 
-	return <WellnessHomePage />;
+	return (
+		<WellnessClerkProvider>
+			<WellnessHomePage />
+		</WellnessClerkProvider>
+	);
+}
+
+function readPageLocale(): WellnessLocale {
+	try {
+		const stored = window.localStorage.getItem("wujud-wellness-locale");
+		if (stored === "en" || stored === "ar") return stored;
+	} catch {
+		/* ignore */
+	}
+	return document.documentElement.lang === "en" ? "en" : "ar";
 }

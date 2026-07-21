@@ -10,6 +10,12 @@ import {
 } from "./conversation";
 import { copy } from "./locale";
 import { heroVisual } from "./lifestyleImagery";
+import { WaitlistDialog } from "./operational/WaitlistDialog";
+import { SaveJourneyDialog } from "./operational/SaveJourneyDialog";
+import { useWellnessSessionToken } from "./operational/useWellnessSessionToken";
+import { isWellnessClerkConfigured } from "./operational/wellnessClerkConfig";
+import { readOperationalFlags } from "./operational/flags";
+import { useOperationalPricing } from "./operational/useOperationalPricing";
 import { SiteHeader } from "./SiteHeader";
 import type { WellnessLocale } from "./types";
 import { useWellnessMetadata } from "./useWellnessMetadata";
@@ -37,10 +43,26 @@ function prefersReducedMotion(): boolean {
 }
 
 export function WellnessHomePage() {
+	const flags = readOperationalFlags();
+	const clerkReady = flags.authEnabled && isWellnessClerkConfigured();
+	if (clerkReady) {
+		return <WellnessHomePageAuthed />;
+	}
+	return <WellnessHomePageContent />;
+}
+
+function WellnessHomePageAuthed() {
+	const getSessionToken = useWellnessSessionToken();
+	return <WellnessHomePageContent getSessionToken={getSessionToken} />;
+}
+
+function WellnessHomePageContent({ getSessionToken }: { getSessionToken?: () => Promise<string | null> }) {
 	const [locale, setLocale] = useState<WellnessLocale>(readInitialLocale);
 	const [discovery, setDiscovery] = useState(() => createDiscoveryState(locale));
 	const [composer, setComposer] = useState("");
 	const [typing, setTyping] = useState(false);
+	const [waitlistOpen, setWaitlistOpen] = useState(false);
+	const [saveOpen, setSaveOpen] = useState(false);
 	const typingTimer = useRef<number | null>(null);
 	const t = copy[locale];
 	const choices = choicesForState(discovery, locale);
@@ -48,6 +70,7 @@ export function WellnessHomePage() {
 		() => buildPersonalizedPreview(discovery.answers, locale),
 		[discovery.answers, locale],
 	);
+	const ops = useOperationalPricing(locale);
 	const latestSaraMessage = [...discovery.messages].reverse().find((message) => message.role === "sara");
 	useWellnessMetadata(locale);
 
@@ -117,6 +140,17 @@ export function WellnessHomePage() {
 		setComposer("");
 		setTyping(false);
 	}
+
+	const structuredAnswers = {
+		primaryGoal: discovery.answers.goal ?? "unsure",
+		routineChallenge: discovery.answers.challenge ?? "unsure",
+		preferredSupportTiming: "flexible",
+		preferredCoachingStyle: preview.coachingStyle,
+		language: locale,
+		timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+	};
+
+	const priceDisplay = ops.priceLabel ?? (locale === "ar" ? "السعر قيد المراجعة" : "Price under review");
 
 	function undo() {
 		if (typingTimer.current) window.clearTimeout(typingTimer.current);
@@ -298,18 +332,39 @@ export function WellnessHomePage() {
 										<div>
 											<strong>{locale === "ar" ? copy.ar.sections.conversionTitle : copy.en.sections.conversionTitle}</strong>
 											<p>{t.saveBody}</p>
-											<p className="price-placeholder">{locale === "ar" ? "السعر قيد المراجعة" : "Price under review"}</p>
+											<p className="price-placeholder">{priceDisplay}</p>
 										</div>
-										<button
-											type="button"
-											disabled
-											aria-disabled="true"
-											aria-describedby="prototype-account-note waitlist-note"
-										>
-											{t.saveCta}
-										</button>
-										<small id="prototype-account-note">{t.prototype}</small>
+										{ops.authBackendEnabled ? (
+											<button type="button" onClick={() => setSaveOpen(true)}>
+												{t.saveJourneyCta}
+											</button>
+										) : null}
+										{ops.waitlistBackendEnabled ? (
+											<button type="button" onClick={() => setWaitlistOpen(true)}>
+												{t.waitlistCta}
+											</button>
+										) : (
+											<button
+												type="button"
+												disabled
+												aria-disabled="true"
+												aria-describedby="prototype-account-note waitlist-note"
+											>
+												{t.saveCta}
+											</button>
+										)}
+										{ops.paymentCtaEnabled ? (
+											<button type="button" disabled aria-describedby="payment-pending-note">
+												{t.paymentCta}
+											</button>
+										) : null}
+										<small id="prototype-account-note">
+											{ops.authBackendEnabled ? t.saveJourneyCta : t.prototype}
+										</small>
 										<small id="waitlist-note">{t.saveTitle}</small>
+										{ops.paymentCtaEnabled ? (
+											<small id="payment-pending-note">{t.paymentPending}</small>
+										) : null}
 									</div>
 								</section>
 							) : null}
@@ -364,10 +419,20 @@ export function WellnessHomePage() {
 				<nav aria-label={locale === "ar" ? "روابط التذييل" : "Footer links"}>
 					<a href="/privacy">{locale === "ar" ? "الخصوصية" : "Privacy"}</a>
 					<a href="/terms">{locale === "ar" ? "الشروط" : "Terms"}</a>
+					<a href="/account/privacy">{locale === "ar" ? "خصوصية الحساب" : "Account privacy"}</a>
 					<a href="/contact">{locale === "ar" ? "تواصل معنا" : "Contact"}</a>
 				</nav>
 				<small>© 2026 WUJUD</small>
 			</footer>
+
+			<WaitlistDialog locale={locale} open={waitlistOpen} onClose={() => setWaitlistOpen(false)} />
+			<SaveJourneyDialog
+				locale={locale}
+				open={saveOpen}
+				onClose={() => setSaveOpen(false)}
+				answers={structuredAnswers}
+				getSessionToken={getSessionToken}
+			/>
 		</div>
 	);
 }

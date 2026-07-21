@@ -998,7 +998,7 @@
 .price-card li::before {
 	margin-inline-end: 0.45rem;
 	color: var(--wellness-green);
-	content: "✓";
+	content: "âœ“";
 }
 
 .price-card button,
@@ -1298,7 +1298,7 @@
 	}
 }
 
-/* —— Conversion homepage (WUJUD-SARA-WELLNESS-005) —— */
+/* â€”â€” Conversion homepage (WUJUD-SARA-WELLNESS-005) â€”â€” */
 
 .conversion-home {
 	background:
@@ -1882,7 +1882,7 @@
 	color: var(--wellness-muted);
 }
 
-/* Three-column hero only when there is room; otherwise stack: copy → chat → image */
+/* Three-column hero only when there is room; otherwise stack: copy â†’ chat â†’ image */
 @media (max-width: 1099px) {
 	.conversion-hero {
 		display: grid;
@@ -2051,4 +2051,132 @@
 	.conversion-hero .hero-cta--secondary {
 		display: none;
 	}
+}
+
+/* Operational waitlist / save-journey dialogs */
+.ops-dialog-backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 80;
+	display: grid;
+	place-items: center;
+	padding: 1rem;
+	background: color-mix(in srgb, #0f1c14 45%, transparent);
+}
+
+.ops-dialog {
+	width: min(28rem, 100%);
+	max-height: min(90vh, 40rem);
+	overflow: auto;
+	padding: 1.25rem 1.35rem 1.5rem;
+	border-radius: 1rem;
+	background: #fffdf8;
+	color: #142018;
+	box-shadow: 0 18px 48px color-mix(in srgb, #0f1c14 28%, transparent);
+}
+
+.ops-dialog--wide {
+	width: min(36rem, 100%);
+}
+
+.ops-dialog header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: 1rem;
+}
+
+.ops-dialog h2 {
+	margin: 0;
+	font-size: 1.25rem;
+}
+
+.ops-dialog form,
+.ops-dialog label {
+	display: grid;
+	gap: 0.45rem;
+}
+
+.ops-dialog form {
+	gap: 0.9rem;
+}
+
+.ops-dialog input,
+.ops-dialog select {
+	min-height: 2.75rem;
+	padding: 0.55rem 0.75rem;
+	border: 1px solid color-mix(in srgb, #142018 18%, transparent);
+	border-radius: 0.65rem;
+	font: inherit;
+}
+
+.ops-checkbox {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 0.65rem;
+	align-items: start;
+}
+
+.ops-checkbox input {
+	min-height: 1.15rem;
+	margin-top: 0.2rem;
+}
+
+.ops-dialog__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	justify-content: flex-end;
+}
+
+.ops-consent-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 0.85rem;
+}
+
+.ops-privacy-actions {
+	list-style: none;
+	margin: 0 0 1rem;
+	padding: 0;
+	display: grid;
+	gap: 0.65rem;
+}
+
+.waitlist-action-page {
+	min-height: 100vh;
+	display: grid;
+	place-items: center;
+	padding: 1.5rem;
+	background: var(--wellness-bg, #0b0f14);
+	color: var(--wellness-text, #f5f1ea);
+}
+
+.waitlist-action-page__card {
+	width: min(100%, 32rem);
+	padding: 2rem 1.5rem;
+	border-radius: 1rem;
+	border: 1px solid rgba(245, 241, 234, 0.12);
+	background: rgba(255, 255, 255, 0.03);
+	text-align: center;
+}
+
+.waitlist-action-page__card h1 {
+	margin: 0 0 1rem;
+	font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+}
+
+.waitlist-action-page__card p {
+	margin: 0 0 1.25rem;
+	line-height: 1.6;
+}
+
+.waitlist-action-page__card .text-button {
+	min-height: 44px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 }
