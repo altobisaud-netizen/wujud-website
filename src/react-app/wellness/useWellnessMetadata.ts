@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { metadataFor } from "./wellnessRouteMetadata";
 import type { WellnessLocale } from "./types";
+import { readOperationalFlags } from "./operational/flags";
 
-const PRODUCTION_CANONICAL_ORIGIN = "https://wujud-website.altobi-saud.workers.dev";
 const PREVIEW_HOST = "wujud-sara-wellness-preview.altobi-saud.workers.dev";
 
 function setMeta(selector: string, attribute: "name" | "property", key: string, content: string) {
@@ -31,7 +31,7 @@ export function useWellnessMetadata(locale: WellnessLocale) {
 	useEffect(() => {
 		const metadata = metadataFor(window.location.pathname, locale);
 		const preview = isWellnessPreviewRuntime();
-		const canonicalOrigin = preview ? window.location.origin : PRODUCTION_CANONICAL_ORIGIN;
+		const canonicalOrigin = preview ? window.location.origin : readOperationalFlags().canonicalOrigin;
 		const canonicalUrl = new URL(metadata.canonicalPath, canonicalOrigin).toString();
 
 		document.title = metadata.title;

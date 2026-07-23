@@ -8,6 +8,10 @@ interface ImportMetaEnv {
 	readonly VITE_WELLNESS_WAITLIST_ENABLED?: string;
 	readonly VITE_WELLNESS_AUTH_ENABLED?: string;
 	readonly VITE_WELLNESS_PAYMENTS_ENABLED?: string;
+	readonly VITE_WELLNESS_WHATSAPP_ENABLED?: string;
+	readonly VITE_WELLNESS_WHATSAPP_OPERATIONAL_MESSAGES_ENABLED?: string;
+	readonly VITE_WELLNESS_CANONICAL_ORIGIN?: string;
+	readonly VITE_WELLNESS_CLERK_PUBLISHABLE_KEY?: string;
 }
 
 interface ImportMeta {

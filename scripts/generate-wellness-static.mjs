@@ -20,7 +20,7 @@ if (!["preview", "production"].includes(target)) {
 
 const origins = {
 	preview: "https://wujud-sara-wellness-preview.altobi-saud.workers.dev",
-	production: "https://wujud-website.altobi-saud.workers.dev",
+	production: "https://wujud.ai",
 };
 const origin = process.env.WELLNESS_CANONICAL_ORIGIN ?? origins[target];
 const robots = target === "preview" ? "noindex, nofollow" : "index, follow";

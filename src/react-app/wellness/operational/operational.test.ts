@@ -7,6 +7,18 @@ describe("operational presentation flags", () => {
 		expect(flags.waitlistEnabled).toBe(false);
 		expect(flags.authEnabled).toBe(false);
 		expect(flags.paymentsEnabled).toBe(false);
+		expect(flags.whatsappEnabled).toBe(false);
+	});
+
+	it("uses production canonical origin default for metadata", async () => {
+		const flags = readOperationalFlags();
+		expect(flags.canonicalOrigin).toBe("https://wujud.ai");
+	});
+
+	it("does not place phone numbers in API paths", async () => {
+		const { registerWhatsAppOptIn } = await import("./api");
+		const source = registerWhatsAppOptIn.toString();
+		expect(source).not.toMatch(/phone=|query\(/);
 	});
 
 	it("formats OMR from server baisa only", () => {

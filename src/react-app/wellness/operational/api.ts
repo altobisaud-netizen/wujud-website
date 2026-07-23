@@ -6,6 +6,10 @@ export type BackendFlags = {
 	profileStorageEnabled: boolean;
 	paymentsEnabled: boolean;
 	entitlementsEnabled: boolean;
+	whatsappEnabled: boolean;
+	whatsappOperationalMessagesEnabled: boolean;
+	whatsappExternalAiAutoreplyEnabled: boolean;
+	whatsappMetaBusinessAgentEnabled: boolean;
 };
 
 export type PublicPlan = {
@@ -219,6 +223,43 @@ export async function requestAccountDeletion(token: string): Promise<ApiResult<{
 		method: "POST",
 		headers: { Authorization: `Bearer ${token}` },
 	});
+}
+
+export type WhatsAppStatus = {
+	enabled: boolean;
+	optedIn: boolean;
+	status: string | null;
+	maskedPhone: string | null;
+	pendingConfirmation: boolean;
+};
+
+export async function fetchWhatsAppStatus(token: string): Promise<ApiResult<WhatsAppStatus>> {
+	return authFetch<WhatsAppStatus>("/api/v1/me/whatsapp", token);
+}
+
+export async function registerWhatsAppOptIn(
+	token: string,
+	input: { phone: string; consentPolicyId: string; consentPolicyVersion: string },
+): Promise<ApiResult<{ status: string; maskedPhone: string; pendingConfirmation: boolean }>> {
+	return authFetch("/api/v1/me/whatsapp/opt-in", token, {
+		method: "PUT",
+		body: JSON.stringify({
+			phone: input.phone,
+			whatsappOperationalConsent: true,
+			consentPolicyId: input.consentPolicyId,
+			consentPolicyVersion: input.consentPolicyVersion,
+		}),
+	});
+}
+
+export async function confirmWhatsAppFirstMessage(
+	token: string,
+): Promise<ApiResult<{ status: string; maskedPhone: string; alreadyConfirmed?: boolean }>> {
+	return authFetch("/api/v1/me/whatsapp/confirm", token, { method: "POST" });
+}
+
+export async function optOutWhatsApp(token: string): Promise<ApiResult<{ optedOut: boolean }>> {
+	return authFetch("/api/v1/me/whatsapp/opt-out", token, { method: "POST" });
 }
 
 function authFetch<T>(path: string, token: string, init: RequestInit = {}) {

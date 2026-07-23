@@ -29,14 +29,14 @@ const forbiddenBusinessTerms = [
 	/ChannelSelectionProfile/,
 	/from\s+["'][^"']*\/(conversational|onboarding|components)[^"']*["']/i,
 	/\/api\/[^"']*(contact|conversation|message|lead|follow.?up)/i,
-	/whatsapp/i,
+	/from\s+["'][^"']*whatsapp-web\.js|meta-sdk/i,
 	/graph\.facebook\.com/i,
 	/@clerk\/(clerk-react|backend|nextjs)/i,
 	/VITE_SARA_API_BASE_URL/,
 	/fetch\s*\(\s*[`'"][^`'"]*(sara-api|customer-app|rubbelx)/i,
 ];
 
-const wellnessClerkAllowlist = /operational\/(WellnessClerkProvider|WellnessAuthPanel|PrivacyAccountPage|useWellnessSessionToken)\.tsx?$/;
+const wellnessClerkAllowlist = /operational\/(WellnessClerkProvider|WellnessAuthPanel|PrivacyAccountPage|useWellnessSessionToken|WhatsAppOptInSection|api|flags)\.tsx?$/;
 
 describe("wellness product isolation", () => {
 	it("imports and calls none of the archived SARA Business stack", () => {

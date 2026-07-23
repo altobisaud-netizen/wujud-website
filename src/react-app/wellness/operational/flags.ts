@@ -10,7 +10,10 @@ export type OperationalPresentationFlags = {
 	waitlistEnabled: boolean;
 	authEnabled: boolean;
 	paymentsEnabled: boolean;
+	whatsappEnabled: boolean;
+	whatsappOperationalMessagesEnabled: boolean;
 	apiBaseUrl: string;
+	canonicalOrigin: string;
 };
 
 export function readOperationalFlags(): OperationalPresentationFlags {
@@ -18,7 +21,10 @@ export function readOperationalFlags(): OperationalPresentationFlags {
 		waitlistEnabled: flag("VITE_WELLNESS_WAITLIST_ENABLED", false),
 		authEnabled: flag("VITE_WELLNESS_AUTH_ENABLED", false),
 		paymentsEnabled: flag("VITE_WELLNESS_PAYMENTS_ENABLED", false),
+		whatsappEnabled: flag("VITE_WELLNESS_WHATSAPP_ENABLED", false),
+		whatsappOperationalMessagesEnabled: flag("VITE_WELLNESS_WHATSAPP_OPERATIONAL_MESSAGES_ENABLED", false),
 		apiBaseUrl: (import.meta.env.VITE_WELLNESS_API_BASE_URL ?? "").replace(/\/+$/, ""),
+		canonicalOrigin: (import.meta.env.VITE_WELLNESS_CANONICAL_ORIGIN ?? "https://wujud.ai").replace(/\/+$/, ""),
 	};
 }
 

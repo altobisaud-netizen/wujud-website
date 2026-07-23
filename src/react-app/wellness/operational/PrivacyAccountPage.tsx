@@ -5,6 +5,7 @@ import type { WellnessLocale } from "../types";
 import {
 	fetchMyConsents,
 	fetchMyProfileDraft,
+	fetchConsentPolicies,
 	pauseAccount,
 	requestAccountDeletion,
 	withdrawConsent,
@@ -13,6 +14,7 @@ import {
 import { readOperationalFlags } from "./flags";
 import { useWellnessSessionToken } from "./useWellnessSessionToken";
 import { WellnessAuthPanel } from "./WellnessAuthPanel";
+import { WhatsAppOptInSection } from "./WhatsAppOptInSection";
 import { isWellnessClerkConfigured } from "./wellnessClerkConfig";
 
 function readLocale(): WellnessLocale {
@@ -34,6 +36,7 @@ function PrivacyAccountContent() {
 	const getSessionToken = useWellnessSessionToken();
 	const [consents, setConsents] = useState<UserConsentView[]>([]);
 	const [profile, setProfile] = useState<Record<string, unknown> | null>(null);
+	const [whatsappPolicyId, setWhatsappPolicyId] = useState<string | undefined>(undefined);
 	const [message, setMessage] = useState<string | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState(true);
@@ -50,12 +53,20 @@ function PrivacyAccountContent() {
 			setLoading(false);
 			return;
 		}
-		const [consentRes, profileRes] = await Promise.all([fetchMyConsents(token), fetchMyProfileDraft(token)]);
+		const [consentRes, profileRes, policiesRes] = await Promise.all([
+			fetchMyConsents(token),
+			fetchMyProfileDraft(token),
+			fetchConsentPolicies(locale),
+		]);
 		if (consentRes.ok) setConsents(consentRes.data.consents);
 		if (profileRes.ok) setProfile(profileRes.data.structured);
+		if (policiesRes.ok) {
+			const whatsappPolicy = policiesRes.data.policies.find((p) => p.type === "WHATSAPP_OPERATIONAL_MESSAGES");
+			setWhatsappPolicyId(whatsappPolicy?.id);
+		}
 		if (!consentRes.ok && consentRes.status !== 404) setError(consentRes.message);
 		setLoading(false);
-	}, [getSessionToken]);
+	}, [getSessionToken, locale]);
 
 	useEffect(() => {
 		let cancelled = false;
@@ -65,17 +76,12 @@ function PrivacyAccountContent() {
 				if (!cancelled) setLoading(false);
 				return;
 			}
-			const [consentRes, profileRes] = await Promise.all([fetchMyConsents(token), fetchMyProfileDraft(token)]);
-			if (cancelled) return;
-			if (consentRes.ok) setConsents(consentRes.data.consents);
-			if (profileRes.ok) setProfile(profileRes.data.structured);
-			if (!consentRes.ok && consentRes.status !== 404) setError(consentRes.message);
-			setLoading(false);
+			await loadAccountData();
 		})();
 		return () => {
 			cancelled = true;
 		};
-	}, [getSessionToken]);
+	}, [getSessionToken, loadAccountData]);
 
 	const t =
 		locale === "ar"
@@ -228,6 +234,7 @@ function PrivacyAccountContent() {
 							</section>
 						) : null}
 						<p className="ops-retention-note">{t.retentionNote}</p>
+						<WhatsAppOptInSection locale={locale} consentPolicyId={whatsappPolicyId} />
 					</section>
 				</SignedIn>
 				<p>
