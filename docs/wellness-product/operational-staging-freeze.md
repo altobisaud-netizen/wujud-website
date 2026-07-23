@@ -1,8 +1,10 @@
 # Operational staging freeze — WUJUD Wellness frontend (OPS-009)
 
-**Status:** Technically ready — pilot authorization required  
+**Status:** TECHNICALLY READY — PILOT AUTHORIZATION REQUIRED  
+**Governance:** PENDING GOVERNANCE APPROVAL (backend: `closed-pilot-authorization.md`)  
 **Recorded:** 2026-07-23 (OPS-009 completion)  
-**Branch:** `feature/wujud-wellness-operational-accounts`
+**Branch:** `feature/wujud-wellness-operational-accounts`  
+**Commit:** `1354b98`
 
 ## Railway
 
@@ -43,4 +45,8 @@ Authenticated matrix uses ephemeral Clerk sign-in token storage (never committed
 
 ## Governance
 
-Closed operational staging pilot authorization still required from product owner.
+**Recommendation:** TECHNICALLY READY — PILOT AUTHORIZATION REQUIRED
+
+Closed operational staging pilot authorization is **pending** governance approval. Authoritative authorization record: backend repository `docs/operational-foundation/closed-pilot-authorization.md`.
+
+This freeze does **not** authorize production deployment, public launch, or merge to `main`.
