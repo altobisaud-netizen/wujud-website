@@ -6,6 +6,7 @@ export const WELLNESS_PUBLIC_ROUTES = [
 	"/safety",
 	"/privacy",
 	"/terms",
+	"/data-deletion",
 	"/contact",
 ] as const;
 
@@ -126,36 +127,60 @@ export const wellnessRouteMetadata: Record<WellnessPublicPath, WellnessRouteMeta
 		canonicalPath: "/privacy",
 		indexability: "index, follow",
 		en: {
-			title: "Privacy Draft | WUJUD Wellness",
+			title: "Privacy Policy | Wellness SARA by WUJUD.ai",
 			description:
-				"Read the product-review draft of WUJUD's intended wellness privacy approach. Formal legal approval is pending.",
-			ogTitle: "WUJUD Wellness Privacy Draft",
+				"How Wellness SARA by WUJUD.ai handles account data, consent choices, optional operational notifications and user controls.",
+			ogTitle: "Wellness SARA Privacy Policy",
 			ogDescription:
-				"Product-review privacy direction only. Formal legal approval and final retention terms are pending.",
+				"Learn how Wellness SARA handles account data, consent, optional notifications and deletion requests.",
 		},
 		ar: {
-			title: "مسودة الخصوصية | وجود للعافية",
-			description: "اقرأ مسودة توجه الخصوصية المقترح لوجود للعافية. ما زالت الموافقة القانونية معلّقة.",
-			ogTitle: "مسودة خصوصية وجود للعافية",
-			ogDescription: "توجه أولي لمراجعة المنتج فقط. الموافقة القانونية وشروط الاحتفاظ النهائية معلّقة.",
+			title: "سياسة الخصوصية | Wellness SARA من WUJUD.ai",
+			description:
+				"كيف تتعامل Wellness SARA من WUJUD.ai مع بيانات الحساب وموافقاتك والإشعارات التشغيلية الاختيارية وخيارات التحكم.",
+			ogTitle: "سياسة خصوصية Wellness SARA",
+			ogDescription:
+				"تعرّف على كيفية تعامل Wellness SARA مع بيانات الحساب والموافقة والإشعارات الاختيارية وطلبات الحذف.",
 		},
 	},
 	"/terms": {
 		canonicalPath: "/terms",
 		indexability: "index, follow",
 		en: {
-			title: "Terms Draft | WUJUD Wellness",
+			title: "Terms of Use | Wellness SARA by WUJUD.ai",
 			description:
-				"Read the WUJUD wellness prototype terms for product review. Formal legal and commercial approval is pending.",
-			ogTitle: "WUJUD Wellness Terms Draft",
+				"Terms for the Wellness SARA MVP on WUJUD.ai, including general-wellness scope, user controls and service boundaries.",
+			ogTitle: "Wellness SARA Terms of Use",
 			ogDescription:
-				"Prototype terms for product review only; final legal and commercial approval is pending.",
+				"Read the Wellness SARA MVP terms, including general-wellness scope and clear service boundaries.",
 		},
 		ar: {
-			title: "مسودة الشروط | وجود للعافية",
-			description: "اقرأ شروط نموذج وجود للعافية لمراجعة المنتج. الموافقة القانونية والتجارية معلّقة.",
-			ogTitle: "مسودة شروط وجود للعافية",
-			ogDescription: "شروط نموذج أولي لمراجعة المنتج فقط؛ الموافقة القانونية والتجارية النهائية معلّقة.",
+			title: "شروط الاستخدام | Wellness SARA من WUJUD.ai",
+			description:
+				"شروط استخدام Wellness SARA MVP على WUJUD.ai، بما في ذلك نطاق العافية العامة وحدود الخدمة وخيارات التحكم.",
+			ogTitle: "شروط استخدام Wellness SARA",
+			ogDescription:
+				"اقرأ شروط Wellness SARA MVP، بما في ذلك نطاق العافية العامة وحدود الخدمة.",
+		},
+	},
+	"/data-deletion": {
+		canonicalPath: "/data-deletion",
+		indexability: "index, follow",
+		en: {
+			title: "Data Deletion | Wellness SARA by WUJUD.ai",
+			description:
+				"How to request deletion of Wellness SARA account data and associated optional contact information.",
+			ogTitle: "Wellness SARA Data Deletion",
+			ogDescription:
+				"Request deletion of Wellness SARA account data and associated optional contact information.",
+		},
+		ar: {
+			title: "حذف البيانات | Wellness SARA من WUJUD.ai",
+			description:
+				"كيفية طلب حذف بيانات حساب Wellness SARA ومعلومات الاتصال الاختيارية المرتبطة به.",
+			ogTitle: "حذف بيانات Wellness SARA",
+			ogDescription:
+				"اطلب حذف بيانات حساب Wellness SARA ومعلومات الاتصال الاختيارية المرتبطة.",
 		},
 	},
 	"/contact": {

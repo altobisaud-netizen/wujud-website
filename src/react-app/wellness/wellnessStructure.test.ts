@@ -15,6 +15,7 @@ describe("wellness website structure", () => {
 			"/safety",
 			"/privacy",
 			"/terms",
+			"/data-deletion",
 			"/contact",
 		]) {
 			expect(app).toContain(route);
@@ -77,8 +78,8 @@ describe("wellness website structure", () => {
 		expect(belowFold).toContain("Subscriptions are not available yet");
 		expect(locale).toContain("السعر قيد المراجعة");
 		expect(locale).toContain("does not promise guaranteed results");
-		expect(info).toContain("frontend preview does not create users");
-		expect(info).toContain("لا ينشئ هذا النموذج مستخدمين");
+		expect(info).toContain("Optional WhatsApp operational messaging");
+		expect(info).toContain("Wellness SARA by WUJUD.ai");
 	});
 
 	it("avoids fake social proof and fixed purchase prices on the conversion surface", () => {

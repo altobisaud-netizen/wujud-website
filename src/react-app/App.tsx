@@ -26,6 +26,7 @@ export default function App() {
 		"/safety": "safety",
 		"/privacy": "privacy",
 		"/terms": "terms",
+		"/data-deletion": "data-deletion",
 		"/contact": "contact",
 	};
 

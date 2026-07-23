@@ -17,6 +17,7 @@ export type WellnessRoute =
 	| "safety"
 	| "privacy"
 	| "terms"
+	| "data-deletion"
 	| "contact";
 
 function initialLocale(): WellnessLocale {
@@ -30,66 +31,219 @@ function initialLocale(): WellnessLocale {
 const legalCopy = {
 	en: {
 		privacy: {
-			title: "Privacy",
+			title: "Privacy Policy",
 			intro:
-				"This page describes the intended privacy direction for the WUJUD wellness preview. It is not a final legal policy.",
+				"Wellness SARA by WUJUD.ai helps you build healthier habits through your account, optional reminders and consent-based operational notifications. This policy describes how we handle Wellness account data.",
 			sections: [
-				["Separate wellness information", "Personal wellness information must be stored and handled separately from archived SARA Business systems, users and customer records."],
-				["Your control", "You will be able to control reminders, pause your journey and request account deletion when accounts are implemented."],
-				["No account in this preview", "This frontend preview does not create users, send answers to a server or connect to a live AI service."],
-				["Commercial and legal review", "Retention periods, processors and final legal terms require formal review before launch."],
+				[
+					"What Wellness SARA collects",
+					"When you create a Wellness SARA account, we may store your account identity, structured wellness profile answers you choose to save, consent records, and optional contact details such as an email address or phone number for operational messages.",
+				],
+				[
+					"Separate from archived business systems",
+					"Wellness SARA information is handled separately from archived SARA Business customer, contact and conversation records. Wellness data is not shared with SARA Business systems.",
+				],
+				[
+					"Optional WhatsApp operational messaging",
+					"WhatsApp is optional. You must explicitly opt in before we send operational WhatsApp messages. If you opt in, we store your phone number in normalized form to deliver account confirmations, daily check-in reminders, journey reminders, privacy confirmations and secure links back to your Wellness SARA account.",
+				],
+				[
+					"What WhatsApp messages do not include",
+					"Operational templates do not include your profile answers, medical information, mental-health details, weight or body information, diagnosis, treatment, medication information, internal database identifiers or authentication tokens.",
+				],
+				[
+					"How you control messaging",
+					"You may reply STOP or UNSUBSCRIBE to stop optional WhatsApp messages at any time. You may also withdraw WhatsApp consent in your account privacy settings. Stopping WhatsApp messages does not automatically delete your Wellness SARA account.",
+				],
+				[
+					"No external AI on WhatsApp",
+					"General free-text WhatsApp messages are handled with deterministic operational responses only. They are not sent to an external AI model for automated conversation.",
+				],
+				[
+					"Deletion and retention",
+					"You may request account deletion from your account privacy page or through our data-deletion instructions. Deletion requests cover associated optional WhatsApp contact information where applicable. Some records may be retained only where required for lawful security, fraud prevention, consent evidence or billing dispute handling.",
+				],
 			],
 		},
 		terms: {
-			title: "Terms",
+			title: "Terms of Use",
 			intro:
-				"Prototype terms for product review only. These are not final commercial terms.",
+				"These terms apply to the Wellness SARA MVP on WUJUD.ai. By using Wellness SARA, you agree to these terms and our Privacy Policy.",
 			sections: [
-				["General wellness only", "SARA supports general wellness routines and does not provide diagnosis, treatment, medication advice or emergency services."],
-				["No guaranteed outcomes", "WUJUD does not promise specific health outcomes, perfect adherence or uninterrupted availability."],
-				["Professional help", "Questions outside general wellness should be directed to appropriately qualified professionals or emergency services when urgent."],
-				["Review required", "Final terms, eligibility, billing and cancellation rules must be approved before launch."],
+				[
+					"Wellness scope only",
+					"Wellness SARA supports general wellness routines and habit support. It does not provide medical diagnosis, treatment, medication advice, emergency services or guaranteed health outcomes.",
+				],
+				[
+					"Accounts and consent",
+					"You are responsible for the accuracy of information you provide and for managing your consent choices, including optional marketing, email notifications and WhatsApp operational messaging.",
+				],
+				[
+					"MVP limitations",
+					"Payments, paid entitlements and automated AI conversation over WhatsApp are disabled in this MVP unless explicitly enabled in a future authorized release.",
+				],
+				[
+					"Appropriate use",
+					"You must not misuse the service, attempt to access another person's account, or use Wellness SARA for unlawful, abusive or misleading purposes.",
+				],
+				[
+					"Professional help",
+					"Questions outside general wellness should be directed to appropriately qualified professionals. Contact local emergency services when urgent help is needed.",
+				],
+			],
+		},
+		"data-deletion": {
+			title: "Data Deletion Instructions",
+			intro:
+				"Wellness SARA by WUJUD.ai is operated by Tadweer Future Projects LLC, Sultanate of Oman. You may request deletion of Wellness account data and associated optional contact information.",
+			sections: [
+				[
+					"Signed-in account deletion",
+					"If you have a Wellness SARA account, sign in and use Account privacy to request account deletion or pause. This is the preferred path for Wellness account data.",
+				],
+				[
+					"Email request",
+					"You may also email wujud.sales@gmail.com with the subject line “Data Deletion Request — Wellness SARA”. Include the email address associated with your Wellness account and, if applicable, the phone number used for optional WhatsApp messaging.",
+				],
+				[
+					"What we delete",
+					"We delete or anonymize applicable Wellness account data, consent records, structured profile answers and optional WhatsApp contact information unless retention is required for lawful security, fraud prevention, consent evidence or dispute handling.",
+				],
+				[
+					"WhatsApp opt-out is not full deletion",
+					"Replying STOP or withdrawing WhatsApp consent stops optional WhatsApp messages but does not by itself delete your Wellness account.",
+				],
+				[
+					"More information",
+					"See our Privacy Policy at /privacy for additional detail about data handling and user controls.",
+				],
 			],
 		},
 		contact: {
 			title: "Contact WUJUD",
-			intro: "Have a question about the wellness preview, safety boundaries or future access?",
+			intro: "Questions about Wellness SARA, privacy controls or account support.",
 			sections: [
-				["Product questions", "Use the labelled prototype contact action below. A live contact workflow is not connected in this cycle."],
-				["Medical emergencies", "WUJUD is not an emergency service. Contact your local emergency services immediately when urgent help is needed."],
-				["Professional support", "WUJUD can guide people toward appropriate qualified support; it does not claim a live professional network today."],
+				[
+					"Wellness support",
+					"For Wellness SARA account, privacy or data-deletion questions, email wujud.sales@gmail.com with “Wellness SARA support” in the subject line.",
+				],
+				[
+					"Medical emergencies",
+					"Wellness SARA is not an emergency service. Contact local emergency services immediately when urgent help is needed.",
+				],
+				[
+					"Professional support",
+					"Wellness SARA supports general wellness only and does not replace qualified healthcare professionals.",
+				],
 			],
 		},
 	},
 	ar: {
 		privacy: {
-			title: "الخصوصية",
+			title: "سياسة الخصوصية",
 			intro:
-				"توضح هذه الصفحة اتجاه الخصوصية المقترح لمعاينة وجود للعافية، وليست سياسة قانونية نهائية.",
+				"Wellness SARA من WUJUD.ai يساعدك على بناء عادات صحية من خلال حسابك والتذكيرات الاختيارية والإشعارات التشغيلية القائمة على الموافقة. توضّح هذه السياسة كيفية تعاملنا مع بيانات حساب العافية.",
 			sections: [
-				["معلومات عافية منفصلة", "يجب تخزين معلومات العافية الشخصية والتعامل معها بشكل منفصل عن أنظمة سارة للأعمال المؤرشفة ومستخدميها وسجلات عملائها."],
-				["التحكم بيدك", "ستتمكن من التحكم في التذكيرات وإيقاف رحلتك مؤقتاً وطلب حذف حسابك عند تنفيذ الحسابات."],
-				["لا حساب في هذه المعاينة", "لا ينشئ هذا النموذج مستخدمين ولا يرسل إجاباتك إلى خادم ولا يتصل بخدمة ذكاء اصطناعي مباشرة."],
-				["تحتاج إلى مراجعة", "تحتاج مدد الاحتفاظ ومعالجو البيانات والنصوص القانونية النهائية إلى مراجعة رسمية قبل الإطلاق."],
+				[
+					"ما الذي تجمعه Wellness SARA",
+					"عند إنشاء حساب Wellness SARA، قد نخزّن هوية حسابك وإجابات ملف العافية المنظم التي تختار حفظها وسجلات الموافقة ومعلومات الاتصال الاختيارية مثل البريد الإلكتروني أو رقم الهاتف للرسائل التشغيلية.",
+				],
+				[
+					"منفصلة عن أنظمة الأعمال المؤرشفة",
+					"تُعالَج معلومات Wellness SARA بشكل منفصل عن سجلات عملاء واتصالات ومحادثات SARA Business المؤرشفة. لا تُشارَك بيانات العافية مع أنظمة SARA Business.",
+				],
+				[
+					"رسائل واتساب التشغيلية الاختيارية",
+					"واتساب اختياري. يجب أن توافق صراحةً قبل إرسال رسائل واتساب تشغيلية. عند الموافقة، نخزّن رقم هاتفك بصيغة موحّدة لإرسال تأكيدات الحساب وتذكيرات المتابعة اليومية وتذكيرات الرحلة وتأكيدات الخصوصية وروابط آمنة إلى حساب Wellness SARA.",
+				],
+				[
+					"ما لا تتضمنه رسائل واتساب",
+					"لا تتضمن القوالب التشغيلية إجابات ملفك الشخصي أو معلومات طبية أو معلومات الصحة النفسية أو الوزن أو الجسم أو التشخيص أو العلاج أو الأدوية أو معرفات قاعدة البيانات الداخلية أو رموز المصادقة.",
+				],
+				[
+					"كيف تتحكم في الرسائل",
+					"يمكنك الرد بكلمة إيقاف أو STOP لإيقاف رسائل واتساب الاختيارية في أي وقت. يمكنك أيضاً سحب موافقة واتساب من إعدادات خصوصية حسابك. إيقاف رسائل واتساب لا يحذف حساب Wellness SARA تلقائياً.",
+				],
+				[
+					"لا ذكاء اصطناعي خارجي على واتساب",
+					"تُعالَج الرسائل النصية العامة على واتساب بردود تشغيلية محددة فقط. لا تُرسَل إلى نموذج ذكاء اصطناعي خارجي للمحادثة الآلية.",
+				],
+				[
+					"الحذف والاحتفاظ",
+					"يمكنك طلب حذف الحساب من صفحة خصوصية الحساب أو عبر تعليمات حذف البيانات. تشمل طلبات الحذف معلومات الاتصال الاختيارية على واتساب حيث ينطبق ذلك. قد تُحتفظ بعض السجلات فقط عند الحاجة للأمان القانوني أو منع الاحتيال أو إثبات الموافقة أو معالجة النزاعات.",
+				],
 			],
 		},
 		terms: {
-			title: "الشروط",
-			intro: "شروط أولية لمراجعة المنتج فقط، وليست شروطاً تجارية نهائية.",
+			title: "شروط الاستخدام",
+			intro:
+				"تنطبق هذه الشروط على Wellness SARA MVP على WUJUD.ai. باستخدام Wellness SARA، فإنك توافق على هذه الشروط وسياسة الخصوصية.",
 			sections: [
-				["عافية عامة فقط", "تدعم سارة روتين العافية العامة ولا تقدم تشخيصاً أو علاجاً أو نصائح دوائية أو خدمات طوارئ."],
-				["لا نتائج مضمونة", "لا تَعِد وجود بنتائج صحية محددة أو التزام مثالي أو توفر دون انقطاع."],
-				["المساعدة المتخصصة", "يجب توجيه الأسئلة خارج نطاق العافية العامة إلى مختصين مؤهلين، أو إلى خدمات الطوارئ عند الحاجة العاجلة."],
-				["المراجعة مطلوبة", "يجب اعتماد الشروط النهائية والأهلية والفوترة والإلغاء قبل الإطلاق."],
+				[
+					"نطاق العافية فقط",
+					"Wellness SARA يدعم روتين العافية العامة وبناء العادات. لا يقدم تشخيصاً طبياً أو علاجاً أو نصائح دوائية أو خدمات طوارئ أو نتائج صحية مضمونة.",
+				],
+				[
+					"الحسابات والموافقة",
+					"أنت مسؤول عن دقة المعلومات التي تقدمها وعن إدارة خيارات الموافقة، بما في ذلك التسويق الاختياري وإشعارات البريد ورسائل واتساب التشغيلية.",
+				],
+				[
+					"قيود MVP",
+					"المدفوعات والمزايا المدفوعة والمحادثة الآلية بالذكاء الاصطناعي عبر واتساب معطّلة في هذا الإصدار ما لم يُفعَّل ذلك صراحةً في إطلاق مستقبلي معتمد.",
+				],
+				[
+					"الاستخدام المناسب",
+					"يجب ألا تسيء استخدام الخدمة أو تحاول الوصول إلى حساب شخص آخر أو تستخدم Wellness SARA لأغراض غير قانونية أو مسيئة أو مضللة.",
+				],
+				[
+					"المساعدة المتخصصة",
+					"يجب توجيه الأسئلة خارج نطاق العافية العامة إلى مختصين مؤهلين. تواصل مع خدمات الطوارئ المحلية عند الحاجة العاجلة.",
+				],
+			],
+		},
+		"data-deletion": {
+			title: "تعليمات حذف البيانات",
+			intro:
+				"Wellness SARA من WUJUD.ai تُدار من Tadweer Future Projects LLC، سلطنة عُمان. يمكنك طلب حذف بيانات حساب العافية ومعلومات الاتصال الاختيارية المرتبطة.",
+			sections: [
+				[
+					"حذف الحساب بعد تسجيل الدخول",
+					"إذا كان لديك حساب Wellness SARA، سجّل الدخول واستخدم خصوصية الحساب لطلب حذف الحساب أو إيقافه مؤقتاً. هذه هي الطريقة المفضلة لبيانات حساب العافية.",
+				],
+				[
+					"طلب عبر البريد",
+					"يمكنك أيضاً مراسلة wujud.sales@gmail.com بعنوان “Data Deletion Request — Wellness SARA”. اذكر البريد المرتبط بحسابك ورقم الهاتف المستخدم لرسائل واتساب الاختيارية إن وُجد.",
+				],
+				[
+					"ما الذي نحذفه",
+					"نحذف أو نُخفي هوية بيانات حساب العافية وسجلات الموافقة وإجابات الملف المنظم ومعلومات الاتصال الاختيارية على واتساب ما لم يكن الاحتفاظ مطلوباً للأمان القانوني أو منع الاحتيال أو إثبات الموافقة أو معالجة النزاعات.",
+				],
+				[
+					"إيقاف واتساب ليس حذفاً كاملاً",
+					"الرد بإيقاف أو سحب موافقة واتساب يوقف الرسائل الاختيارية لكنه لا يحذف حساب Wellness SARA بذاته.",
+				],
+				[
+					"مزيد من المعلومات",
+					"راجع سياسة الخصوصية على /privacy لمزيد من التفاصيل حول التعامل مع البيانات وخيارات التحكم.",
+				],
 			],
 		},
 		contact: {
 			title: "تواصل مع وجود",
-			intro: "هل لديك سؤال عن معاينة العافية أو حدود السلامة أو الوصول مستقبلاً؟",
+			intro: "أسئلة حول Wellness SARA أو ضوابط الخصوصية أو دعم الحساب.",
 			sections: [
-				["أسئلة المنتج", "استخدم زر التواصل التجريبي أدناه. لا توجد آلية تواصل مباشرة متصلة في هذه الدورة."],
-				["الطوارئ الطبية", "وجود ليست خدمة طوارئ. تواصل فوراً مع خدمات الطوارئ المحلية عند الحاجة العاجلة."],
-				["الدعم المهني", "يمكن لوجود إرشادك نحو دعم مؤهل ومناسب؛ ولا تدّعي وجود شبكة متخصصين مباشرة اليوم."],
+				[
+					"دعم العافية",
+					"لأسئلة حساب Wellness SARA أو الخصوصية أو حذف البيانات، راسل wujud.sales@gmail.com مع “Wellness SARA support” في عنوان الرسالة.",
+				],
+				[
+					"الطوارئ الطبية",
+					"Wellness SARA ليست خدمة طوارئ. تواصل فوراً مع خدمات الطوارئ المحلية عند الحاجة العاجلة.",
+				],
+				[
+					"الدعم المهني",
+					"Wellness SARA يدعم العافية العامة فقط ولا يحل محل المختصين الصحيين المؤهلين.",
+				],
 			],
 		},
 	},
@@ -142,7 +296,8 @@ export function WellnessInfoPage({ route }: { route: WellnessRoute }) {
 					safety: ["Safety and privacy", "General wellness support with clear boundaries and meaningful user control."],
 				};
 
-	const legalRoute = route === "privacy" || route === "terms" || route === "contact";
+	const legalRoute =
+		route === "privacy" || route === "terms" || route === "data-deletion" || route === "contact";
 	const legal = legalRoute ? legalCopy[locale][route] : null;
 
 	return (

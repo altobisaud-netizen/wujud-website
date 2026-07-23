@@ -11,7 +11,7 @@ const read = (file: string) => fs.readFileSync(path.resolve(file), "utf8");
 
 describe("wellness route metadata and static generation", () => {
 	it("defines unique valid metadata for every approved public route in both languages", () => {
-		expect(WELLNESS_PUBLIC_ROUTES).toHaveLength(8);
+		expect(WELLNESS_PUBLIC_ROUTES).toHaveLength(9);
 		const titles = new Set<string>();
 		const descriptions = new Set<string>();
 
@@ -51,9 +51,8 @@ describe("wellness route metadata and static generation", () => {
 		expect(generator).toContain("SARA supports general wellness only");
 		expect(generator).toContain("Account creation is disabled");
 		expect(generator).toContain("Week 8 — Create a continuation plan");
-		expect(generator).toContain("Formal legal approval is pending");
-		expect(generator).toContain("prices, billing terms, refunds");
-		expect(generator).toContain("contact your session moderator");
+		expect(generator).toContain("Optional WhatsApp messaging");
+		expect(generator).toContain("Data Deletion Instructions — Wellness SARA");
 	});
 
 	it("keeps preview noindex while retaining production indexing behavior", () => {

@@ -117,42 +117,64 @@ const staticContent = {
 			"تقدم سارة دعماً عاماً للعافية مع حدود طبية واضحة وتحكم حقيقي للمستخدم.",
 	},
 	"/privacy": {
-		h1: "Privacy — product-review draft",
+		h1: "Privacy Policy — Wellness SARA",
 		summary:
-			"This is an unapproved product-review draft, not a final legal privacy policy. Formal legal approval is pending.",
+			"How Wellness SARA by WUJUD.ai handles account data, consent choices, optional operational notifications and user controls.",
 		sections: [
-			["No data collection in this prototype", "The frontend preview creates no account, stores no wellness data on a server and makes no product API request."],
-			["Future separation", "Any future wellness information must remain separate from archived SARA Business systems, users and customer records."],
-			["Pending decisions", "Retention periods, processors, account deletion procedures and final legal wording require named-owner review and approval."],
+			[
+				"Optional WhatsApp messaging",
+				"WhatsApp is optional and requires explicit opt-in. Phone numbers are stored only to deliver consent-based operational messages such as account confirmations, check-in reminders and secure links back to your account.",
+			],
+			[
+				"Your controls",
+				"You may reply STOP to stop optional WhatsApp messages or withdraw consent in account privacy settings. Stopping WhatsApp messages does not automatically delete your Wellness account.",
+			],
+			[
+				"Separate from business systems",
+				"Wellness SARA data is handled separately from archived SARA Business customer records. General free-text WhatsApp messages are not sent to an external AI model.",
+			],
 		],
-		arH1: "الخصوصية — مسودة لمراجعة المنتج",
+		arH1: "سياسة الخصوصية — Wellness SARA",
 		arSummary:
-			"هذه مسودة غير معتمدة لمراجعة المنتج وليست سياسة خصوصية قانونية نهائية. الموافقة القانونية معلّقة.",
+			"كيف تتعامل Wellness SARA من WUJUD.ai مع بيانات الحساب وموافقاتك والإشعارات التشغيلية الاختيارية.",
 	},
 	"/terms": {
-		h1: "Terms — product-review draft",
+		h1: "Terms of Use — Wellness SARA",
 		summary:
-			"These are unapproved prototype terms for product review only, not final legal or commercial terms.",
+			"Terms for the Wellness SARA MVP on WUJUD.ai, including general-wellness scope and clear service boundaries.",
 		sections: [
-			["General wellness scope", "SARA does not provide diagnosis, treatment, medication advice, emergency services or guaranteed outcomes."],
-			["Prototype limitations", "Accounts, payments, subscriptions, data storage and professional escalation are not operational."],
-			["Pending decisions", "Eligibility, pricing, billing, refunds, cancellation and final legal wording require formal approval before launch."],
+			["General wellness only", "Wellness SARA supports general wellness routines and does not provide diagnosis, treatment, medication advice or emergency services."],
+			["No guaranteed outcomes", "WUJUD does not promise specific health outcomes or uninterrupted availability."],
+			["MVP limitations", "Payments, paid entitlements and automated AI WhatsApp conversation remain disabled unless explicitly enabled in a future authorized release."],
 		],
-		arH1: "الشروط — مسودة لمراجعة المنتج",
+		arH1: "شروط الاستخدام — Wellness SARA",
 		arSummary:
-			"هذه شروط نموذج أولي غير معتمدة لمراجعة المنتج فقط، وليست شروطاً قانونية أو تجارية نهائية.",
+			"شروط Wellness SARA MVP على WUJUD.ai، بما في ذلك نطاق العافية العامة وحدود الخدمة.",
+	},
+	"/data-deletion": {
+		h1: "Data Deletion Instructions — Wellness SARA",
+		summary:
+			"How to request deletion of Wellness SARA account data and associated optional contact information.",
+		sections: [
+			["Signed-in deletion", "Use Account privacy after signing in to request account deletion or pause."],
+			["Email request", "Email wujud.sales@gmail.com with subject “Data Deletion Request — Wellness SARA”."],
+			["WhatsApp contact data", "Deletion requests cover associated optional WhatsApp contact information where applicable."],
+		],
+		arH1: "تعليمات حذف البيانات — Wellness SARA",
+		arSummary:
+			"كيفية طلب حذف بيانات حساب Wellness SARA ومعلومات الاتصال الاختيارية المرتبطة.",
 	},
 	"/contact": {
-		h1: "Contact WUJUD",
+		h1: "Contact WUJUD — Wellness SARA",
 		summary:
-			"For this moderated product-review cycle, contact your session moderator or the WUJUD product owner who shared this preview.",
+			"Contact Wellness SARA support for account, privacy or data-deletion questions.",
 		sections: [
-			["Product-review contact path", "The public contact workflow is not connected. Participants should use their invitation or moderator contact details; this page sends no data."],
-			["Urgent or medical help", "WUJUD is not an emergency or medical service. Contact local emergency services or an appropriate qualified professional when needed."],
+			["Wellness support", "Email wujud.sales@gmail.com with “Wellness SARA support” in the subject line."],
+			["Urgent or medical help", "Wellness SARA is not an emergency or medical service. Contact local emergency services when needed."],
 		],
-		arH1: "تواصل مع وجود",
+		arH1: "تواصل مع وجود — Wellness SARA",
 		arSummary:
-			"خلال دورة مراجعة المنتج هذه، تواصل مع ميسّر الجلسة أو مسؤول منتج وجود الذي شارك معك هذه المعاينة.",
+			"تواصل مع دعم Wellness SARA لأسئلة الحساب أو الخصوصية أو حذف البيانات.",
 	},
 };
 

@@ -419,6 +419,7 @@ function WellnessHomePageContent({ getSessionToken }: { getSessionToken?: () => 
 				<nav aria-label={locale === "ar" ? "روابط التذييل" : "Footer links"}>
 					<a href="/privacy">{locale === "ar" ? "الخصوصية" : "Privacy"}</a>
 					<a href="/terms">{locale === "ar" ? "الشروط" : "Terms"}</a>
+					<a href="/data-deletion">{locale === "ar" ? "حذف البيانات" : "Data deletion"}</a>
 					<a href="/account/privacy">{locale === "ar" ? "خصوصية الحساب" : "Account privacy"}</a>
 					<a href="/contact">{locale === "ar" ? "تواصل معنا" : "Contact"}</a>
 				</nav>
