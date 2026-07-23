@@ -1,0 +1,7 @@
+{
+  "result": "FULL_OPERATIONAL_A11Y_PASS",
+  "baseUrl": "https://staging-wellness.wujud.ai",
+  "scenariosRun": 28,
+  "failedCount": 0,
+  "failures": []
+}
