@@ -60,7 +60,8 @@
 		"verify:wellness:005-live": "node scripts/verify-wellness-005-live.mjs",
 		"verify:wellness": "node scripts/verify-wellness-preview.mjs",
 		"verify:wellness:review": "node scripts/verify-wellness-review.mjs",
-		"verify:staging:a11y": "node scripts/verify-staging-a11y.mjs"
+		"verify:staging:a11y": "node scripts/verify-staging-a11y.mjs",
+		"verify:staging:a11y:authenticated": "node scripts/verify-staging-a11y-authenticated.mjs"
 	},
 	"type": "module"
 }

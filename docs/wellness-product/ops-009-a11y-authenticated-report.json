@@ -1,0 +1,20 @@
+{
+  "result": "FULL_AUTHENTICATED_A11Y_PASS",
+  "baseUrl": "https://staging-wellness.wujud.ai",
+  "scenariosRun": 20,
+  "failedCount": 0,
+  "viewports": [
+    "1440",
+    "320",
+    "390",
+    "430"
+  ],
+  "scenarios": [
+    "account-privacy-authenticated",
+    "account-privacy-authenticated-ar",
+    "pricing-unavailable-authenticated",
+    "homepage-en-authenticated",
+    "homepage-ar-authenticated"
+  ],
+  "failures": []
+}
