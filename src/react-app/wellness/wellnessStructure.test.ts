@@ -5,6 +5,13 @@ import { describe, expect, it } from "vitest";
 const read = (file: string) => fs.readFileSync(path.resolve(file), "utf8");
 
 describe("wellness website structure", () => {
+	it("routes account privacy controls through /account/privacy", () => {
+		const app = read("src/react-app/App.tsx");
+		expect(app).toContain('path === "/account" || path === "/account/privacy"');
+		expect(app).toContain('window.history.replaceState(null, "", "/account/privacy")');
+		expect(app).toContain("PrivacyAccountPage");
+	});
+
 	it("exposes every required direct route", () => {
 		const app = read("src/react-app/App.tsx");
 		const index = read("index.html");

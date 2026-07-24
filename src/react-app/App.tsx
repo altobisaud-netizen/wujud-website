@@ -30,7 +30,10 @@ export default function App() {
 		"/contact": "contact",
 	};
 
-	if (path === "/account/privacy") {
+	if (path === "/account" || path === "/account/privacy") {
+		if (path === "/account") {
+			window.history.replaceState(null, "", "/account/privacy");
+		}
 		return (
 			<WellnessClerkProvider>
 				<PrivacyAccountPage />
