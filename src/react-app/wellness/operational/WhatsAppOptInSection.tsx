@@ -5,6 +5,7 @@ import {
 	fetchWhatsAppStatus,
 	optOutWhatsApp,
 	registerWhatsAppOptIn,
+	registerWhatsAppReOptIn,
 	type WhatsAppStatus,
 } from "./api";
 import { readOperationalFlags } from "./flags";
@@ -35,6 +36,7 @@ export function WhatsAppOptInSection({ locale, consentPolicyId }: Props) {
 					phoneLabel: "رقم واتساب (E.164)",
 					phonePlaceholder: "+96891234567",
 					save: "حفظ الموافقة ورقم واتساب",
+					reEnable: "إعادة تفعيل الرسائل باستخدام الرقم المحفوظ",
 					confirm: "تأكيد وإرسال رسالة الترحيب",
 					optOut: "إيقاف رسائل واتساب",
 					masked: "الرقم المحفوظ",
@@ -50,6 +52,7 @@ export function WhatsAppOptInSection({ locale, consentPolicyId }: Props) {
 					phoneLabel: "WhatsApp number (E.164)",
 					phonePlaceholder: "+96891234567",
 					save: "Save consent and WhatsApp number",
+					reEnable: "Re-enable messages using saved number",
 					confirm: "Confirm and send welcome message",
 					optOut: "Stop WhatsApp messages",
 					masked: "Saved number",
@@ -81,6 +84,9 @@ export function WhatsAppOptInSection({ locale, consentPolicyId }: Props) {
 
 	if (!flags.whatsappEnabled) return null;
 	if (loading) return <p role="status">{locale === "ar" ? "جاري التحميل…" : "Loading…"}</p>;
+
+	const canReEnableStoredPhone = Boolean(status?.maskedPhone && !status?.optedIn);
+	const canRegisterNewPhone = !status?.maskedPhone;
 
 	async function runWithToken(action: (token: string) => Promise<{ ok: boolean; message?: string }>) {
 		setMessage(null);
@@ -122,38 +128,64 @@ export function WhatsAppOptInSection({ locale, consentPolicyId }: Props) {
 			<p>
 				<a href="/privacy">{copy.privacyLink}</a>
 			</p>
-			<label htmlFor="wellness-whatsapp-phone">{copy.phoneLabel}</label>
-			<input
-				id="wellness-whatsapp-phone"
-				name="whatsappPhone"
-				type="tel"
-				autoComplete="tel"
-				inputMode="tel"
-				dir="ltr"
-				value={phone}
-				onChange={(event) => setPhone(event.target.value)}
-				placeholder={copy.phonePlaceholder}
-			/>
+			{canRegisterNewPhone ? (
+				<>
+					<label htmlFor="wellness-whatsapp-phone">{copy.phoneLabel}</label>
+					<input
+						id="wellness-whatsapp-phone"
+						name="whatsappPhone"
+						type="tel"
+						autoComplete="tel"
+						inputMode="tel"
+						dir="ltr"
+						value={phone}
+						onChange={(event) => setPhone(event.target.value)}
+						placeholder={copy.phonePlaceholder}
+					/>
+				</>
+			) : null}
 			<ul className="ops-privacy-actions">
-				<li>
-					<button
-						type="button"
-						disabled={!consentChecked || !phone.trim() || !consentPolicyId}
-						onClick={() =>
-							void runWithToken(async (token) => {
-								if (!consentPolicyId) return { ok: false, message: copy.unavailable };
-								const res = await registerWhatsAppOptIn(token, {
-									phone,
-									consentPolicyId,
-									consentPolicyVersion: "v1",
-								});
-								return { ok: res.ok, message: res.ok ? undefined : res.message };
-							})
-						}
-					>
-						{copy.save}
-					</button>
-				</li>
+				{canReEnableStoredPhone ? (
+					<li>
+						<button
+							type="button"
+							disabled={!consentChecked || !consentPolicyId}
+							onClick={() =>
+								void runWithToken(async (token) => {
+									if (!consentPolicyId) return { ok: false, message: copy.unavailable };
+									const res = await registerWhatsAppReOptIn(token, {
+										consentPolicyId,
+										consentPolicyVersion: "v1",
+									});
+									return { ok: res.ok, message: res.ok ? undefined : res.message };
+								})
+							}
+						>
+							{copy.reEnable}
+						</button>
+					</li>
+				) : null}
+				{canRegisterNewPhone ? (
+					<li>
+						<button
+							type="button"
+							disabled={!consentChecked || !phone.trim() || !consentPolicyId}
+							onClick={() =>
+								void runWithToken(async (token) => {
+									if (!consentPolicyId) return { ok: false, message: copy.unavailable };
+									const res = await registerWhatsAppOptIn(token, {
+										phone,
+										consentPolicyId,
+										consentPolicyVersion: "v1",
+									});
+									return { ok: res.ok, message: res.ok ? undefined : res.message };
+								})
+							}
+						>
+							{copy.save}
+						</button>
+					</li>
+				) : null}
 				{status?.pendingConfirmation ? (
 					<li>
 						<button

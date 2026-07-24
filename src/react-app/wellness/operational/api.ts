@@ -237,6 +237,22 @@ export async function fetchWhatsAppStatus(token: string): Promise<ApiResult<What
 	return authFetch<WhatsAppStatus>("/api/v1/me/whatsapp", token);
 }
 
+export async function registerWhatsAppReOptIn(
+	token: string,
+	input: { consentPolicyId: string; consentPolicyVersion: string },
+): Promise<
+	ApiResult<{ status: string; maskedPhone: string; pendingConfirmation: boolean; reusedStoredPhone?: boolean }>
+> {
+	return authFetch("/api/v1/me/whatsapp/re-opt-in", token, {
+		method: "PUT",
+		body: JSON.stringify({
+			whatsappOperationalConsent: true,
+			consentPolicyId: input.consentPolicyId,
+			consentPolicyVersion: input.consentPolicyVersion,
+		}),
+	});
+}
+
 export async function registerWhatsAppOptIn(
 	token: string,
 	input: { phone: string; consentPolicyId: string; consentPolicyVersion: string },
