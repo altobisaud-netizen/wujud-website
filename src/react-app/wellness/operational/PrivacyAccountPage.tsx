@@ -53,11 +53,15 @@ function PrivacyAccountContent() {
 			setLoading(false);
 			return;
 		}
-		const [consentRes, profileRes, policiesRes] = await Promise.all([
+		const [consentRes, profileRes] = await Promise.all([
 			fetchMyConsents(token),
 			fetchMyProfileDraft(token),
-			fetchConsentPolicies(locale),
 		]);
+		const userLocale: WellnessLocale =
+			profileRes.ok && (profileRes.data.locale === "en" || profileRes.data.locale === "ar")
+				? profileRes.data.locale
+				: locale;
+		const policiesRes = await fetchConsentPolicies(userLocale);
 		if (consentRes.ok) setConsents(consentRes.data.consents);
 		if (profileRes.ok) setProfile(profileRes.data.structured);
 		if (policiesRes.ok) {
