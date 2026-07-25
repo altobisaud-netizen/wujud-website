@@ -8,6 +8,10 @@
 		"enabled": true
 	},
 	"upload_source_maps": true,
+	"routes": [
+		{ "pattern": "wujud.ai/*", "zone_name": "wujud.ai" },
+		{ "pattern": "www.wujud.ai/*", "zone_name": "wujud.ai" }
+	],
 	"assets": {
 		"directory": "./dist/client",
 		"binding": "ASSETS",
