@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { sendDemoRequestEmail, validateDemoPayload } from "./demoResend";
+import { fetchAssetsWithSecurityHeaders } from "./productionSecurityHeaders";
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -42,6 +43,6 @@ app.post("/api/demo", async (c) => {
 });
 
 /** Non-API routes: serve static assets / SPA index.html (e.g. /privacy). */
-app.all("*", (c) => c.env.ASSETS.fetch(c.req.raw));
+app.all("*", async (c) => fetchAssetsWithSecurityHeaders((req) => c.env.ASSETS.fetch(req), c.req.raw));
 
 export default app;

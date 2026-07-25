@@ -14,7 +14,12 @@ export function WellnessClerkProvider({ children }: { children: ReactNode }) {
 		return children;
 	}
 	return (
-		<ClerkProvider publishableKey={publishableKey} afterSignOutUrl="/">
+		<ClerkProvider
+			publishableKey={publishableKey}
+			afterSignOutUrl="/"
+			signInFallbackRedirectUrl="/account/privacy"
+			signUpFallbackRedirectUrl="/account/privacy"
+		>
 			{children}
 		</ClerkProvider>
 	);

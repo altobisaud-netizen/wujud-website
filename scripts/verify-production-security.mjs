@@ -23,5 +23,8 @@ report.routes.push(await check(`${WEB}/pricing`));
 const www = await check("https://www.wujud.ai/", false);
 report.wwwRedirect = { status: www.status, location: www.headers.location ?? "followed" };
 report.headers = report.routes[0]?.headers ?? {};
-report.result = report.routes.every((r) => r.status === 200) ? "PRODUCTION_SECURITY_ROUTING_PASS" : "FAIL";
+report.result = report.routes.every((r) => r.status === 200) &&
+	Object.values(report.headers).every((v) => v === "present")
+	? "PRODUCTION_SECURITY_HEADERS_PASS"
+	: "PRODUCTION_SECURITY_ROUTING_PASS";
 console.log(JSON.stringify(report, null, 2));
