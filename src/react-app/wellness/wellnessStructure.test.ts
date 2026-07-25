@@ -86,6 +86,8 @@ describe("wellness website structure", () => {
 		expect(locale).toContain("السعر قيد المراجعة");
 		expect(locale).toContain("does not promise guaranteed results");
 		expect(info).toContain("Optional WhatsApp operational messaging");
+		expect(info).toContain("WhatsApp activation status");
+		expect(info).toContain("currently inactive until separately enabled");
 		expect(info).toContain("Wellness SARA by WUJUD.ai");
 	});
 

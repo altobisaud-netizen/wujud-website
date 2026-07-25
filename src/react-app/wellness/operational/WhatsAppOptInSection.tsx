@@ -16,8 +16,18 @@ type Props = {
 	consentPolicyId?: string;
 };
 
+export const WELLNESS_WHATSAPP_COMING_SOON_COPY = {
+	en: "WhatsApp reminders are coming soon. You can use the complete Wellness SARA experience securely through your account.",
+	ar: "تذكيرات واتساب ستكون متاحة قريباً. يمكنك استخدام تجربة Wellness SARA الكاملة بأمان من خلال حسابك.",
+} as const;
+
+function whatsAppOperationalUiEnabled(flags: ReturnType<typeof readOperationalFlags>): boolean {
+	return flags.whatsappEnabled && flags.whatsappOperationalMessagesEnabled;
+}
+
 export function WhatsAppOptInSection({ locale, consentPolicyId }: Props) {
 	const flags = readOperationalFlags();
+	const operationalUiEnabled = whatsAppOperationalUiEnabled(flags);
 	const getSessionToken = useWellnessSessionToken();
 	const [phone, setPhone] = useState("");
 	const [consentChecked, setConsentChecked] = useState(false);
@@ -29,6 +39,8 @@ export function WhatsAppOptInSection({ locale, consentPolicyId }: Props) {
 	const copy =
 		locale === "ar"
 			? {
+					inactiveTitle: "رسائل واتساب التشغيلية",
+					comingSoon: WELLNESS_WHATSAPP_COMING_SOON_COPY.ar,
 					title: "رسائل Wellness SARA التشغيلية على واتساب",
 					consent:
 						"أوافق على استلام تحديثات حساب Wellness SARA وتذكيرات رحلة العافية عبر واتساب، ويمكنني إيقاف هذه الرسائل في أي وقت.",
@@ -45,6 +57,8 @@ export function WhatsAppOptInSection({ locale, consentPolicyId }: Props) {
 					unavailable: "رسائل واتساب التشغيلية غير متاحة في هذه البيئة.",
 				}
 			: {
+					inactiveTitle: "WhatsApp operational messages",
+					comingSoon: WELLNESS_WHATSAPP_COMING_SOON_COPY.en,
 					title: "Wellness SARA WhatsApp operational messages",
 					consent:
 						"I agree to receive Wellness SARA account updates and wellness journey reminders through WhatsApp. I can stop these messages at any time.",
@@ -64,7 +78,7 @@ export function WhatsAppOptInSection({ locale, consentPolicyId }: Props) {
 	useEffect(() => {
 		let cancelled = false;
 		void (async () => {
-			if (!flags.whatsappEnabled || !flags.apiBaseUrl) {
+			if (!operationalUiEnabled || !flags.apiBaseUrl) {
 				setLoading(false);
 				return;
 			}
@@ -80,9 +94,16 @@ export function WhatsAppOptInSection({ locale, consentPolicyId }: Props) {
 		return () => {
 			cancelled = true;
 		};
-	}, [flags.apiBaseUrl, flags.whatsappEnabled, getSessionToken]);
+	}, [flags.apiBaseUrl, getSessionToken, operationalUiEnabled]);
 
-	if (!flags.whatsappEnabled) return null;
+	if (!operationalUiEnabled) {
+		return (
+			<section aria-label={copy.inactiveTitle} className="ops-whatsapp-inactive">
+				<h2>{copy.inactiveTitle}</h2>
+				<p role="status">{copy.comingSoon}</p>
+			</section>
+		);
+	}
 	if (loading) return <p role="status">{locale === "ar" ? "جاري التحميل…" : "Loading…"}</p>;
 
 	const canReEnableStoredPhone = Boolean(status?.maskedPhone && !status?.optedIn);

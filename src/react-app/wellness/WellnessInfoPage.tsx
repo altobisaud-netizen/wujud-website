@@ -48,6 +48,10 @@ const legalCopy = {
 					"WhatsApp is optional. You must explicitly opt in before we send operational WhatsApp messages. If you opt in, we store your phone number in normalized form to deliver account confirmations, daily check-in reminders, journey reminders, privacy confirmations and secure links back to your Wellness SARA account.",
 				],
 				[
+					"WhatsApp activation status",
+					"WhatsApp features are currently inactive until separately enabled after governance approval and Meta resolution. The disclosures in this policy describe planned optional communication when activation occurs. Current Wellness SARA web account, consent and privacy controls remain fully available.",
+				],
+				[
 					"What WhatsApp messages do not include",
 					"Operational templates do not include your profile answers, medical information, mental-health details, weight or body information, diagnosis, treatment, medication information, internal database identifiers or authentication tokens.",
 				],
@@ -155,6 +159,10 @@ const legalCopy = {
 				[
 					"رسائل واتساب التشغيلية الاختيارية",
 					"واتساب اختياري. يجب أن توافق صراحةً قبل إرسال رسائل واتساب تشغيلية. عند الموافقة، نخزّن رقم هاتفك بصيغة موحّدة لإرسال تأكيدات الحساب وتذكيرات المتابعة اليومية وتذكيرات الرحلة وتأكيدات الخصوصية وروابط آمنة إلى حساب Wellness SARA.",
+				],
+				[
+					"حالة تفعيل واتساب",
+					"ميزات واتساب غير نشطة حالياً إلى حين تفعيلها بشكل منفصل بعد موافقة الحوكمة وحل قيود Meta. توضّح الإفصاحات في هذه السياسة التواصل الاختياري المخطط عند التفعيل. تظل خدمات حساب Wellness SARA على الويب والموافقة وضوابط الخصوصية متاحة بالكامل.",
 				],
 				[
 					"ما لا تتضمنه رسائل واتساب",

@@ -57,11 +57,7 @@ function PrivacyAccountContent() {
 			fetchMyConsents(token),
 			fetchMyProfileDraft(token),
 		]);
-		const userLocale: WellnessLocale =
-			profileRes.ok && (profileRes.data.locale === "en" || profileRes.data.locale === "ar")
-				? profileRes.data.locale
-				: locale;
-		const policiesRes = await fetchConsentPolicies(userLocale);
+		const policiesRes = await fetchConsentPolicies(locale);
 		if (consentRes.ok) setConsents(consentRes.data.consents);
 		if (profileRes.ok) setProfile(profileRes.data.structured);
 		if (policiesRes.ok) {

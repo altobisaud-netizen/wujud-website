@@ -1,6 +1,50 @@
 import { describe, expect, it } from "vitest";
 import { formatOmrFromBaisa, readOperationalFlags } from "./flags";
 
+describe("WhatsApp production gating", () => {
+	it("shows exact English coming-soon copy when WhatsApp flags are off", async () => {
+		const { WELLNESS_WHATSAPP_COMING_SOON_COPY } = await import("./WhatsAppOptInSection");
+		expect(WELLNESS_WHATSAPP_COMING_SOON_COPY.en).toBe(
+			"WhatsApp reminders are coming soon. You can use the complete Wellness SARA experience securely through your account.",
+		);
+	});
+
+	it("shows exact Arabic coming-soon copy when WhatsApp flags are off", async () => {
+		const { WELLNESS_WHATSAPP_COMING_SOON_COPY } = await import("./WhatsAppOptInSection");
+		expect(WELLNESS_WHATSAPP_COMING_SOON_COPY.ar).toBe(
+			"تذكيرات واتساب ستكون متاحة قريباً. يمكنك استخدام تجربة Wellness SARA الكاملة بأمان من خلال حسابك.",
+		);
+	});
+
+	it("hides phone entry and send controls unless both WhatsApp flags are enabled", async () => {
+		const fs = await import("node:fs");
+		const path = await import("node:path");
+		const source = fs.readFileSync(path.join(import.meta.dirname, "WhatsAppOptInSection.tsx"), "utf8");
+		expect(source).toMatch(/whatsAppOperationalUiEnabled/);
+		expect(source).toMatch(/ops-whatsapp-inactive/);
+		expect(source).not.toMatch(/if \(!flags\.whatsappEnabled\) return null/);
+		expect(source).toMatch(/wellness-whatsapp-phone/);
+		expect(source).toMatch(/if \(!operationalUiEnabled\)/);
+	});
+
+	it("does not fetch WhatsApp status when production flags are off", async () => {
+		const fs = await import("node:fs");
+		const path = await import("node:path");
+		const source = fs.readFileSync(path.join(import.meta.dirname, "WhatsAppOptInSection.tsx"), "utf8");
+		expect(source).toMatch(/if \(!operationalUiEnabled \|\| !flags\.apiBaseUrl\)/);
+		expect(source).toMatch(/fetchWhatsAppStatus/);
+	});
+
+	it("preserves staging-enabled opt-in implementation behind operational flags", async () => {
+		const fs = await import("node:fs");
+		const path = await import("node:path");
+		const source = fs.readFileSync(path.join(import.meta.dirname, "WhatsAppOptInSection.tsx"), "utf8");
+		expect(source).toMatch(/registerWhatsAppOptIn/);
+		expect(source).toMatch(/confirmWhatsAppFirstMessage/);
+		expect(source).toMatch(/optOutWhatsApp/);
+	});
+});
+
 describe("operational presentation flags", () => {
 	it("defaults operational flags off without Vite env", () => {
 		const flags = readOperationalFlags();
