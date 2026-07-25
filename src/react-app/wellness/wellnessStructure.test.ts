@@ -109,4 +109,19 @@ describe("wellness website structure", () => {
 		expect(css).toMatch(/\.hero-lifestyle\s*\{[^}]*order:\s*3;/s);
 		expect(css).not.toMatch(/@media \(max-width: 1060px\)[\s\S]*?\.hero-lifestyle\s*\{[^}]*order:\s*2;/s);
 	});
+
+	it("does not reference Instagram in Wellness launch surfaces", () => {
+		const walk = (dir: string): string[] =>
+			fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+				const full = path.join(dir, entry.name);
+				if (entry.isDirectory()) return walk(full);
+				if (!/\.(ts|tsx|css)$/.test(full) || /\.test\.(ts|tsx)$/.test(full)) return [];
+				return [full];
+			});
+		const wellnessRoot = path.resolve("src/react-app/wellness");
+		const source = walk(wellnessRoot)
+			.map((file) => fs.readFileSync(file, "utf8"))
+			.join("\n");
+		expect(source).not.toMatch(/instagram/i);
+	});
 });
