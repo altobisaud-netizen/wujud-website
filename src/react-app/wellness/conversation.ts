@@ -116,11 +116,11 @@ export function selectDiscoveryAnswer(
 		const saraText =
 			answerId === "howWorks"
 				? locale === "ar"
-					? "سارة تساعدك عبر محادثة بسيطة: تشارك ما ترغب في تحسينه، ثم تحصل على خطوة يومية ومراجعة أسبوعية، مع تعديل الخطة عندما يكون يومك مزدحماً.\n\nسأعرض الآن معاينة رحلتك المقترحة."
-					: "SARA helps through a simple conversation: you share what you want to improve, then get a daily step and weekly review, with plan adjustments on busy days.\n\nI’ll show your suggested journey preview now."
+					? "سارة تساعدك عبر محادثة بسيطة: تشارك ما ترغب في تحسينه، ثم تحصل على خطوة يومية ومراجعة أسبوعية، مع تعديل الخطة عندما يكون يومك مزدحماً.\n\nسأعرض الآن نقطة البداية المقترحة لرحلتك."
+					: "SARA helps through a simple conversation: you share what you want to improve, then get a daily step and weekly review, with plan adjustments on busy days.\n\nI’ll show your suggested starting point now."
 				: locale === "ar"
-					? "السعر قيد المراجعة حالياً. لا يوجد شراء في هذه المعاينة، ويمكنك طلب إشعار عند الإطلاق بعد معاينة الرحلة."
-					: "Pricing is under review. There is no purchase in this preview, and you can request a launch notification after viewing the journey.";
+					? "الأسعار ستُعلَن بعد مرحلة الوصول المبكر. لا يوجد شراء الآن، ويمكنك الانضمام إلى قائمة الإطلاق بعد عرض رحلتك."
+					: "Pricing will be announced after the early-access phase. There is no purchase today, and you can join the launch list after viewing your journey.";
 		const next: DiscoveryState = {
 			stage: "preview",
 			answers,
@@ -153,8 +153,8 @@ export function selectDiscoveryAnswer(
 		nextStage = "preview";
 		saraText =
 			locale === "ar"
-				? "إليك معاينة مرنة لرحلتك المقترحة مع سارة."
-				: "Here is a flexible preview of your suggested journey with SARA.";
+				? "إليك نقطة بداية مرنة لرحلتك المقترحة مع سارة."
+				: "Here is a flexible starting point for your suggested journey with SARA.";
 	}
 
 	const next: DiscoveryState = {

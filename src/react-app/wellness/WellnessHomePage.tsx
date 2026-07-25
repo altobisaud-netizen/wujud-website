@@ -17,6 +17,7 @@ import { isWellnessClerkConfigured } from "./operational/wellnessClerkConfig";
 import { readOperationalFlags } from "./operational/flags";
 import { useOperationalPricing } from "./operational/useOperationalPricing";
 import { SiteHeader } from "./SiteHeader";
+import { WellnessFooter } from "./WellnessFooter";
 import type { WellnessLocale } from "./types";
 import { useWellnessMetadata } from "./useWellnessMetadata";
 import { WellnessPicture } from "./WellnessPicture";
@@ -150,8 +151,6 @@ function WellnessHomePageContent({ getSessionToken }: { getSessionToken?: () => 
 		timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 	};
 
-	const priceDisplay = ops.priceLabel ?? (locale === "ar" ? "السعر قيد المراجعة" : "Price under review");
-
 	function undo() {
 		if (typingTimer.current) window.clearTimeout(typingTimer.current);
 		setTyping(false);
@@ -201,6 +200,13 @@ function WellnessHomePageContent({ getSessionToken }: { getSessionToken?: () => 
 							</a>
 						</div>
 						<p className="hero-trust-line">{t.heroTrust}</p>
+						<p className="hero-definition">{t.saraDefinition}</p>
+						<div className="hero-demo-cta">
+							<a className="hero-cta hero-cta--demo" href="#wellness-conversation">
+								{t.demoCta}
+							</a>
+							<p className="fine-print">{t.chatDemoLabel}</p>
+						</div>
 					</div>
 
 					<figure className="hero-lifestyle">
@@ -212,7 +218,7 @@ function WellnessHomePageContent({ getSessionToken }: { getSessionToken?: () => 
 						className="conversation-shell phone-shell conversion-chat"
 						id="wellness-conversation"
 						role="region"
-						aria-label={locale === "ar" ? "محادثة سارة التفاعلية" : "Interactive SARA conversation"}
+						aria-label={locale === "ar" ? "تجربة متابعة قصيرة مع سارة" : "Short SARA check-in demo"}
 					>
 						<div className="conversation-topbar conversion-chat__topbar">
 							<div className="sara-identity">
@@ -240,7 +246,7 @@ function WellnessHomePageContent({ getSessionToken }: { getSessionToken?: () => 
 							</div>
 						</div>
 
-						<p className="chat-demo-label">{t.chatDemoLabel}</p>
+						<p className="chat-demo-label">{t.demoSectionTitle}</p>
 
 						<div
 							className="conversation-thread"
@@ -294,7 +300,7 @@ function WellnessHomePageContent({ getSessionToken }: { getSessionToken?: () => 
 
 							{!typing && discovery.stage === "preview" ? (
 								<section className="plan-preview" aria-labelledby="plan-preview-title">
-									<p className="eyebrow">{locale === "ar" ? "معاينة شخصية" : "Personalized preview"}</p>
+									<p className="eyebrow">{t.planSummaryEyebrow}</p>
 									<h2 id="plan-preview-title">{t.previewTitle}</h2>
 									<p>{t.previewIntro}</p>
 									<dl className="preview-meta">
@@ -330,9 +336,8 @@ function WellnessHomePageContent({ getSessionToken }: { getSessionToken?: () => 
 									<p className="plan-preview__closing">{t.previewClosing}</p>
 									<div className="save-journey-card">
 										<div>
-											<strong>{locale === "ar" ? copy.ar.sections.conversionTitle : copy.en.sections.conversionTitle}</strong>
+											<strong>{t.saveTitle}</strong>
 											<p>{t.saveBody}</p>
-											<p className="price-placeholder">{priceDisplay}</p>
 										</div>
 										{ops.authBackendEnabled ? (
 											<button type="button" onClick={() => setSaveOpen(true)}>
@@ -344,24 +349,19 @@ function WellnessHomePageContent({ getSessionToken }: { getSessionToken?: () => 
 												{t.waitlistCta}
 											</button>
 										) : (
-											<button
-												type="button"
-												disabled
-												aria-disabled="true"
-												aria-describedby="prototype-account-note waitlist-note"
-											>
+											<a className="hero-cta hero-cta--secondary" href="/account/privacy">
 												{t.saveCta}
-											</button>
+											</a>
 										)}
 										{ops.paymentCtaEnabled ? (
 											<button type="button" disabled aria-describedby="payment-pending-note">
 												{t.paymentCta}
 											</button>
 										) : null}
-										<small id="prototype-account-note">
-											{ops.authBackendEnabled ? t.saveJourneyCta : t.prototype}
+										<small id="account-save-note">
+											{ops.authBackendEnabled ? t.accountSaveNote : t.saveTitle}
 										</small>
-										<small id="waitlist-note">{t.saveTitle}</small>
+										<small id="waitlist-note">{t.waitlistNote}</small>
 										{ops.paymentCtaEnabled ? (
 											<small id="payment-pending-note">{t.paymentPending}</small>
 										) : null}
@@ -411,20 +411,7 @@ function WellnessHomePageContent({ getSessionToken }: { getSessionToken?: () => 
 				</Suspense>
 			</main>
 
-			<footer className="wellness-footer">
-				<div>
-					<strong>WUJUD</strong>
-					<p>{locale === "ar" ? "عافية يومية، بخطوات إنسانية." : "Daily wellness, through human-sized steps."}</p>
-				</div>
-				<nav aria-label={locale === "ar" ? "روابط التذييل" : "Footer links"}>
-					<a href="/privacy">{locale === "ar" ? "الخصوصية" : "Privacy"}</a>
-					<a href="/terms">{locale === "ar" ? "الشروط" : "Terms"}</a>
-					<a href="/data-deletion">{locale === "ar" ? "حذف البيانات" : "Data deletion"}</a>
-					<a href="/account/privacy">{locale === "ar" ? "خصوصية الحساب" : "Account privacy"}</a>
-					<a href="/contact">{locale === "ar" ? "تواصل معنا" : "Contact"}</a>
-				</nav>
-				<small>© 2026 WUJUD</small>
-			</footer>
+			<WellnessFooter locale={locale} onLocaleChange={changeLocale} />
 
 			<WaitlistDialog locale={locale} open={waitlistOpen} onClose={() => setWaitlistOpen(false)} />
 			<SaveJourneyDialog

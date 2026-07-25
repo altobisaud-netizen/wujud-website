@@ -11,7 +11,7 @@ const read = (file: string) => fs.readFileSync(path.resolve(file), "utf8");
 
 describe("wellness route metadata and static generation", () => {
 	it("defines unique valid metadata for every approved public route in both languages", () => {
-		expect(WELLNESS_PUBLIC_ROUTES).toHaveLength(9);
+		expect(WELLNESS_PUBLIC_ROUTES).toHaveLength(10);
 		const titles = new Set<string>();
 		const descriptions = new Set<string>();
 
@@ -41,15 +41,14 @@ describe("wellness route metadata and static generation", () => {
 		expect(metadataFor("/book-demo", "en").canonicalPath).toBe("/");
 	});
 
-	it("generates route-specific static h1s, summaries and bilingual fallback content", () => {
+	it("generates route-specific static h1s, summaries and launch-ready fallback content", () => {
 		const generator = read("scripts/generate-wellness-static.mjs");
 		for (const route of WELLNESS_PUBLIC_ROUTES) {
 			expect(generator).toContain(`"${route}"`);
 		}
 		expect(generator).toContain('class="static-wellness__summary"');
-		expect(generator).toContain('lang="ar" dir="rtl"');
-		expect(generator).toContain("SARA supports general wellness only");
-		expect(generator).toContain("Account creation is disabled");
+		expect(generator).toContain("Wellness SARA by WUJUD.ai");
+		expect(generator).toContain("Join the launch list");
 		expect(generator).toContain("Week 8 — Create a continuation plan");
 		expect(generator).toContain("Optional WhatsApp messaging");
 		expect(generator).toContain("Data Deletion Instructions — Wellness SARA");

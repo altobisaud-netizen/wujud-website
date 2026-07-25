@@ -30,18 +30,16 @@ const journeyAr = [
 
 const howStepsEn = [
 	"Tell SARA what you want to improve",
-	"Get a simple plan that fits your day",
-	"Take one or two daily steps",
-	"Review what worked each week",
-	"Adjust your plan without pressure or blame",
+	"Build a realistic personal routine",
+	"Check in and reflect each day",
+	"Adjust your journey as life changes",
 ];
 
 const howStepsAr = [
 	"أخبر سارة بما ترغب في تحسينه",
-	"احصل على خطة بسيطة تناسب يومك",
-	"نفّذ خطوة أو خطوتين يومياً",
-	"راجع ما نجح معك كل أسبوع",
-	"عدّل خطتك دون ضغط أو لوم",
+	"ابنِ روتيناً شخصياً واقعياً",
+	"تابع وتأمل كل يوم",
+	"عدّل رحلتك مع تغيّر الحياة",
 ];
 
 const dailyEn = [
@@ -270,68 +268,80 @@ export function TrustStrip({ locale }: { locale: WellnessLocale }) {
 	);
 }
 
-export function PricingPrototype({ locale }: { locale: WellnessLocale }) {
-	const t = copy[locale].sections;
-	const page = copy[locale];
-	const ops = useOperationalPricing(locale);
-	const [waitlistOpen, setWaitlistOpen] = useState(false);
-	const priceLabel = ops.priceLabel ?? t.pricingNote;
-	const includes =
-		locale === "ar"
-			? [
-					"دعم يومي",
-					"مراجعات أسبوعية",
-					"خطة تتكيف معك",
-					"تحكم كامل بالتذكيرات",
-					"إيقاف مؤقت في أي وقت",
-				]
-			: [
-					"Daily support",
-					"Weekly reviews",
-					"A plan that adapts with you",
-					"Full reminder control",
-					"Pause anytime",
-				];
+export function AboutTrustSection({ locale }: { locale: WellnessLocale }) {
+	const about = copy[locale].about;
 	return (
-		<section className="wellness-section pricing-section" id="pricing">
+		<section className="wellness-section about-section" id="about">
 			<div className="section-heading section-heading--center">
-				<p className="eyebrow">{t.pricingEyebrow}</p>
-				<h2>{t.conversionTitle}</h2>
+				<p className="eyebrow">{about.eyebrow}</p>
+				<h2>{about.title}</h2>
+				<p>{about.body}</p>
 			</div>
-			<article className="price-card price-card--featured conversion-price">
-				<span className="price-card__tag">
-					{locale === "ar" ? "رحلة 8 أسابيع" : "8-week journey"}
-				</span>
-				<h3>{t.pricingTitle}</h3>
-				<p className="price-placeholder">{priceLabel}</p>
+			<div className="about-approach">
+				<h3>{about.approachTitle}</h3>
 				<ul>
-					{includes.map((item) => (
+					{about.approachItems.map((item) => (
 						<li key={item}>{item}</li>
 					))}
 				</ul>
-				{ops.paymentCtaEnabled ? (
-					<button type="button" disabled aria-describedby="pricing-payment-note">
-						{page.paymentCta}
-					</button>
-				) : ops.waitlistBackendEnabled ? (
-					<button type="button" onClick={() => setWaitlistOpen(true)} aria-describedby="pricing-waitlist-note">
-						{page.waitlistCta}
-					</button>
-				) : (
-					<button type="button" disabled aria-disabled="true" aria-describedby="pricing-waitlist-note">
-						{t.pricingCta}
-					</button>
-				)}
-				<small id="pricing-waitlist-note">
-					{locale === "ar"
-						? "الاشتراك غير متاح بعد — هذه معاينة للمنتج. لا يتم تحصيل أي دفعة حتى تأكيد الدفع من الخادم."
-						: "Subscriptions are not available yet — this is a product preview. No payment is taken until server-side confirmation."}
-				</small>
-				{ops.paymentCtaEnabled ? <small id="pricing-payment-note">{page.paymentPending}</small> : null}
-			</article>
+			</div>
+		</section>
+	);
+}
+
+export function PricingWaitlistSection({
+	locale,
+	compact = false,
+}: {
+	locale: WellnessLocale;
+	compact?: boolean;
+}) {
+	const page = copy[locale];
+	const pricing = page.pricingWaitlist;
+	const ops = useOperationalPricing(locale);
+	const [waitlistOpen, setWaitlistOpen] = useState(false);
+
+	return (
+		<section
+			className={`wellness-section pricing-waitlist-section${compact ? " pricing-waitlist-section--compact" : ""}`}
+			id="pricing"
+		>
+			<div className="section-heading section-heading--center">
+				{compact ? <p className="eyebrow">{page.sections.launchEyebrow}</p> : null}
+				<h2>{pricing.title}</h2>
+				<p>{pricing.body}</p>
+			</div>
+			<div className="pricing-waitlist-card">
+				<h3>{pricing.featuresTitle}</h3>
+				<ul>
+					{pricing.features.map((feature) => (
+						<li key={feature}>{feature}</li>
+					))}
+				</ul>
+				<p className="pricing-waitlist-note">{pricing.pricingNote}</p>
+				<div className="pricing-waitlist-actions">
+					{ops.waitlistBackendEnabled ? (
+						<button type="button" onClick={() => setWaitlistOpen(true)}>
+							{pricing.primaryCta}
+						</button>
+					) : (
+						<a className="hero-cta hero-cta--primary" href="/account/privacy">
+							{page.heroPrimaryCta}
+						</a>
+					)}
+					<a className="hero-cta hero-cta--secondary" href="/how-it-works">
+						{pricing.secondaryCta}
+					</a>
+				</div>
+				<p className="fine-print">{pricing.trustNote}</p>
+			</div>
 			<WaitlistDialog locale={locale} open={waitlistOpen} onClose={() => setWaitlistOpen(false)} />
 		</section>
 	);
+}
+
+export function LaunchAccessSection({ locale }: { locale: WellnessLocale }) {
+	return <PricingWaitlistSection locale={locale} compact />;
 }
 
 /** @deprecated Name retained for info-page imports. */
@@ -353,7 +363,8 @@ export default function BelowFoldWellness({ locale }: { locale: WellnessLocale }
 			<EightWeekJourney locale={locale} />
 			<HowSaraLearns locale={locale} />
 			<TrustStrip locale={locale} />
-			<PricingPrototype locale={locale} />
+			<AboutTrustSection locale={locale} />
+			<LaunchAccessSection locale={locale} />
 		</>
 	);
 }

@@ -8,12 +8,12 @@ const ROOT = path.resolve("src/react-app/wellness");
 
 describe("conversion homepage claims and imagery", () => {
 	it("keeps truthful waitlist and no-save messaging", () => {
-		expect(copy.en.chatDemoLabel).toContain("not saved");
-		expect(copy.ar.chatDemoLabel).toContain("لا يتم حفظ");
-		expect(copy.en.saveTitle).toContain("not available yet");
-		expect(copy.ar.saveTitle).toContain("غير متاح بعد");
-		expect(copy.en.sections.pricingNote).toBe("Price under review");
-		expect(copy.ar.sections.pricingNote).toBe("السعر قيد المراجعة");
+		expect(copy.en.chatDemoLabel).toContain("Nothing from this demo is saved");
+		expect(copy.ar.chatDemoLabel).toContain("لن يتم حفظ");
+		expect(copy.en.saveTitle).toContain("Create your account");
+		expect(copy.ar.saveTitle).toContain("أنشئ حسابك");
+		expect(copy.en.pricingWaitlist.pricingNote).toContain("early-access phase");
+		expect(copy.ar.pricingWaitlist.pricingNote).toContain("الوصول المبكر");
 	});
 
 	it("includes inclusive men and women imagery descriptors", () => {
@@ -23,10 +23,15 @@ describe("conversion homepage claims and imagery", () => {
 		expect(all.some((item) => /man/i.test(item.alt.en))).toBe(true);
 	});
 
-	it("does not wire Meta, WhatsApp SDK, Clerk, or live AI into wellness sources", () => {
+	it("does not wire Meta, WhatsApp SDK, Clerk, or live AI into wellness root sources", () => {
 		const files = fs
 			.readdirSync(ROOT)
-			.filter((name) => /\.(ts|tsx)$/.test(name) && !name.endsWith(".test.ts"));
+			.filter(
+				(name) =>
+					/\.(ts|tsx)$/.test(name) &&
+					!name.endsWith(".test.ts") &&
+					name !== "SiteHeader.tsx",
+			);
 		for (const name of files) {
 			const source = fs.readFileSync(path.join(ROOT, name), "utf8");
 			expect(source).not.toMatch(/@clerk|openai|anthropic|whatsapp-web|meta-sdk/i);

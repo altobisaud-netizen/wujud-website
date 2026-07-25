@@ -41,36 +41,35 @@ describe("chat and imagery balance (006.2)", () => {
 	});
 
 	it("keeps approved Arabic and English hero conversion copy", () => {
-		expect(copy.ar.heroEyebrow).toBe("سارة معك كل يوم");
-		expect(copy.ar.heroTitle).toContain("عادات صحية أسهل");
-		expect(copy.ar.heroTitle).toContain("وتقدّم تشعر به");
-		expect(copy.ar.heroBody).toContain("رفيقتك اليومية");
-		expect(copy.ar.heroPrimaryCta).toBe("ابدأ رحلتك مع سارة");
-		expect(copy.ar.heroSecondaryCta).toBe("شاهد كيف تعمل سارة");
-		expect(copy.en.heroEyebrow).toBe("SARA is with you every day");
-		expect(copy.en.heroTitle).toContain("Healthier habits made easier");
-		expect(copy.en.heroTitle).toContain("Progress you can feel");
-		expect(copy.en.heroPrimaryCta).toBe("Start your journey with SARA");
+		expect(copy.ar.heroEyebrow).toBe("مدربك الخاص للعافية بالذكاء الاصطناعي");
+		expect(copy.ar.heroTitle).toContain("ابنِ عادات صحية أفضل");
+		expect(copy.ar.heroBody).toContain("متابعات يومية");
+		expect(copy.ar.heroPrimaryCta).toBe("ابدأ رحلة العافية");
+		expect(copy.ar.heroSecondaryCta).toBe("كيف تعمل سارا");
+		expect(copy.en.heroEyebrow).toBe("Your private AI wellness coach");
+		expect(copy.en.heroTitle).toContain("Build healthier routines");
+		expect(copy.en.heroPrimaryCta).toBe("Start your wellness journey");
 		expect(copy.en.heroSecondaryCta).toBe("See how SARA works");
 	});
 
-	it("labels the chat as an interactive demo with privacy and no live status", () => {
-		expect(copy.ar.chatStatus).toBe("تجربة تفاعلية");
-		expect(copy.ar.chatSubtitle).toBe("رفيقتك اليومية للعافية");
-		expect(copy.ar.chatDemoLabel).toContain("لا يتم حفظ");
-		expect(copy.en.chatStatus).toBe("Interactive preview");
-		expect(copy.en.chatDemoLabel).toContain("not saved");
+	it("labels the chat as a sample check-in demo with privacy and no live status", () => {
+		expect(copy.ar.chatStatus).toBe("متابعة نموذجية");
+		expect(copy.ar.chatSubtitle).toContain("مدربك الخاص");
+		expect(copy.ar.chatDemoLabel).toContain("لن يتم حفظ");
+		expect(copy.en.chatStatus).toBe("Sample check-in");
+		expect(copy.en.chatDemoLabel).toContain("Nothing from this demo is saved");
 		const home = read("src/react-app/wellness/WellnessHomePage.tsx");
 		expect(home).not.toMatch(/متصلة الآن|online|live AI|connected/i);
 		expect(home).toContain("role=\"region\"");
+		expect(home).toContain("t.demoCta");
 	});
 
 	it("uses the approved hero lifestyle alt text and outcome goals framing", () => {
 		expect(heroVisual.alt.ar).toBe("رجل وامرأة عربيان يستمتعان بنشاط يومي في بيئة خارجية هادئة");
 		expect(heroVisual.alt.en).toBe("An Arab man and woman enjoying a calm everyday outdoor activity");
-		expect(copy.ar.sections.outcomesTitle).toBe("تقدّم تشعر به في حياتك اليومية");
-		expect(copy.en.sections.outcomesTitle).toBe("Progress you can feel every day");
-		expect(copy.ar.sections.outcomesEyebrow).toMatch(/أهداف/);
+		expect(copy.ar.sections.outcomesTitle).toBe("دعم لأهداف العافية اليومية");
+		expect(copy.en.sections.outcomesTitle).toBe("Support for everyday wellness goals");
+		expect(copy.ar.sections.outcomesEyebrow).toMatch(/كيف تساعدك/);
 		expect(outcomeVisuals).toHaveLength(5);
 	});
 
@@ -78,8 +77,8 @@ describe("chat and imagery balance (006.2)", () => {
 		const header = read("src/react-app/wellness/SiteHeader.tsx");
 		expect(header).not.toContain("t.nav.articles");
 		expect(header).not.toMatch(/Articles|المقالات/);
-		expect(header).toContain("t.nav.learn");
-		expect(header.match(/href="#how-sara-learns"/g)?.length).toBe(1);
+		expect(header).toContain("t.nav.about");
+		expect(header).toContain('href="/about"');
 	});
 
 	it("keeps reduced-motion support for typing and active status animation", () => {

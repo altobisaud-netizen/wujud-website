@@ -2180,3 +2180,92 @@
 	align-items: center;
 	justify-content: center;
 }
+
+.hero-definition {
+	max-width: 42rem;
+	margin-block: 1rem 0;
+	color: var(--wellness-muted);
+	line-height: 1.65;
+}
+
+.hero-demo-cta {
+	display: grid;
+	gap: 0.5rem;
+	margin-block-start: 1.25rem;
+}
+
+.hero-cta--demo {
+	justify-self: start;
+}
+
+.about-approach {
+	max-width: 42rem;
+	margin: 0 auto;
+	padding: 1.5rem;
+	border-radius: 1rem;
+	background: rgba(245, 241, 251, 0.85);
+}
+
+.about-approach ul {
+	margin: 0;
+	padding-inline-start: 1.2rem;
+}
+
+.pricing-waitlist-card {
+	max-width: 42rem;
+	margin: 0 auto;
+	padding: 1.75rem;
+	border-radius: 1.25rem;
+	border: 1px solid #e3dfe6;
+	background: var(--wellness-white);
+}
+
+.pricing-waitlist-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	margin-block: 1rem;
+}
+
+.wellness-footer__brand {
+	display: grid;
+	gap: 0.5rem;
+}
+
+.wellness-footer__disclaimer {
+	max-width: 36rem;
+}
+
+.wellness-footer__meta {
+	display: grid;
+	gap: 0.75rem;
+	justify-items: end;
+}
+
+.sign-in-link,
+.sign-out-button {
+	font: inherit;
+	color: var(--wellness-navy);
+	background: transparent;
+	border: 0;
+	cursor: pointer;
+	text-decoration: none;
+	min-height: 44px;
+	display: inline-flex;
+	align-items: center;
+}
+
+.contact-actions {
+	margin-block-start: 1.5rem;
+}
+
+@media (max-width: 760px) {
+	.wellness-footer {
+		grid-template-columns: 1fr;
+		gap: 1.25rem;
+	}
+
+	.wellness-footer__meta {
+		justify-items: start;
+	}
+}

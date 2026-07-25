@@ -36,7 +36,7 @@ const forbiddenBusinessTerms = [
 	/fetch\s*\(\s*[`'"][^`'"]*(sara-api|customer-app|rubbelx)/i,
 ];
 
-const wellnessClerkAllowlist = /operational\/(WellnessClerkProvider|WellnessAuthPanel|PrivacyAccountPage|useWellnessSessionToken|WhatsAppOptInSection|api|flags)\.tsx?$/;
+const wellnessClerkAllowlist = /(?:operational\/(?:WellnessClerkProvider|WellnessAuthPanel|PrivacyAccountPage|useWellnessSessionToken|WhatsAppOptInSection|api|flags)|SiteHeader)\.tsx?$/;
 
 describe("wellness product isolation", () => {
 	it("imports and calls none of the archived SARA Business stack", () => {

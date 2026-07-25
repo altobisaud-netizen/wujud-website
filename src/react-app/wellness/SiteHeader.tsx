@@ -1,5 +1,43 @@
+import { SignedIn, SignedOut, useClerk } from "@clerk/clerk-react";
 import { copy } from "./locale";
+import { readOperationalFlags } from "./operational/flags";
+import { isWellnessClerkConfigured } from "./operational/wellnessClerkConfig";
 import type { WellnessLocale } from "./types";
+
+function SiteHeaderClerkActions({ locale }: { locale: WellnessLocale }) {
+	const t = copy[locale];
+	const { signOut } = useClerk();
+	return (
+		<>
+			<SignedOut>
+				<a className="sign-in-link" href="/account/privacy">
+					{t.nav.signIn}
+				</a>
+			</SignedOut>
+			<SignedIn>
+				<a className="sign-in-link" href="/account/privacy">
+					{t.nav.account}
+				</a>
+				<button type="button" className="sign-out-button" onClick={() => void signOut()}>
+					{t.nav.signOut}
+				</button>
+			</SignedIn>
+		</>
+	);
+}
+
+function SiteHeaderAuthActions({ locale }: { locale: WellnessLocale }) {
+	const t = copy[locale];
+	const flags = readOperationalFlags();
+	if (!flags.authEnabled || !isWellnessClerkConfigured()) {
+		return (
+			<a className="sign-in-link" href="/account/privacy">
+				{t.nav.signIn}
+			</a>
+		);
+	}
+	return <SiteHeaderClerkActions locale={locale} />;
+}
 
 export function SiteHeader({
 	locale,
@@ -24,12 +62,12 @@ export function SiteHeader({
 			</a>
 
 			<nav className="wellness-nav" aria-label={locale === "ar" ? "التنقل الرئيسي" : "Primary navigation"}>
-				<a href="/">{t.nav.home}</a>
 				<a href="/how-it-works">{t.nav.how}</a>
-				<a href="/eight-week-journey">{t.nav.journey}</a>
-				<a href="#how-sara-learns">{t.nav.learn}</a>
-				<a href="/safety">{t.nav.safety}</a>
 				<a href="/pricing">{t.nav.pricing}</a>
+				<a href="/safety">{t.nav.safety}</a>
+				<a href="/about">{t.nav.about}</a>
+				<a href="/privacy">{t.nav.privacy}</a>
+				<a href="/contact">{t.nav.contact}</a>
 			</nav>
 
 			<div className="wellness-header__actions">
@@ -52,10 +90,8 @@ export function SiteHeader({
 						العربية
 					</button>
 				</div>
-				<span className="sign-in-soon" aria-disabled="true">
-					{t.nav.signIn}
-				</span>
-				<a className="header-cta" href="#wellness-conversation">
+				<SiteHeaderAuthActions locale={locale} />
+				<a className="header-cta" href="/#wellness-conversation">
 					<span className="chat-glyph" aria-hidden="true" />
 					{t.nav.cta}
 				</a>

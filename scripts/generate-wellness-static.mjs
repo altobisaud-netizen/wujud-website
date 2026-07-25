@@ -39,37 +39,30 @@ const { WELLNESS_PUBLIC_ROUTES, wellnessRouteMetadata } = metadataModule;
 
 const staticContent = {
 	"/": {
-		h1: "Healthier habits made easier. Progress you can feel.",
+		h1: "Build healthier routines, one realistic step at a time.",
 		summary:
-			"SARA is WUJUD's daily wellness companion. Try an interactive conversation, preview a personalized eight-week journey, and explore provisional subscription options. No account is required and answers are not saved.",
+			"SARA runs simple daily check-ins, helps you choose achievable habits, and adapts your wellness journey as your routine changes.",
 		sections: [
 			[
-				"Start with a live SARA conversation",
-				"Answer a few easy questions, receive a personalized wellness preview, then review pricing or waitlist actions. This prototype sends no answers to a server.",
+				"Try a short check-in with SARA",
+				"Answer a few easy questions and see how a daily wellness check-in feels. No signup required and nothing from this demo is saved.",
 			],
 			[
 				"Clear safety boundaries",
-				"SARA supports general wellness only. It does not diagnose conditions, recommend medication, replace qualified professionals or provide emergency services.",
+				"Wellness SARA offers general wellness support and does not replace professional healthcare.",
 			],
 		],
-		arH1: "عادات صحية أسهل. وتقدّم تشعر به.",
-		arSummary:
-			"سارة رفيقتك اليومية للعافية من وجود. جرّب محادثة تفاعلية واطلع على رحلة شخصية لثمانية أسابيع من دون إنشاء حساب ودون حفظ بياناتك.",
 	},
 	"/how-it-works": {
-		h1: "How SARA works",
+		h1: "A practical wellness journey that adapts with you",
 		summary:
-			"A short discovery helps you understand your routine and choose realistic actions before previewing an adaptable eight-week journey.",
+			"SARA helps you understand your current routine, choose realistic priorities, and check in regularly.",
 		sections: [
-			["Discovery", "Choose a goal, describe your routine, identify a barrier and select the kind of support that fits your day."],
-			["Daily check-ins", "Use brief, non-judgmental prompts to notice energy, movement, meals, sleep and consistency."],
-			["Weekly reviews", "Review what helped, simplify what did not and adapt the next week without punishment for missed days."],
-			["Adaptive reminders", "The proposed experience gives users control over timing, pausing and reminder preferences."],
-			["Account prototype", "Account creation is disabled. This frontend preview does not create users or save wellness answers."],
+			["Tell SARA what you want to improve", "Start with a simple conversation about your goals and routine."],
+			["Build a realistic personal routine", "Choose small actions that fit ordinary days."],
+			["Check in and reflect each day", "Use brief, non-judgmental prompts to notice progress."],
+			["Adjust your journey as life changes", "Adapt plans without punishment for missed days."],
 		],
-		arH1: "كيف تعمل سارة",
-		arSummary:
-			"يساعدك استكشاف قصير على فهم روتينك واختيار خطوات واقعية قبل معاينة رحلة مرنة لثمانية أسابيع.",
 	},
 	"/eight-week-journey": {
 		h1: "Your eight-week wellness journey",
@@ -85,36 +78,34 @@ const staticContent = {
 			["Week 7 — Strengthen independence", "Practice choosing your own next action."],
 			["Week 8 — Create a continuation plan", "Keep the tools that fit your real life."],
 		],
-		arH1: "رحلتك للعافية في ثمانية أسابيع",
-		arSummary:
-			"تعرّف على روتينك وجرّب خطوات صغيرة وابنِ استقلاليتك. الرحلة مرنة ولا تضمن نتائج صحية.",
 	},
 	"/pricing": {
-		h1: "Pricing prototype",
+		h1: "Plans designed for your wellness journey",
 		summary:
-			"Plan structure for commercial review only. All prices, billing terms, refunds and launch offers are to be confirmed.",
+			"Wellness SARA is currently available through controlled early access. Join the launch list and be the first to know when full plans and pricing become available.",
 		sections: [
-			["Eight-Week Journey — To be confirmed", "Proposed features: personalized plan, daily check-ins, weekly reviews, flexible reminders, pause and privacy controls."],
-			["Continuation — To be confirmed", "Proposed features: lighter ongoing reviews, routine support and reminder control."],
-			["Human-supported plan — Not launched", "No live professional network is claimed. This concept remains subject to commercial and operational review."],
+			["Planned plan features", "Personal wellness profile, daily check-ins, adaptive routine planning, progress reflection, English and Arabic support, and privacy and account controls."],
+			["Pricing", "Pricing will be announced after the early-access phase. No payment is required to join the launch list."],
 		],
-		arH1: "نموذج الأسعار",
-		arSummary:
-			"هيكل خطط للمراجعة التجارية فقط. لم تُعتمد الأسعار أو الفوترة أو الاسترداد أو عروض الإطلاق بعد.",
 	},
 	"/safety": {
 		h1: "Safety and privacy",
 		summary:
-			"SARA offers general-wellness support with clear medical boundaries and meaningful user control.",
+			"Wellness SARA offers general wellness support with clear medical boundaries and meaningful user control.",
 		sections: [
 			["General wellness only", "SARA supports everyday routines. It does not diagnose conditions, recommend medication or provide treatment."],
-			["Qualified professionals", "SARA does not replace qualified healthcare professionals or claim to operate a live professional network."],
-			["Pause and privacy controls", "The proposed product lets users control reminders, pause their journey and request deletion once accounts exist."],
-			["Urgent support", "SARA is not an emergency service. If you may be in immediate danger or need urgent help, contact local emergency services or appropriate qualified urgent support now."],
+			["Qualified professionals", "Wellness SARA does not replace qualified healthcare professionals."],
+			["Pause and privacy controls", "You can control reminders, pause your journey and request deletion from your account."],
+			["Urgent support", "SARA is not an emergency service. If you need urgent help, contact local emergency services or appropriate qualified support now."],
 		],
-		arH1: "السلامة والخصوصية",
-		arSummary:
-			"تقدم سارة دعماً عاماً للعافية مع حدود طبية واضحة وتحكم حقيقي للمستخدم.",
+	},
+	"/about": {
+		h1: "Built with purpose in Oman",
+		summary:
+			"Wellness SARA is built by WUJUD.ai, an Oman-based technology initiative focused on practical, human-centered digital experiences.",
+		sections: [
+			["Our approach", "General wellness and habit support, privacy and consent by design, English and Arabic experience, no diagnosis or treatment, and user-controlled account and data options."],
+		],
 	},
 	"/privacy": {
 		h1: "Privacy Policy — Wellness SARA",
@@ -123,33 +114,27 @@ const staticContent = {
 		sections: [
 			[
 				"Optional WhatsApp messaging",
-				"WhatsApp is optional and requires explicit opt-in. Phone numbers are stored only to deliver consent-based operational messages such as account confirmations, check-in reminders and secure links back to your account.",
+				"WhatsApp is optional and requires explicit opt-in when activated. WhatsApp features are currently inactive until separately enabled.",
 			],
 			[
 				"Your controls",
-				"You may reply STOP to stop optional WhatsApp messages or withdraw consent in account privacy settings. Stopping WhatsApp messages does not automatically delete your Wellness account.",
+				"You may withdraw consent in account privacy settings. Stopping WhatsApp messages does not automatically delete your Wellness account.",
 			],
 			[
 				"Separate from business systems",
-				"Wellness SARA data is handled separately from archived SARA Business customer records. General free-text WhatsApp messages are not sent to an external AI model.",
+				"Wellness SARA data is handled separately from archived SARA Business customer records.",
 			],
 		],
-		arH1: "سياسة الخصوصية — Wellness SARA",
-		arSummary:
-			"كيف تتعامل Wellness SARA من WUJUD.ai مع بيانات الحساب وموافقاتك والإشعارات التشغيلية الاختيارية.",
 	},
 	"/terms": {
 		h1: "Terms of Use — Wellness SARA",
 		summary:
-			"Terms for the Wellness SARA MVP on WUJUD.ai, including general-wellness scope and clear service boundaries.",
+			"Terms for Wellness SARA early access on WUJUD.ai, including general-wellness scope and clear service boundaries.",
 		sections: [
 			["General wellness only", "Wellness SARA supports general wellness routines and does not provide diagnosis, treatment, medication advice or emergency services."],
 			["No guaranteed outcomes", "WUJUD does not promise specific health outcomes or uninterrupted availability."],
-			["MVP limitations", "Payments, paid entitlements and automated AI WhatsApp conversation remain disabled unless explicitly enabled in a future authorized release."],
+			["Early access limitations", "Payments, paid entitlements and automated AI WhatsApp conversation remain disabled unless explicitly enabled in a future authorized release."],
 		],
-		arH1: "شروط الاستخدام — Wellness SARA",
-		arSummary:
-			"شروط Wellness SARA MVP على WUJUD.ai، بما في ذلك نطاق العافية العامة وحدود الخدمة.",
 	},
 	"/data-deletion": {
 		h1: "Data Deletion Instructions — Wellness SARA",
@@ -160,21 +145,15 @@ const staticContent = {
 			["Email request", "Email wujud.sales@gmail.com with subject “Data Deletion Request — Wellness SARA”."],
 			["WhatsApp contact data", "Deletion requests cover associated optional WhatsApp contact information where applicable."],
 		],
-		arH1: "تعليمات حذف البيانات — Wellness SARA",
-		arSummary:
-			"كيفية طلب حذف بيانات حساب Wellness SARA ومعلومات الاتصال الاختيارية المرتبطة.",
 	},
 	"/contact": {
-		h1: "Contact WUJUD — Wellness SARA",
+		h1: "Contact Wellness SARA",
 		summary:
 			"Contact Wellness SARA support for account, privacy or data-deletion questions.",
 		sections: [
 			["Wellness support", "Email wujud.sales@gmail.com with “Wellness SARA support” in the subject line."],
 			["Urgent or medical help", "Wellness SARA is not an emergency or medical service. Contact local emergency services when needed."],
 		],
-		arH1: "تواصل مع وجود — Wellness SARA",
-		arSummary:
-			"تواصل مع دعم Wellness SARA لأسئلة الحساب أو الخصوصية أو حذف البيانات.",
 	},
 };
 
@@ -213,12 +192,8 @@ function staticFallback(route) {
 			<h1>${escapeHtml(content.h1)}</h1>
 			<p class="static-wellness__summary">${escapeHtml(content.summary)}</p>
 			${sections}
-			<section lang="ar" dir="rtl" aria-label="ملخص بالعربية">
-				<h2>${escapeHtml(content.arH1)}</h2>
-				<p>${escapeHtml(content.arSummary)}</p>
-			</section>
 		</article>
-		<footer><p>WUJUD wellness product-review preview · SARA supports general wellness only.</p></footer>
+		<footer><p>Wellness SARA by WUJUD.ai · Wellness SARA provides general wellness and habit support. It does not provide medical diagnosis or treatment.</p></footer>
 	</main>`;
 }
 
@@ -273,7 +248,7 @@ await fs.writeFile(path.join(DIST, "sitemap.xml"), sitemap, "utf8");
 
 const robotsText =
 	target === "preview"
-		? "User-agent: *\nDisallow: /\n\n# Non-production product-review preview\n"
+		? "User-agent: *\nDisallow: /\n\n# Non-production preview deployment\n"
 		: `User-agent: *\nAllow: /\n\nSitemap: ${new URL("/sitemap.xml", origin)}\n`;
 await fs.writeFile(path.join(DIST, "robots.txt"), robotsText, "utf8");
 

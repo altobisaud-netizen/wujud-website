@@ -82,7 +82,7 @@ const copy = {
 
 		authBody:
 
-			"Sign in uses the independent WUJUD Wellness Staging identity application. Business-product accounts are not accepted.",
+			"Sign in uses the independent WUJUD Wellness identity application. Business-product accounts are not accepted.",
 
 		authUnavailable: "Wellness account sign-in is not configured in this environment yet.",
 
@@ -126,7 +126,7 @@ const copy = {
 
 		authTitle: "أنشئ حساب العافية أو سجّل الدخول",
 
-		authBody: "تسجيل الدخول عبر تطبيق الهوية المستقل «WUJUD Wellness Staging». حسابات منتج الأعمال غير مقبولة.",
+		authBody: "تسجيل الدخول عبر تطبيق هوية Wellness SARA المستقل. حسابات منتج الأعمال غير مقبولة.",
 
 		authUnavailable: "تسجيل دخول حساب العافية غير مهيأ في هذه البيئة بعد.",
 

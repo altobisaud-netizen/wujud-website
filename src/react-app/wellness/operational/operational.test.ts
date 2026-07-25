@@ -76,8 +76,8 @@ describe("operational UI copy gates", () => {
 		const { copy } = await import("../locale");
 		expect(copy.en.saveJourneyCta).toBe("Save my journey");
 		expect(copy.ar.saveJourneyCta).toBe("احفظ رحلتك");
-		expect(copy.en.waitlistCta).toBe("Notify me at launch");
-		expect(copy.ar.waitlistCta).toBe("أبلغني عند الإطلاق");
+		expect(copy.en.waitlistCta).toBe("Join the launch list");
+		expect(copy.ar.waitlistCta).toBe("انضم إلى قائمة الإطلاق");
 		expect(copy.en.paymentCta).toBe("Start my eight-week journey");
 		expect(copy.ar.paymentCta).toBe("ابدأ رحلتي لمدة 8 أسابيع");
 	});
@@ -87,8 +87,8 @@ describe("operational UI copy gates", () => {
 		const blob = JSON.stringify(copy);
 		expect(blob).not.toMatch(/\bOMR\s*\d/);
 		expect(blob).not.toMatch(/\d+\s*ر\.ع/);
-		expect(copy.en.sections.pricingNote).toBe("Price under review");
-		expect(copy.ar.sections.pricingNote).toBe("السعر قيد المراجعة");
+		expect(copy.en.pricingWaitlist.pricingNote).toContain("early-access phase");
+		expect(copy.ar.pricingWaitlist.pricingNote).toContain("الوصول المبكر");
 	});
 });
 

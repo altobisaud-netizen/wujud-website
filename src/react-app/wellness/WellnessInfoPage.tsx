@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import {
+	AboutTrustSection,
 	DailyCompanion,
 	EightWeekJourney,
-	PricingPrototype,
+	PricingWaitlistSection,
 	SafetyPrivacy,
 	WellnessAreas,
 } from "./BelowFoldWellness";
+import { copy } from "./locale";
 import { SiteHeader } from "./SiteHeader";
+import { WellnessFooter } from "./WellnessFooter";
 import type { WellnessLocale } from "./types";
 import { useWellnessMetadata } from "./useWellnessMetadata";
 
@@ -15,6 +18,7 @@ export type WellnessRoute =
 	| "eight-week-journey"
 	| "pricing"
 	| "safety"
+	| "about"
 	| "privacy"
 	| "terms"
 	| "data-deletion"
@@ -72,7 +76,7 @@ const legalCopy = {
 		terms: {
 			title: "Terms of Use",
 			intro:
-				"These terms apply to the Wellness SARA MVP on WUJUD.ai. By using Wellness SARA, you agree to these terms and our Privacy Policy.",
+				"These terms apply to Wellness SARA early access on WUJUD.ai. By using Wellness SARA, you agree to these terms and our Privacy Policy.",
 			sections: [
 				[
 					"Wellness scope only",
@@ -83,8 +87,8 @@ const legalCopy = {
 					"You are responsible for the accuracy of information you provide and for managing your consent choices, including optional marketing, email notifications and WhatsApp operational messaging.",
 				],
 				[
-					"MVP limitations",
-					"Payments, paid entitlements and automated AI conversation over WhatsApp are disabled in this MVP unless explicitly enabled in a future authorized release.",
+					"Early access limitations",
+					"Payments, paid entitlements and automated AI conversation over WhatsApp are disabled unless explicitly enabled in a future authorized release.",
 				],
 				[
 					"Appropriate use",
@@ -185,7 +189,7 @@ const legalCopy = {
 		terms: {
 			title: "شروط الاستخدام",
 			intro:
-				"تنطبق هذه الشروط على Wellness SARA MVP على WUJUD.ai. باستخدام Wellness SARA، فإنك توافق على هذه الشروط وسياسة الخصوصية.",
+				"تنطبق هذه الشروط على Wellness SARA في مرحلة الوصول المبكر على WUJUD.ai. باستخدام Wellness SARA، فإنك توافق على هذه الشروط وسياسة الخصوصية.",
 			sections: [
 				[
 					"نطاق العافية فقط",
@@ -196,8 +200,8 @@ const legalCopy = {
 					"أنت مسؤول عن دقة المعلومات التي تقدمها وعن إدارة خيارات الموافقة، بما في ذلك التسويق الاختياري وإشعارات البريد ورسائل واتساب التشغيلية.",
 				],
 				[
-					"قيود MVP",
-					"المدفوعات والمزايا المدفوعة والمحادثة الآلية بالذكاء الاصطناعي عبر واتساب معطّلة في هذا الإصدار ما لم يُفعَّل ذلك صراحةً في إطلاق مستقبلي معتمد.",
+					"قيود الوصول المبكر",
+					"المدفوعات والمزايا المدفوعة والمحادثة الآلية بالذكاء الاصطناعي عبر واتساب معطّلة ما لم يُفعَّل ذلك صراحةً في إطلاق مستقبلي معتمد.",
 				],
 				[
 					"الاستخدام المناسب",
@@ -292,16 +296,24 @@ export function WellnessInfoPage({ route }: { route: WellnessRoute }) {
 	const titles =
 		locale === "ar"
 			? {
-					"how-it-works": ["كيف تعمل سارة", "محادثة قصيرة تساعدك على فهم روتينك واختيار خطوات واقعية، ثم رحلة تتكيف مع ما يناسب حياتك."],
-					"eight-week-journey": ["رحلتك في ثمانية أسابيع", "تعلّم روتينك، جرّب خطوة صغيرة، ثم ابنِ الاستقلالية من دون وعود صحية مضمونة."],
-					pricing: ["نموذج الأسعار", "هيكل أولي واضح للمراجعة التجارية. لم تُعتمد أي أسعار بعد."],
+					"how-it-works": [copy.ar.howItWorksIntro.title, copy.ar.howItWorksIntro.body],
+					"eight-week-journey": [
+						"رحلتك في ثمانية أسابيع",
+						"تعلّم روتينك، جرّب خطوة صغيرة، ثم ابنِ الاستقلالية من دون وعود صحية مضمونة.",
+					],
+					pricing: [copy.ar.pricingWaitlist.title, copy.ar.pricingWaitlist.body],
 					safety: ["السلامة والخصوصية", "دعم عام للعافية مع حدود واضحة وتحكم حقيقي للمستخدم."],
+					about: [copy.ar.about.title, copy.ar.about.body],
 				}
 			: {
-					"how-it-works": ["How SARA works", "A short conversation helps you understand your routine and choose realistic actions, followed by a journey that adapts to real life."],
-					"eight-week-journey": ["Your eight-week journey", "Learn your routine, test a small action and build independence—without guaranteed health outcomes."],
-					pricing: ["Pricing prototype", "A clear placeholder structure for commercial review. No prices have been approved."],
+					"how-it-works": [copy.en.howItWorksIntro.title, copy.en.howItWorksIntro.body],
+					"eight-week-journey": [
+						"Your eight-week journey",
+						"Learn your routine, test a small action and build independence—without guaranteed health outcomes.",
+					],
+					pricing: [copy.en.pricingWaitlist.title, copy.en.pricingWaitlist.body],
 					safety: ["Safety and privacy", "General wellness support with clear boundaries and meaningful user control."],
+					about: [copy.en.about.title, copy.en.about.body],
 				};
 
 	const legalRoute =
@@ -326,19 +338,12 @@ export function WellnessInfoPage({ route }: { route: WellnessRoute }) {
 								</article>
 							))}
 							{route === "contact" ? (
-								<button type="button" disabled aria-describedby="contact-prototype-note">
-									{locale === "ar" ? "تواصل معنا — نموذج تجريبي" : "Contact us — prototype"}
-								</button>
+								<p className="contact-actions">
+									<a className="hero-cta hero-cta--primary" href="mailto:wujud.sales@gmail.com?subject=Wellness%20SARA%20support">
+										{locale === "ar" ? "راسل دعم Wellness SARA" : "Email Wellness SARA support"}
+									</a>
+								</p>
 							) : null}
-							<p id="contact-prototype-note" className="fine-print">
-								{route === "contact"
-									? locale === "ar"
-										? "لا يرسل هذا الزر أي بيانات."
-										: "This button does not send any data."
-									: locale === "ar"
-										? "يتطلب النص النهائي مراجعة قانونية قبل الإطلاق."
-										: "Final language requires legal review before launch."}
-							</p>
 						</section>
 					</>
 				) : (
@@ -355,16 +360,13 @@ export function WellnessInfoPage({ route }: { route: WellnessRoute }) {
 							</>
 						) : null}
 						{route === "eight-week-journey" ? <EightWeekJourney locale={locale} /> : null}
-						{route === "pricing" ? <PricingPrototype locale={locale} /> : null}
+						{route === "pricing" ? <PricingWaitlistSection locale={locale} /> : null}
 						{route === "safety" ? <SafetyPrivacy locale={locale} /> : null}
+						{route === "about" ? <AboutTrustSection locale={locale} /> : null}
 					</>
 				)}
 			</main>
-			<footer className="wellness-footer">
-				<a href="/">WUJUD</a>
-				<a href="/privacy">{locale === "ar" ? "الخصوصية" : "Privacy"}</a>
-				<a href="/terms">{locale === "ar" ? "الشروط" : "Terms"}</a>
-			</footer>
+			<WellnessFooter locale={locale} onLocaleChange={setLocale} />
 		</div>
 	);
 }
