@@ -99,7 +99,7 @@ function PrivacyAccountContent() {
 						"قد تُحذف بعض البيانات فوراً، وقد تُحتفظ سجلات الدفع أو الموافقات لفترة يحدّدها المستشار القانوني في عُمان — لم تُعتمد مدة الاحتفاظ بعد.",
 					back: "العودة للرئيسية",
 					signInTitle: "سجّل الدخول لإدارة حساب العافية",
-					signInBody: "استخدم تطبيق WUJUD Wellness Staging المستقل.",
+					signInBody: "سجّل الدخول لإدارة موافقاتك وملف العافية وضوابط الخصوصية.",
 					done: "تم تنفيذ الطلب.",
 				}
 			: {
@@ -116,7 +116,7 @@ function PrivacyAccountContent() {
 						"Some data may be deleted immediately; payment or consent records may require lawful retention as determined by qualified Omani legal review — retention periods are not invented here.",
 					back: "Back to home",
 					signInTitle: "Sign in to manage your Wellness account",
-					signInBody: "Use the independent WUJUD Wellness Staging application.",
+					signInBody: "Sign in to manage consents, your wellness profile, and privacy controls.",
 					done: "Request submitted.",
 				};
 

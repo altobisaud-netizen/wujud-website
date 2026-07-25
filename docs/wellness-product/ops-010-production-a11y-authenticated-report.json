@@ -1,0 +1,8 @@
+{
+  "result": "FULL_PRODUCTION_AUTHENTICATED_A11Y_PASS",
+  "baseUrl": "https://wujud.ai",
+  "apiBase": "https://wellness-api-production-production.up.railway.app",
+  "scenariosRun": 20,
+  "failedCount": 0,
+  "failures": []
+}

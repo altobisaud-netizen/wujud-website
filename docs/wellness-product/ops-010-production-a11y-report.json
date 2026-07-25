@@ -1,0 +1,7 @@
+{
+  "result": "FULL_OPERATIONAL_A11Y_PASS",
+  "baseUrl": "https://wujud.ai",
+  "scenariosRun": 20,
+  "failedCount": 0,
+  "failures": []
+}

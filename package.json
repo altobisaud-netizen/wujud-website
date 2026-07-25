@@ -62,7 +62,11 @@
 		"verify:wellness": "node scripts/verify-wellness-preview.mjs",
 		"verify:wellness:review": "node scripts/verify-wellness-review.mjs",
 		"verify:staging:a11y": "node scripts/verify-staging-a11y.mjs",
-		"verify:staging:a11y:authenticated": "node scripts/verify-staging-a11y-authenticated.mjs"
+		"verify:staging:a11y:authenticated": "node scripts/verify-staging-a11y-authenticated.mjs",
+		"verify:production:a11y": "node scripts/verify-production-a11y.mjs",
+		"verify:production:a11y:authenticated": "node scripts/verify-production-a11y-authenticated.mjs",
+		"verify:production:security": "node scripts/verify-production-security.mjs",
+		"scan:live-production-bundle": "node scripts/scan-live-production-bundle.mjs"
 	},
 	"type": "module"
 }
