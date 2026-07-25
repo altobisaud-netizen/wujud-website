@@ -1,7 +1,44 @@
 {
-  "result": "FULL_OPERATIONAL_A11Y_PASS",
-  "baseUrl": "https://staging-wellness.wujud.ai",
+  "result": "REQUIRES_FINAL_STAGING_FIX",
+  "baseUrl": "https://wujud.ai",
   "scenariosRun": 28,
-  "failedCount": 0,
-  "failures": []
+  "failedCount": 4,
+  "failures": [
+    {
+      "scenario": "account-privacy-gate",
+      "viewport": "1440",
+      "blockingCount": 0,
+      "blockingIds": [],
+      "mainCount": 1,
+      "h1Count": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "scenario": "account-privacy-gate",
+      "viewport": "320",
+      "blockingCount": 0,
+      "blockingIds": [],
+      "mainCount": 1,
+      "h1Count": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "scenario": "account-privacy-gate",
+      "viewport": "390",
+      "blockingCount": 0,
+      "blockingIds": [],
+      "mainCount": 1,
+      "h1Count": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "scenario": "account-privacy-gate",
+      "viewport": "430",
+      "blockingCount": 0,
+      "blockingIds": [],
+      "mainCount": 1,
+      "h1Count": 0,
+      "horizontalOverflow": false
+    }
+  ]
 }

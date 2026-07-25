@@ -57,6 +57,9 @@ for (const scenario of scenarios) {
 			}, scenario.locale);
 		}
 		await page.goto(`${baseUrl}${scenario.path}`, { waitUntil: "domcontentloaded", timeout: 90000 });
+		if (scenario.path === "/account/privacy") {
+			await page.waitForSelector("h1", { timeout: 15000 });
+		}
 		const axe = await new AxeBuilder({ page }).analyze();
 		const blocking = axe.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
 		const mainCount = await page.locator("main").count();

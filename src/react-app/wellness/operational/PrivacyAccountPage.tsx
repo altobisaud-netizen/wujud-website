@@ -254,9 +254,11 @@ export function PrivacyAccountPage() {
 			: "Account services are not available in this environment.";
 
 	if (!authReady) {
+		const tTitle = readLocale() === "ar" ? "الحساب والخصوصية" : "Account and privacy";
 		return (
 			<div className="wellness-shell wellness-account-page">
 				<main className="legal-content">
+					<h1>{tTitle}</h1>
 					<p role="status">{tUnavailable}</p>
 					<p>
 						<a href="/">{readLocale() === "ar" ? "العودة للرئيسية" : "Back to home"}</a>
