@@ -2,6 +2,7 @@ import { useState } from "react";
 import { copy } from "./locale";
 import { heroVisual, outcomeVisuals } from "./lifestyleImagery";
 import { WaitlistDialog } from "./operational/WaitlistDialog";
+import { WhatsAppInboundCta } from "./operational/WhatsAppInboundCta";
 import { useOperationalPricing } from "./operational/useOperationalPricing";
 import type { WellnessLocale } from "./types";
 import { WellnessPicture } from "./WellnessPicture";
@@ -353,6 +354,7 @@ export default function BelowFoldWellness({ locale }: { locale: WellnessLocale }
 			<EightWeekJourney locale={locale} />
 			<HowSaraLearns locale={locale} />
 			<TrustStrip locale={locale} />
+			<WhatsAppInboundCta locale={locale} />
 			<PricingPrototype locale={locale} />
 		</>
 	);

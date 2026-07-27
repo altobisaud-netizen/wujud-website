@@ -12,6 +12,8 @@ export type OperationalPresentationFlags = {
 	paymentsEnabled: boolean;
 	whatsappEnabled: boolean;
 	whatsappOperationalMessagesEnabled: boolean;
+	whatsappInboundFirstEnabled: boolean;
+	whatsappWaMeE164: string;
 	apiBaseUrl: string;
 	canonicalOrigin: string;
 };
@@ -23,6 +25,8 @@ export function readOperationalFlags(): OperationalPresentationFlags {
 		paymentsEnabled: flag("VITE_WELLNESS_PAYMENTS_ENABLED", false),
 		whatsappEnabled: flag("VITE_WELLNESS_WHATSAPP_ENABLED", false),
 		whatsappOperationalMessagesEnabled: flag("VITE_WELLNESS_WHATSAPP_OPERATIONAL_MESSAGES_ENABLED", false),
+		whatsappInboundFirstEnabled: flag("VITE_WELLNESS_WHATSAPP_INBOUND_FIRST_ENABLED", false),
+		whatsappWaMeE164: (import.meta.env.VITE_WELLNESS_WHATSAPP_WA_ME_E164 ?? "").trim(),
 		apiBaseUrl: (import.meta.env.VITE_WELLNESS_API_BASE_URL ?? "").replace(/\/+$/, ""),
 		canonicalOrigin: (import.meta.env.VITE_WELLNESS_CANONICAL_ORIGIN ?? "https://wujud.ai").replace(/\/+$/, ""),
 	};

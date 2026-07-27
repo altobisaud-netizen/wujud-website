@@ -2180,3 +2180,17 @@
 	align-items: center;
 	justify-content: center;
 }
+
+.wellness-whatsapp-inbound {
+	margin: 2.5rem auto;
+	max-width: 42rem;
+	padding: 1.5rem;
+	border: 1px solid var(--wellness-border, rgba(0, 0, 0, 0.08));
+	border-radius: 1rem;
+	background: var(--wellness-surface, #fff);
+}
+
+.wellness-whatsapp-inbound__disclaimer {
+	font-size: 0.875rem;
+	color: var(--wellness-muted, #5a6472);
+}
